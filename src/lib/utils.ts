@@ -12,6 +12,7 @@ export function useWorkspace(){
 
 export function getSubdomain(url: string): string {
   const hostname = new URL(url).hostname;
-  const subdomain = hostname.split('.')[0];
+  const subdomain = hostname.split('.').filter(part => part !== 'www')[0];
+
   return subdomain;
 }
