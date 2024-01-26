@@ -9,7 +9,8 @@ function App() {
 		: import.meta.env.VITE_APP_BASE_DOMAIN;
 	const selectedRouter =
 		workspaceName === domain ? router.publicRoutes : router.workspaceRoutes;
-
+	console.log("workspace", workspaceName);
+	console.log("domain", domain);
 	console.log(selectedRouter);
 
 	return <RouterProvider router={selectedRouter} />;
