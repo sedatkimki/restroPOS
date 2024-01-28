@@ -1,5 +1,5 @@
 import Typography from "@/components/ui/typography";
-import brandLogo from "@/assets/restroposLogo.svg";
+import brandLogo from "@/assets/restroPosLogo.svg";
 import dashboardImg from "@/assets/Dashboard-layout.svg";
 
 type LayoutProps = {
