@@ -33,7 +33,31 @@ const workspaceRoutes = createBrowserRouter([
 					{ index: true, element: <Navigate to="/dashboard/overview" /> },
 					{
 						path: "/dashboard/overview",
-						element: <>overview</>,
+						element: <div>overview</div>,
+					},
+					{
+						path: "/dashboard/orders",
+						element: <div>orders</div>,
+					},
+					{
+						path: "/dashboard/menu",
+						element: <div>menu</div>,
+					},
+					{
+						path: "/dashboard/staff",
+						element: <div>staff</div>,
+					},
+					{
+						path: "/dashboard/tables",
+						element: <div>tables</div>,
+					},
+					{
+						path: "/dashboard/reviews",
+						element: <div>reviews</div>,
+					},
+					{
+						path: "/dashboard/settings",
+						element: <div>settings</div>,
 					},
 				],
 			},
