@@ -2,6 +2,7 @@ import { Navigate, createBrowserRouter } from "react-router-dom";
 import PublicRoot from "./PublicRoot";
 import WorkspaceRoot from "./WorkspaceRoot";
 import { SignUp } from "@/features/auth";
+import { Dashboard } from "@/features/checkout";
 
 const publicRoutes = createBrowserRouter([
 	{
@@ -25,10 +26,17 @@ const workspaceRoutes = createBrowserRouter([
 		children: [
 			// TODO : role based routing icin index kullanilabilir
 			{ index: true, Component: WorkspaceRoot.index },
-			// {
-			// 	path: "/dashboard",
-			// 	element: <div>dashboard</div>,
-			// },
+			{
+				path: "/dashboard",
+				Component: Dashboard,
+				children: [
+					{ index: true, element: <Navigate to="/dashboard/overview" /> },
+					{
+						path: "/dashboard/overview",
+						element: <>overview</>,
+					},
+				],
+			},
 		],
 		errorElement: <div>404</div>,
 	},
