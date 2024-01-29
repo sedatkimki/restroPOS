@@ -15,6 +15,7 @@ export function redirectToWorkspace(subdomain: string) {
 	const currentUrl = window.location.href;
 	const url = new URL(currentUrl);
 	url.hostname = `${subdomain}.${url.hostname}`;
+	url.pathname = "/";
 	window.location.href = url.href;
 }
 
