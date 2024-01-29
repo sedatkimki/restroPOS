@@ -1,6 +1,7 @@
 import { getSubdomain } from "./lib/utils";
 import { router } from "./router";
 import { RouterProvider } from "react-router-dom";
+import { Toaster } from "@/components/ui/sonner";
 
 function App() {
 	const subdomain = getSubdomain(window.location.href);
@@ -13,7 +14,12 @@ function App() {
 	console.log("domain", domain);
 	console.log(selectedRouter);
 	// eğer workspaceName valid değilse publicRoutes'a yönlendir
-	return <RouterProvider router={selectedRouter} />;
+	return (
+		<>
+			<RouterProvider router={selectedRouter} />
+			<Toaster richColors theme="light" />
+		</>
+	);
 }
 
 export default App;

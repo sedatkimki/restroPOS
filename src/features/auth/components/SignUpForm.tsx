@@ -3,6 +3,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ArrowLeft, ArrowRight, ImageOff } from "lucide-react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { ACCEPTED_IMAGE_MIME_TYPES, MAX_FILE_SIZE } from "@/lib/constants";
+import { redirectToWorkspace } from "@/lib/utils";
 
 type SignUpFormProps = {
 	step: number;
@@ -30,6 +32,9 @@ const SignUpFormSchema = z.object({
 	businessName: z.string().min(2).max(50),
 	businessLogo: z
 		.any()
+		.refine((files) => {
+			return files;
+		}, "Business logo is required.")
 		.refine((files) => {
 			return files?.[0]?.size <= MAX_FILE_SIZE;
 		}, "Max image size is 5MB.")
@@ -59,9 +64,9 @@ export const SignUpForm = ({
 	});
 
 	const onSubmit = (data: z.infer<typeof SignUpFormSchema>) => {
-		console.log(URL.createObjectURL(data.businessLogo));
-
 		console.log(data);
+		toast.success("Form submitted successfully");
+		redirectToWorkspace("subdomain1");
 	};
 
 	return (
@@ -133,33 +138,6 @@ export const SignUpForm = ({
 				)}
 				{step === 2 && (
 					<>
-						<FormField
-							control={form.control}
-							name="businessName"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Business name</FormLabel>
-									<FormControl>
-										<Input placeholder="Super restaurant" {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="workspaceName"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Workspace name</FormLabel>
-									<FormControl>
-										<Input placeholder="Super restaurant" {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-
 						<div className="flex gap-3">
 							{selectedFile ? (
 								<img
@@ -197,6 +175,38 @@ export const SignUpForm = ({
 								)}
 							/>
 						</div>
+						<FormField
+							control={form.control}
+							name="businessName"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Business name</FormLabel>
+									<FormControl>
+										<Input placeholder="Super restaurant" {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="workspaceName"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Workspace name</FormLabel>
+									<FormControl>
+										<div className="relative flex items-center max-w-2xl ">
+											<Input placeholder="idrive" {...field} />
+											<div className="absolute right-2 top-1/2 h-4 flex items-center p-0 -translate-y-1/2 transform  text-muted-foreground text-sm">
+												.restropos.software
+											</div>
+										</div>
+									</FormControl>
+
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 
 						<div className="flex gap-4">
 							<Button
