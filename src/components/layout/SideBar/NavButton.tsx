@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { Link, useMatch } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 type NavButtonProps = {
 	icon: React.ReactNode;
@@ -9,8 +9,11 @@ type NavButtonProps = {
 };
 
 const NavButton = ({ icon, name, path }: NavButtonProps) => {
+	const location = useLocation();
+	const isCurrentPath = location.pathname.includes(path);
+
 	return (
-		<Button variant={useMatch(path) ? "selected" : "navLink"} asChild>
+		<Button variant={isCurrentPath ? "selected" : "navLink"} asChild>
 			<Link to={path}>
 				{icon}
 				{name}

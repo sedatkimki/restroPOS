@@ -2,7 +2,7 @@ import { Navigate, createBrowserRouter } from "react-router-dom";
 import PublicRoot from "./PublicRoot";
 import WorkspaceRoot from "./WorkspaceRoot";
 import { SignUp } from "@/features/auth";
-import { Dashboard } from "@/features/dashboard";
+import { Dashboard, Settings } from "@/features/dashboard";
 
 const publicRoutes = createBrowserRouter([
 	{
@@ -57,7 +57,21 @@ const workspaceRoutes = createBrowserRouter([
 					},
 					{
 						path: "/dashboard/settings",
-						element: <div>settings</div>,
+						Component: Settings,
+						children: [
+							{
+								index: true,
+								element: <Navigate to="/dashboard/settings/profile" />,
+							},
+							{
+								path: "/dashboard/settings/profile",
+								Component: Settings.Profile,
+							},
+							{
+								path: "/dashboard/settings/workspace",
+								Component: Settings.Workspace,
+							},
+						],
 					},
 				],
 			},
