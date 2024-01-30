@@ -53,7 +53,7 @@ const links: NavigationLink[] = [
 
 export const Dashboard = () => {
 	return (
-		<div className="p-4 ml-64">
+		<div className="ml-64">
 			<SideBar links={links} footer={<SideBarFooter />} />
 			<Outlet />
 		</div>
