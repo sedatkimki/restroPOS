@@ -2,7 +2,7 @@ import { Navigate, createBrowserRouter } from "react-router-dom";
 import PublicRoot from "./PublicRoot";
 import WorkspaceRoot from "./WorkspaceRoot";
 import { SignUp } from "@/features/auth";
-import { Dashboard } from "@/features/checkout";
+import { Dashboard } from "@/features/dashboard";
 
 const publicRoutes = createBrowserRouter([
 	{

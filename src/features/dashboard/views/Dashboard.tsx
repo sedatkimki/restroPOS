@@ -1,5 +1,3 @@
-import { SideBar } from "@/components/layout/SideBar";
-import { NavigationLink } from "@/lib/types";
 import {
 	BookOpen,
 	LayoutDashboard,
@@ -9,8 +7,11 @@ import {
 	Settings,
 	UsersRound,
 } from "lucide-react";
-import React from "react";
 import { Outlet } from "react-router-dom";
+
+import { SideBar } from "@/components/layout/SideBar";
+import { NavigationLink } from "@/lib/types";
+import { SideBarFooter } from "../components/SideBarFooter";
 
 const links: NavigationLink[] = [
 	{
@@ -53,7 +54,7 @@ const links: NavigationLink[] = [
 export const Dashboard = () => {
 	return (
 		<div className="p-4 ml-64">
-			<SideBar links={links} footer={<div>sds</div>} />
+			<SideBar links={links} footer={<SideBarFooter />} />
 			<Outlet />
 		</div>
 	);
