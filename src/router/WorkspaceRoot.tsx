@@ -16,7 +16,7 @@ const WorkspaceRoot: WorkspaceRootType = () => {
 
 WorkspaceRoot.index = () => {
 	// check roles and redirect to related route
-	return <Navigate to="/auth" />;
+	return <Navigate to="/dashboard" />;
 };
 
 export default WorkspaceRoot;
