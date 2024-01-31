@@ -1,7 +1,5 @@
+import { ProfileNameForm } from "../../components/settings/ProfileNameForm";
+
 export const Profile = () => {
-	return (
-		<div>
-			<h1>Profile Settings</h1>
-		</div>
-	);
+	return <ProfileNameForm />;
 };
