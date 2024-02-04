@@ -3,7 +3,7 @@ import PublicRoot from "./PublicRoot";
 import WorkspaceRoot from "./WorkspaceRoot";
 import { SignUp, WorkspaceLogin } from "@/features/auth";
 import { Dashboard, Settings } from "@/features/dashboard";
-import { Menu } from "@/features/menu";
+import { Cart, Home, Menu, Orders, Search } from "@/features/menu";
 
 const publicRoutes = createBrowserRouter([
 	{
@@ -81,10 +81,10 @@ const workspaceRoutes = createBrowserRouter([
 				Component: Menu,
 				children: [
 					{ index: true, element: <Navigate to="/menu/home" /> },
-					{ path: "/menu/home", element: <div>home</div> },
-					{ path: "/menu/search", element: <div>search</div> },
-					{ path: "/menu/orders", element: <div>orders</div> },
-					{ path: "/menu/cart", element: <div>cart</div> },
+					{ path: "/menu/home", Component: Home },
+					{ path: "/menu/search", Component: Search },
+					{ path: "/menu/orders", Component: Orders },
+					{ path: "/menu/cart", Component: Cart },
 				],
 			},
 			{
