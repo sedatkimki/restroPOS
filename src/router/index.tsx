@@ -1,7 +1,7 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import PublicRoot from "./PublicRoot";
 import WorkspaceRoot from "./WorkspaceRoot";
-import { SignUp } from "@/features/auth";
+import { SignUp, WorkspaceLogin } from "@/features/auth";
 import { Dashboard, Settings } from "@/features/dashboard";
 
 const publicRoutes = createBrowserRouter([
@@ -74,6 +74,10 @@ const workspaceRoutes = createBrowserRouter([
 						],
 					},
 				],
+			},
+			{
+				path: "login",
+				Component: WorkspaceLogin,
 			},
 		],
 		errorElement: <div>404</div>,
