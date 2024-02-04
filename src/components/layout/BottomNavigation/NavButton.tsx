@@ -16,7 +16,7 @@ const NavButton = ({ icon, name, path }: NavButtonProps) => {
 	return (
 		<Link
 			className={cn(
-				"hover:bg-accent hover:text-primary text-muted-foreground inline-flex flex-col items-center justify-center px-5 gap-1",
+				"hover:text-primary text-muted-foreground inline-flex flex-col items-center justify-center px-5 gap-1",
 				variant,
 			)}
 			to={path}
