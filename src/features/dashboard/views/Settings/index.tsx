@@ -11,7 +11,7 @@ const items = [
 
 const Settings = () => {
 	return (
-		<DashboardPage>
+		<DashboardPage pageName="Settings">
 			<DashboardPage.Header>
 				<DashboardPage.TitleContainer>
 					<DashboardPage.Title>Settings</DashboardPage.Title>

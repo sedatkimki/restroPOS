@@ -1,14 +1,20 @@
+import PageTransition from "@/components/layout/PageTransition";
 import { Separator } from "@/components/ui/separator";
-
 type ChildrenProp = {
 	children?: React.ReactNode;
 };
 
-const DashboardPage = ({ children }: ChildrenProp) => {
+interface DashboardPageProps extends ChildrenProp {
+	pageName?: string;
+}
+
+const DashboardPage = ({ children, pageName }: DashboardPageProps) => {
 	return (
-		<div className="p-8 mx-auto w-full max-w-[1600px] lg:px-10 xl:px-12 2xl:px-24">
-			{children}
-		</div>
+		<PageTransition customKey={pageName}>
+			<div className="p-8 mx-auto w-full max-w-[1600px] lg:px-10 xl:px-12 2xl:px-24">
+				{children}
+			</div>
+		</PageTransition>
 	);
 };
 

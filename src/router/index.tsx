@@ -1,9 +1,9 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import PublicRoot from "./PublicRoot";
 import WorkspaceRoot from "./WorkspaceRoot";
-import { SignUp, WorkspaceLogin } from "@/features/auth";
-import { Dashboard, Settings } from "@/features/dashboard";
-import { Cart, Home, Menu, Orders, Search } from "@/features/menu";
+import * as AuthViews from "@/features/auth/views";
+import * as DashboardViews from "@/features/dashboard/views";
+import * as MenuViews from "@/features/menu/views";
 
 const publicRoutes = createBrowserRouter([
 	{
@@ -13,7 +13,7 @@ const publicRoutes = createBrowserRouter([
 			{ index: true, element: <Navigate to="/signup" /> },
 			{
 				path: "/signup",
-				Component: SignUp,
+				Component: AuthViews.SignUp,
 			},
 		],
 	},
@@ -29,36 +29,36 @@ const workspaceRoutes = createBrowserRouter([
 			{ index: true, Component: WorkspaceRoot.index },
 			{
 				path: "/dashboard",
-				Component: Dashboard,
+				Component: DashboardViews.Dashboard,
 				children: [
 					{ index: true, element: <Navigate to="/dashboard/overview" /> },
 					{
 						path: "/dashboard/overview",
-						element: <div>overview</div>,
+						Component: DashboardViews.Overview,
 					},
 					{
 						path: "/dashboard/orders",
-						element: <div>orders</div>,
+						Component: DashboardViews.Orders,
 					},
 					{
 						path: "/dashboard/menu",
-						element: <div>menu</div>,
+						Component: DashboardViews.Menu,
 					},
 					{
 						path: "/dashboard/staff",
-						element: <div>staff</div>,
+						Component: DashboardViews.Staff,
 					},
 					{
 						path: "/dashboard/tables",
-						element: <div>tables</div>,
+						Component: DashboardViews.Tables,
 					},
 					{
 						path: "/dashboard/reviews",
-						element: <div>reviews</div>,
+						Component: DashboardViews.Reviews,
 					},
 					{
 						path: "/dashboard/settings",
-						Component: Settings,
+						Component: DashboardViews.Settings,
 						children: [
 							{
 								index: true,
@@ -66,11 +66,11 @@ const workspaceRoutes = createBrowserRouter([
 							},
 							{
 								path: "/dashboard/settings/profile",
-								Component: Settings.Profile,
+								Component: DashboardViews.Settings.Profile,
 							},
 							{
 								path: "/dashboard/settings/workspace",
-								Component: Settings.Workspace,
+								Component: DashboardViews.Settings.Workspace,
 							},
 						],
 					},
@@ -78,18 +78,18 @@ const workspaceRoutes = createBrowserRouter([
 			},
 			{
 				path: "/menu",
-				Component: Menu,
+				Component: MenuViews.Menu,
 				children: [
 					{ index: true, element: <Navigate to="/menu/home" /> },
-					{ path: "/menu/home", Component: Home },
-					{ path: "/menu/search", Component: Search },
-					{ path: "/menu/orders", Component: Orders },
-					{ path: "/menu/cart", Component: Cart },
+					{ path: "/menu/home", Component: MenuViews.Home },
+					{ path: "/menu/search", Component: MenuViews.Search },
+					{ path: "/menu/orders", Component: MenuViews.Orders },
+					{ path: "/menu/cart", Component: MenuViews.Cart },
 				],
 			},
 			{
 				path: "login",
-				Component: WorkspaceLogin,
+				Component: AuthViews.WorkspaceLogin,
 			},
 		],
 		errorElement: <div>404</div>,
