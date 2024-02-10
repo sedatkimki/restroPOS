@@ -11,9 +11,7 @@ import {
 import { SideBar } from "@/components/layout/SideBar";
 import { NavigationLink } from "@/lib/types";
 import { SideBarFooter } from "../components/SideBarFooter";
-import PageTransition from "@/components/layout/PageTransition";
-import { AnimatedOutlet } from "@/components/AnimatedOutlet";
-import { useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 const links: NavigationLink[] = [
 	{
@@ -54,14 +52,10 @@ const links: NavigationLink[] = [
 ];
 
 export const Dashboard = () => {
-	const location = useLocation();
-
 	return (
 		<div className="ml-64">
 			<SideBar links={links} footer={<SideBarFooter />} />
-			<PageTransition customKey={location.pathname.split("/")[2]}>
-				<AnimatedOutlet />
-			</PageTransition>
+			<Outlet />
 		</div>
 	);
 };
