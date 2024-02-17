@@ -8,7 +8,7 @@ type LayoutProps = {
 
 export const Layout = ({ children }: LayoutProps) => {
 	return (
-		<div className="container h-screen flex-col items-center justify-center grid xl:max-w-none xl:grid-cols-2 xl:px-0">
+		<div className="container h-screen flex-col items-center grid xl:max-w-none xl:grid-cols-2 xl:px-0">
 			<div className="relative hidden h-full flex-col bg-muted p-20 xl:flex border-r overflow-hidden">
 				<div className="absolute inset-0  bg-orange-100" />
 				<div>
@@ -33,7 +33,7 @@ export const Layout = ({ children }: LayoutProps) => {
 					/>
 				</div>
 			</div>
-			<div className="lg:p-8">{children}</div>
+			<div className="lg:p-8 ">{children}</div>
 		</div>
 	);
 };
