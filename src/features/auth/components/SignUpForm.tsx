@@ -66,8 +66,18 @@ export const SignUpForm = ({
 	const onSubmit = (data: z.infer<typeof SignUpFormSchema>) => {
 		console.log(data);
 		toast.success("Form submitted successfully");
+
+		// Redirecting to workspace
 		redirectToWorkspace("subdomain1");
 	};
+
+	// useEffect(() => {
+	// 	window.onbeforeunload = () => true;
+
+	// 	return () => {
+	// 		window.onbeforeunload = null;
+	// 	};
+	// }, []);
 
 	return (
 		<Form {...form}>
@@ -217,7 +227,11 @@ export const SignUpForm = ({
 								<ArrowLeft className="mr-2 h-4 w-4" />
 								Prev
 							</Button>
-							<Button className="flex-1" type="submit">
+							<Button
+								className="flex-1"
+								type="submit"
+								loading={form.formState.isSubmitting}
+							>
 								Submit
 							</Button>
 						</div>
