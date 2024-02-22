@@ -91,6 +91,10 @@ const workspaceRoutes = createBrowserRouter([
 				path: "login",
 				Component: AuthViews.WorkspaceLogin,
 			},
+			{
+				path: "customer-login",
+				Component: AuthViews.CustomerLogin,
+			},
 		],
 		errorElement: <div>404</div>,
 	},
