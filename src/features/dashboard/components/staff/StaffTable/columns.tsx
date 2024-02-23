@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { roles, Staff } from "./types";
 import { DataTableColumnHeader } from "@/components/ui/data-table/data-table-column-header";
 import { Actions } from "./Actions";
+import { Badge } from "@/components/ui/badge";
 
 export const columns: ColumnDef<Staff>[] = [
   {
@@ -68,10 +69,10 @@ export const columns: ColumnDef<Staff>[] = [
 
       return (
         <div className="flex w-[150px] items-center">
-          {role.icon && (
-            <role.icon className="text-muted-foreground mr-2 h-4 w-4" />
-          )}
-          <span>{role.label}</span>
+          <Badge variant={role.badgeColor}>
+            {role.icon && <role.icon className="mr-2 h-4 w-4" />}
+            <span>{role.label}</span>
+          </Badge>
         </div>
       );
     },

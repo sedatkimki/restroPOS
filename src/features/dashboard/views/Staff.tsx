@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { DashboardPage } from "../components/DasboardPage";
 import { StaffTable } from "../components/staff/StaffTable";
+import { RoleBadge } from "../components/staff/RoleBadge";
 
 export const Staff = () => {
   return (

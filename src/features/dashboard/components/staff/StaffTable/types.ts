@@ -1,4 +1,5 @@
-import { ChefHat, HandCoins, HandPlatter } from "lucide-react";
+import { BadgeProps } from "@/components/ui/badge";
+import { ChefHat, HandCoins, HandPlatter, LucideIcon } from "lucide-react";
 
 export type StaffRoles = "waiter" | "cash-register" | "kitchen";
 
@@ -9,8 +10,15 @@ export type Staff = {
 	role: StaffRoles;
 };
 
-export const roles = [
-	{ value: "waiter", label: "Waiter", icon: HandPlatter },
-	{ value: "cash-register", label: "Cash Register", icon: HandCoins },
-	{ value: "kitchen", label: "Kitchen", icon: ChefHat },
+export type roleType ={
+  value: StaffRoles,
+  label: string,
+  icon: LucideIcon,
+  badgeColor: BadgeProps["variant"] ,
+}
+
+export const roles:roleType[] = [
+	{ value: "waiter", label: "Waiter", icon: HandPlatter, badgeColor : "orange" },
+	{ value: "cash-register", label: "Cash Register", icon: HandCoins, badgeColor: "blue" },
+	{ value: "kitchen", label: "Kitchen", icon: ChefHat , badgeColor: "yellow" },
 ];
