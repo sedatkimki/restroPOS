@@ -47,7 +47,6 @@ export const useDataTable = <TData, TValue>(
 		getFacetedRowModel: getFacetedRowModel(),
 		getFacetedUniqueValues: getFacetedUniqueValues(),
 	});
-	console.log(table.initialState);
 
 	return table;
 };

@@ -1,9 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { DashboardPage } from "../components/DasboardPage";
 import { StaffTable } from "../components/staff/StaffTable";
-import { RoleBadge } from "../components/staff/RoleBadge";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { EmployeeAddForm } from "../components/staff/EmployeeAddForm";
+import { useState } from "react";
 
 export const Staff = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
   return (
     <DashboardPage pageName="Staff">
       <DashboardPage.Header>
@@ -14,7 +24,22 @@ export const Staff = () => {
           </DashboardPage.Subtitle>
         </DashboardPage.TitleContainer>
         <DashboardPage.Action>
-          <Button size="sm">Add Employee</Button>
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+            <DialogTrigger>
+              <Button size="sm">Add Employee</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Add New Employee</DialogTitle>
+                <DialogDescription>
+                  Add a new employee to your staff.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="py-4">
+                <EmployeeAddForm setDialogOpen={setDialogOpen} />
+              </div>
+            </DialogContent>
+          </Dialog>
         </DashboardPage.Action>
       </DashboardPage.Header>
       <StaffTable />

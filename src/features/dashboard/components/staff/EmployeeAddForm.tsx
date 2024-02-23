@@ -1,7 +1,7 @@
+import React from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -15,26 +15,28 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-const WorkspaceLoginSchema = z.object({
+const EmployeeAddFormSchema = z.object({
+  name: z.string().min(2).max(50),
   email: z.string().email(),
   password: z.string().min(8).max(50),
-  phoneNumber: z.string().min(5).max(15),
 });
 
-export const WorkspaceLoginForm = () => {
-  const navigate = useNavigate();
-  const form = useForm<z.infer<typeof WorkspaceLoginSchema>>({
-    resolver: zodResolver(WorkspaceLoginSchema),
+export const EmployeeAddForm: React.FC<{
+  setDialogOpen: (open: boolean) => void;
+}> = ({ setDialogOpen }) => {
+  const form = useForm<z.infer<typeof EmployeeAddFormSchema>>({
+    resolver: zodResolver(EmployeeAddFormSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = (data: z.infer<typeof WorkspaceLoginSchema>) => {
+  const onSubmit = (data: z.infer<typeof EmployeeAddFormSchema>) => {
     console.log(data);
     toast.success("Form submitted successfully");
-    navigate("/dashboard");
+    setDialogOpen(false);
   };
 
   return (
@@ -42,10 +44,23 @@ export const WorkspaceLoginForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Employee Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Ryan Gosling" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Employee Email</FormLabel>
               <FormControl>
                 <Input type="email" placeholder="example@mail.com" {...field} />
               </FormControl>
@@ -58,7 +73,7 @@ export const WorkspaceLoginForm = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Employee Password</FormLabel>
               <FormControl>
                 <Input type="password" placeholder="********" {...field} />
               </FormControl>
@@ -66,9 +81,11 @@ export const WorkspaceLoginForm = () => {
             </FormItem>
           )}
         />
-        <Button className="w-full" type="submit">
-          Login
-        </Button>
+        <div className="flex flex-1 justify-end">
+          <Button type="submit" loading={form.formState.isSubmitting}>
+            Add Employee
+          </Button>
+        </div>
       </form>
     </Form>
   );
