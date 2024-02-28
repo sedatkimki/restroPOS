@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 import { SideBar } from "@/components/layout/SideBar";
-import { NavigationLink } from "@/lib/types";
+import { NavigationLink, UserRoles } from "@/lib/types";
 import { SideBarFooter } from "../components/SideBarFooter";
 import { Navigate, Outlet } from "react-router-dom";
 import { useUser } from "@/lib/queries/useUser";
@@ -64,13 +64,13 @@ export const Dashboard = () => {
 	}
 
 	switch (user?.role) {
-		case "customer":
+		case UserRoles.CUSTOMER:
 			return <Navigate to="/menu" />;
-		case "waiter":
+		case UserRoles.WAITER:
 			return <Navigate to="/waiter" />;
-		case "kitchen":
+		case UserRoles.KITCHEN:
 			return <Navigate to="/kitchen" />;
-		case "cashier":
+		case UserRoles.CASH_DESK:
 			return <Navigate to="/cashier" />;
 		default:
 			break;
