@@ -1,6 +1,5 @@
 import React from "react";
-import { SignUpForm } from "../components/SignUpForm";
-import { Layout } from "../components/Layout";
+import { SignUpForm } from "../components/SignUp";
 import Typography from "@/components/ui/typography";
 
 const steps = [
@@ -30,25 +29,23 @@ export const SignUp = () => {
 	};
 
 	return (
-		<Layout>
-			<div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[400px]">
-				<div className="flex flex-col space-y-2 ">
-					<Typography variant="p" affects="muted">
-						Step {currentStep} of {steps.length}
-					</Typography>
-					<h1 className="text-2xl font-semibold tracking-tight">
-						{steps[currentStep - 1].title}
-					</h1>
-					<p className="text-sm text-muted-foreground">
-						{steps[currentStep - 1].description}
-					</p>
-				</div>
-				<SignUpForm
-					step={currentStep}
-					handleNextStep={handleNextStep}
-					handlePrevStep={handlePrevStep}
-				/>
+		<div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[400px]">
+			<div className="flex flex-col space-y-2 ">
+				<Typography variant="p" affects="muted">
+					Step {currentStep} of {steps.length}
+				</Typography>
+				<h1 className="text-2xl font-semibold tracking-tight">
+					{steps[currentStep - 1].title}
+				</h1>
+				<p className="text-sm text-muted-foreground">
+					{steps[currentStep - 1].description}
+				</p>
 			</div>
-		</Layout>
+			<SignUpForm
+				step={currentStep}
+				handleNextStep={handleNextStep}
+				handlePrevStep={handlePrevStep}
+			/>
+		</div>
 	);
 };

@@ -11,7 +11,9 @@ import {
 import { SideBar } from "@/components/layout/SideBar";
 import { NavigationLink } from "@/lib/types";
 import { SideBarFooter } from "../components/SideBarFooter";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import { useUser } from "@/lib/queries/useUser";
+import Loading from "@/components/layout/Loading";
 
 const links: NavigationLink[] = [
 	{
@@ -52,6 +54,28 @@ const links: NavigationLink[] = [
 ];
 
 export const Dashboard = () => {
+	const { user, isLoading } = useUser();
+	if (isLoading) {
+		return <Loading />;
+	}
+
+	if (!user) {
+		return <Navigate to="/login" />;
+	}
+
+	switch (user?.role) {
+		case "customer":
+			return <Navigate to="/menu" />;
+		case "waiter":
+			return <Navigate to="/waiter" />;
+		case "kitchen":
+			return <Navigate to="/kitchen" />;
+		case "cashier":
+			return <Navigate to="/cashier" />;
+		default:
+			break;
+	}
+
 	return (
 		<div className="ml-64">
 			<SideBar links={links} footer={<SideBarFooter />} />

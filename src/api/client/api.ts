@@ -26,186 +26,21 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
- * @interface Admin
+ * @interface BearerToken
  */
-export interface Admin {
-    /**
-     * 
-     * @type {number}
-     * @memberof Admin
-     */
-    'id'?: number;
+export interface BearerToken {
     /**
      * 
      * @type {string}
-     * @memberof Admin
+     * @memberof BearerToken
      */
-    'email': string;
+    'accessToken': string;
     /**
      * 
      * @type {string}
-     * @memberof Admin
+     * @memberof BearerToken
      */
-    'password': string;
-    /**
-     * 
-     * @type {Role}
-     * @memberof Admin
-     */
-    'role'?: Role;
-    /**
-     * 
-     * @type {string}
-     * @memberof Admin
-     */
-    'firstName': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Admin
-     */
-    'lastName': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Admin
-     */
-    'loginDisabled'?: boolean;
-    /**
-     * 
-     * @type {Workspace}
-     * @memberof Admin
-     */
-    'workspace'?: Workspace;
-}
-/**
- * 
- * @export
- * @interface BasicUser
- */
-export interface BasicUser {
-    /**
-     * 
-     * @type {number}
-     * @memberof BasicUser
-     */
-    'id'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof BasicUser
-     */
-    'email': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BasicUser
-     */
-    'password': string;
-    /**
-     * 
-     * @type {Role}
-     * @memberof BasicUser
-     */
-    'role'?: Role;
-    /**
-     * 
-     * @type {string}
-     * @memberof BasicUser
-     */
-    'deviceName': string;
-    /**
-     * 
-     * @type {Workspace}
-     * @memberof BasicUser
-     */
-    'workspace'?: Workspace;
-}
-/**
- * 
- * @export
- * @interface CashDesk
- */
-export interface CashDesk {
-    /**
-     * 
-     * @type {number}
-     * @memberof CashDesk
-     */
-    'id'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof CashDesk
-     */
-    'email': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CashDesk
-     */
-    'password': string;
-    /**
-     * 
-     * @type {Role}
-     * @memberof CashDesk
-     */
-    'role'?: Role;
-    /**
-     * 
-     * @type {string}
-     * @memberof CashDesk
-     */
-    'deviceName': string;
-    /**
-     * 
-     * @type {Workspace}
-     * @memberof CashDesk
-     */
-    'workspace'?: Workspace;
-}
-/**
- * 
- * @export
- * @interface Customer
- */
-export interface Customer {
-    /**
-     * 
-     * @type {number}
-     * @memberof Customer
-     */
-    'id'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof Customer
-     */
-    'firstName': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Customer
-     */
-    'lastName': string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof Customer
-     */
-    'profilePhoto'?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof Customer
-     */
-    'phoneNumber'?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Customer
-     */
-    'loginDisabled'?: boolean;
+    'tokenType': string;
 }
 /**
  * 
@@ -256,49 +91,6 @@ export interface EnableToken {
      * @memberof EnableToken
      */
     'accountInformation': string;
-}
-/**
- * 
- * @export
- * @interface Kitchen
- */
-export interface Kitchen {
-    /**
-     * 
-     * @type {number}
-     * @memberof Kitchen
-     */
-    'id'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof Kitchen
-     */
-    'email': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Kitchen
-     */
-    'password': string;
-    /**
-     * 
-     * @type {Role}
-     * @memberof Kitchen
-     */
-    'role'?: Role;
-    /**
-     * 
-     * @type {string}
-     * @memberof Kitchen
-     */
-    'deviceName': string;
-    /**
-     * 
-     * @type {Workspace}
-     * @memberof Kitchen
-     */
-    'workspace'?: Workspace;
 }
 /**
  * 
@@ -488,74 +280,6 @@ export type ResponseMessageStatusEnum = typeof ResponseMessageStatusEnum[keyof t
 /**
  * 
  * @export
- * @interface Role
- */
-export interface Role {
-    /**
-     * 
-     * @type {string}
-     * @memberof Role
-     */
-    'roleName': string;
-}
-/**
- * 
- * @export
- * @interface SystemUser
- */
-export interface SystemUser {
-    /**
-     * 
-     * @type {number}
-     * @memberof SystemUser
-     */
-    'id'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SystemUser
-     */
-    'email': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SystemUser
-     */
-    'password': string;
-    /**
-     * 
-     * @type {Role}
-     * @memberof SystemUser
-     */
-    'role'?: Role;
-    /**
-     * 
-     * @type {string}
-     * @memberof SystemUser
-     */
-    'firstName': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SystemUser
-     */
-    'lastName': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof SystemUser
-     */
-    'loginDisabled'?: boolean;
-    /**
-     * 
-     * @type {Workspace}
-     * @memberof SystemUser
-     */
-    'workspace'?: Workspace;
-}
-/**
- * 
- * @export
  * @interface SystemUserDto
  */
 export interface SystemUserDto {
@@ -583,98 +307,61 @@ export interface SystemUserDto {
      * @memberof SystemUserDto
      */
     'lastName': string;
+    /**
+     * 
+     * @type {WorkspaceDto}
+     * @memberof SystemUserDto
+     */
+    'workspaceDto'?: WorkspaceDto;
 }
 /**
  * 
  * @export
- * @interface Waiter
+ * @interface UserDto
  */
-export interface Waiter {
-    /**
-     * 
-     * @type {number}
-     * @memberof Waiter
-     */
-    'id'?: number;
+export interface UserDto {
     /**
      * 
      * @type {string}
-     * @memberof Waiter
+     * @memberof UserDto
      */
     'email': string;
     /**
      * 
      * @type {string}
-     * @memberof Waiter
+     * @memberof UserDto
      */
     'password': string;
     /**
      * 
-     * @type {Role}
-     * @memberof Waiter
-     */
-    'role'?: Role;
-    /**
-     * 
      * @type {string}
-     * @memberof Waiter
+     * @memberof UserDto
      */
     'firstName': string;
     /**
      * 
      * @type {string}
-     * @memberof Waiter
+     * @memberof UserDto
      */
     'lastName': string;
     /**
      * 
-     * @type {boolean}
-     * @memberof Waiter
+     * @type {WorkspaceDto}
+     * @memberof UserDto
      */
-    'loginDisabled'?: boolean;
-    /**
-     * 
-     * @type {Workspace}
-     * @memberof Waiter
-     */
-    'workspace'?: Workspace;
-}
-/**
- * 
- * @export
- * @interface Workspace
- */
-export interface Workspace {
+    'workspaceDto'?: WorkspaceDto;
     /**
      * 
      * @type {string}
-     * @memberof Workspace
+     * @memberof UserDto
      */
-    'businessDomain'?: string;
+    'deviceName': string;
     /**
      * 
      * @type {string}
-     * @memberof Workspace
+     * @memberof UserDto
      */
-    'businessName'?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof Workspace
-     */
-    'businessLogo'?: Array<string>;
-    /**
-     * 
-     * @type {Array<BasicUser>}
-     * @memberof Workspace
-     */
-    'basicUsers'?: Array<BasicUser>;
-    /**
-     * 
-     * @type {Array<SystemUser>}
-     * @memberof Workspace
-     */
-    'systemUsers'?: Array<SystemUser>;
+    'role': string;
 }
 /**
  * 
@@ -936,7 +623,7 @@ export const AuthApiApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -978,6 +665,42 @@ export const AuthApiApiAxiosParamCreator = function (configuration?: Configurati
 
             if (email !== undefined) {
                 localVarQueryParameter['email'] = email;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} businessDomain 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        workspaceExist: async (businessDomain: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'businessDomain' is not null or undefined
+            assertParamExists('workspaceExist', 'businessDomain', businessDomain)
+            const localVarPath = `/auth/workspace/exists`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (businessDomain !== undefined) {
+                localVarQueryParameter['businessDomain'] = businessDomain;
             }
 
 
@@ -1067,7 +790,7 @@ export const AuthApiApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async loginForEmail(loginDto: LoginDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async loginForEmail(loginDto: LoginDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BearerToken>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.loginForEmail(loginDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApiApi.loginForEmail']?.[localVarOperationServerIndex]?.url;
@@ -1079,7 +802,7 @@ export const AuthApiApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async loginForPhoneNumber(enableToken: EnableToken, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async loginForPhoneNumber(enableToken: EnableToken, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BearerToken>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.loginForPhoneNumber(enableToken, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApiApi.loginForPhoneNumber']?.[localVarOperationServerIndex]?.url;
@@ -1139,6 +862,18 @@ export const AuthApiApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        async workspaceExist(businessDomain: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.workspaceExist(businessDomain, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApiApi.workspaceExist']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} businessDomain 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         async workspaceValid(businessDomain: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.workspaceValid(businessDomain, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
@@ -1179,7 +914,7 @@ export const AuthApiApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        loginForEmail(loginDto: LoginDto, options?: any): AxiosPromise<object> {
+        loginForEmail(loginDto: LoginDto, options?: any): AxiosPromise<BearerToken> {
             return localVarFp.loginForEmail(loginDto, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1188,7 +923,7 @@ export const AuthApiApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        loginForPhoneNumber(enableToken: EnableToken, options?: any): AxiosPromise<object> {
+        loginForPhoneNumber(enableToken: EnableToken, options?: any): AxiosPromise<BearerToken> {
             return localVarFp.loginForPhoneNumber(enableToken, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1226,6 +961,15 @@ export const AuthApiApiFactory = function (configuration?: Configuration, basePa
          */
         sendVerifyEmailToAdmin(email: string, options?: any): AxiosPromise<ResponseMessage> {
             return localVarFp.sendVerifyEmailToAdmin(email, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} businessDomain 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        workspaceExist(businessDomain: string, options?: any): AxiosPromise<boolean> {
+            return localVarFp.workspaceExist(businessDomain, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1332,6 +1076,17 @@ export class AuthApiApi extends BaseAPI {
      */
     public sendVerifyEmailToAdmin(email: string, options?: RawAxiosRequestConfig) {
         return AuthApiApiFp(this.configuration).sendVerifyEmailToAdmin(email, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} businessDomain 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthApiApi
+     */
+    public workspaceExist(businessDomain: string, options?: RawAxiosRequestConfig) {
+        return AuthApiApiFp(this.configuration).workspaceExist(businessDomain, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1736,6 +1491,103 @@ export class CustomTestApiApi extends BaseAPI {
 
 
 /**
+ * CustomerApiApi - axios parameter creator
+ * @export
+ */
+export const CustomerApiApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUser1: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/customers/token`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * CustomerApiApi - functional programming interface
+ * @export
+ */
+export const CustomerApiApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = CustomerApiApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUser1(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CustomerDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUser1(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CustomerApiApi.getUser1']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * CustomerApiApi - factory interface
+ * @export
+ */
+export const CustomerApiApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = CustomerApiApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUser1(options?: any): AxiosPromise<CustomerDto> {
+            return localVarFp.getUser1(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * CustomerApiApi - object-oriented interface
+ * @export
+ * @class CustomerApiApi
+ * @extends {BaseAPI}
+ */
+export class CustomerApiApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CustomerApiApi
+     */
+    public getUser1(options?: RawAxiosRequestConfig) {
+        return CustomerApiApiFp(this.configuration).getUser1(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * UserApiApi - axios parameter creator
  * @export
  */
@@ -1743,14 +1595,14 @@ export const UserApiApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
-         * @param {Admin} admin 
+         * @param {string} businessDomain 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addNewAdmin: async (admin: Admin, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'admin' is not null or undefined
-            assertParamExists('addNewAdmin', 'admin', admin)
-            const localVarPath = `/api/v1/users/admin`;
+        getUser: async (businessDomain: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'businessDomain' is not null or undefined
+            assertParamExists('getUser', 'businessDomain', businessDomain)
+            const localVarPath = `/api/v1/users`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1758,158 +1610,19 @@ export const UserApiApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(admin, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {CashDesk} cashDesk 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addNewCashDesk: async (cashDesk: CashDesk, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'cashDesk' is not null or undefined
-            assertParamExists('addNewCashDesk', 'cashDesk', cashDesk)
-            const localVarPath = `/api/v1/users/cashDesk`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
+            if (businessDomain !== undefined) {
+                localVarQueryParameter['businessDomain'] = businessDomain;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
 
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(cashDesk, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {Customer} customer 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addNewCustomer: async (customer: Customer, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'customer' is not null or undefined
-            assertParamExists('addNewCustomer', 'customer', customer)
-            const localVarPath = `/api/v1/users/customer`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(customer, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {Kitchen} kitchen 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addNewKitchen: async (kitchen: Kitchen, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'kitchen' is not null or undefined
-            assertParamExists('addNewKitchen', 'kitchen', kitchen)
-            const localVarPath = `/api/v1/users/kitchen`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(kitchen, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {Waiter} waiter 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addNewWaiter: async (waiter: Waiter, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'waiter' is not null or undefined
-            assertParamExists('addNewWaiter', 'waiter', waiter)
-            const localVarPath = `/api/v1/users/waiter`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(waiter, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1928,62 +1641,14 @@ export const UserApiApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {Admin} admin 
+         * @param {string} businessDomain 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addNewAdmin(admin: Admin, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addNewAdmin(admin, options);
+        async getUser(businessDomain: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUser(businessDomain, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UserApiApi.addNewAdmin']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {CashDesk} cashDesk 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async addNewCashDesk(cashDesk: CashDesk, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addNewCashDesk(cashDesk, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UserApiApi.addNewCashDesk']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {Customer} customer 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async addNewCustomer(customer: Customer, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addNewCustomer(customer, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UserApiApi.addNewCustomer']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {Kitchen} kitchen 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async addNewKitchen(kitchen: Kitchen, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addNewKitchen(kitchen, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UserApiApi.addNewKitchen']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {Waiter} waiter 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async addNewWaiter(waiter: Waiter, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addNewWaiter(waiter, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UserApiApi.addNewWaiter']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['UserApiApi.getUser']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -1998,48 +1663,12 @@ export const UserApiApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
-         * @param {Admin} admin 
+         * @param {string} businessDomain 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addNewAdmin(admin: Admin, options?: any): AxiosPromise<object> {
-            return localVarFp.addNewAdmin(admin, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {CashDesk} cashDesk 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addNewCashDesk(cashDesk: CashDesk, options?: any): AxiosPromise<object> {
-            return localVarFp.addNewCashDesk(cashDesk, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {Customer} customer 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addNewCustomer(customer: Customer, options?: any): AxiosPromise<object> {
-            return localVarFp.addNewCustomer(customer, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {Kitchen} kitchen 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addNewKitchen(kitchen: Kitchen, options?: any): AxiosPromise<object> {
-            return localVarFp.addNewKitchen(kitchen, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {Waiter} waiter 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addNewWaiter(waiter: Waiter, options?: any): AxiosPromise<object> {
-            return localVarFp.addNewWaiter(waiter, options).then((request) => request(axios, basePath));
+        getUser(businessDomain: string, options?: any): AxiosPromise<UserDto> {
+            return localVarFp.getUser(businessDomain, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -2053,57 +1682,13 @@ export const UserApiApiFactory = function (configuration?: Configuration, basePa
 export class UserApiApi extends BaseAPI {
     /**
      * 
-     * @param {Admin} admin 
+     * @param {string} businessDomain 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApiApi
      */
-    public addNewAdmin(admin: Admin, options?: RawAxiosRequestConfig) {
-        return UserApiApiFp(this.configuration).addNewAdmin(admin, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {CashDesk} cashDesk 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApiApi
-     */
-    public addNewCashDesk(cashDesk: CashDesk, options?: RawAxiosRequestConfig) {
-        return UserApiApiFp(this.configuration).addNewCashDesk(cashDesk, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {Customer} customer 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApiApi
-     */
-    public addNewCustomer(customer: Customer, options?: RawAxiosRequestConfig) {
-        return UserApiApiFp(this.configuration).addNewCustomer(customer, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {Kitchen} kitchen 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApiApi
-     */
-    public addNewKitchen(kitchen: Kitchen, options?: RawAxiosRequestConfig) {
-        return UserApiApiFp(this.configuration).addNewKitchen(kitchen, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {Waiter} waiter 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApiApi
-     */
-    public addNewWaiter(waiter: Waiter, options?: RawAxiosRequestConfig) {
-        return UserApiApiFp(this.configuration).addNewWaiter(waiter, options).then((request) => request(this.axios, this.basePath));
+    public getUser(businessDomain: string, options?: RawAxiosRequestConfig) {
+        return UserApiApiFp(this.configuration).getUser(businessDomain, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

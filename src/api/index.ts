@@ -1,6 +1,6 @@
 import axios from "axios";
-import { AuthApiApi } from "./client";
-import { getAuthCookie } from "@/lib/utils";
+import { AuthApiApi, UserApiApi } from "./client";
+import { clearAuthCookie, getAuthCookie } from "@/lib/utils";
 
 const globalAxios = axios.create({
 	baseURL: import.meta.env.VITE_APP_DEV_API_URL,
@@ -32,17 +32,19 @@ globalAxios.interceptors.response.use(
 	async (error) => {
 		const originalRequest = error.config;
 		if (error.response.status === 403 && !originalRequest._retry) {
-			// clear token and redirect to login page
-			window.location.href = "/login";
-			originalRequest._retry = true;
-			axios.defaults.headers.common.Authorization = "Bearer "; // + access_token;
-			return globalAxios(originalRequest);
+			clearAuthCookie();
 		}
 		return Promise.reject(error);
 	},
 );
 
 export const AuthAPI = new AuthApiApi(
+	undefined,
+	import.meta.env.VITE_APP_DEV_API_URL,
+	globalAxios,
+);
+
+export const userAPI = new UserApiApi(
 	undefined,
 	import.meta.env.VITE_APP_DEV_API_URL,
 	globalAxios,
