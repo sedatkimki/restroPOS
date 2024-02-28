@@ -6,70 +6,86 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { AuthAPI } from "@/api";
+import { isAxiosError, setAuthCookie } from "@/lib/utils";
+import { ResponseMessage } from "@/api/client";
 
 const WorkspaceLoginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8).max(50),
-  phoneNumber: z.string().min(5).max(15),
+	email: z.string().email(),
+	password: z.string().min(8).max(50),
 });
 
 export const WorkspaceLoginForm = () => {
-  const navigate = useNavigate();
-  const form = useForm<z.infer<typeof WorkspaceLoginSchema>>({
-    resolver: zodResolver(WorkspaceLoginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
+	const navigate = useNavigate();
+	const form = useForm<z.infer<typeof WorkspaceLoginSchema>>({
+		resolver: zodResolver(WorkspaceLoginSchema),
+		defaultValues: {
+			email: "",
+			password: "",
+		},
+	});
 
-  const onSubmit = (data: z.infer<typeof WorkspaceLoginSchema>) => {
-    console.log(data);
-    toast.success("Form submitted successfully");
-    navigate("/dashboard");
-  };
+	const onSubmit = async (data: z.infer<typeof WorkspaceLoginSchema>) => {
+		try {
+			const response = await AuthAPI.loginForEmail({
+				email: data.email,
+				password: data.password,
+			});
+			setAuthCookie(response.data.accessToken);
+			navigate("/dashboard/overview");
+			// TODO: Redirect to related route
+		} catch (error) {
+			if (isAxiosError<ResponseMessage>(error)) {
+				toast.error(error.response?.data.message);
+			}
+		}
+	};
 
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input type="email" placeholder="example@mail.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="********" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button className="w-full" type="submit">
-          Login
-        </Button>
-      </form>
-    </Form>
-  );
+	return (
+		<Form {...form}>
+			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+				<FormField
+					control={form.control}
+					name="email"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Email</FormLabel>
+							<FormControl>
+								<Input type="email" placeholder="example@mail.com" {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="password"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Password</FormLabel>
+							<FormControl>
+								<Input type="password" placeholder="********" {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<Button
+					className="w-full"
+					type="submit"
+					loading={form.formState.isSubmitting}
+				>
+					Login
+				</Button>
+			</form>
+		</Form>
+	);
 };

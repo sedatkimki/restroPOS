@@ -1,7 +1,18 @@
 import { Layout } from "../components/Layout";
 import { WorkspaceLoginForm } from "../components/WorkspaceLoginForm";
+import { Navigate } from "react-router-dom";
+import { useUser } from "@/lib/queries/useUser";
+import Loading from "@/components/layout/Loading";
 
 export const WorkspaceLogin = () => {
+	const { user, isLoading } = useUser();
+
+	if (isLoading) return <Loading />;
+
+	if (user) {
+		return <Navigate to="/dashboard/overview" />;
+	}
+
 	return (
 		<Layout>
 			<div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[400px]">

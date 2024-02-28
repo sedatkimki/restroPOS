@@ -1,5 +1,9 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import debouncePromise from "awesome-debounce-promise";
+import { AuthAPI } from "@/api";
+import axios, { AxiosError } from "axios";
+import { ResponseMessage } from "@/api/client";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -26,3 +30,39 @@ export function redirectToRoot() {
 		window.location.href = import.meta.env.VITE_APP_DEV_URL;
 	}
 }
+
+export function setAuthCookie(token: string) {
+	document.cookie = `token=${token};`;
+}
+
+export function clearAuthCookie() {
+	document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+}
+
+export function getAuthCookie() {
+	return document.cookie
+		.split(";")
+		.find((c) => c.includes("token="))
+		?.split("=")[1];
+}
+
+export const isDomainValid = debouncePromise(async (value, callBack) => {
+	try {
+		const response = await AuthAPI.workspaceValid(value);
+		callBack(response.data);
+	} catch (error) {
+		if (isAxiosError<ResponseMessage>(error)) {
+			callBack(error.response?.data.message);
+		}
+	}
+}, 500);
+
+export function isAxiosError<ResponseType>(
+	error: unknown,
+): error is AxiosError<ResponseType> {
+	return axios.isAxiosError(error);
+}
+
+export const normalizeValue = (value: number, min: number, max: number) => {
+	return ((value - min) / (max - min)) * 100;
+};

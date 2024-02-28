@@ -13,7 +13,11 @@ const publicRoutes = createBrowserRouter([
 			{ index: true, element: <Navigate to="/signup" /> },
 			{
 				path: "/signup",
-				Component: AuthViews.SignUp,
+				Component: AuthViews.SignUpLayout,
+				children: [
+					{ index: true, Component: AuthViews.SignUp },
+					{ path: "verify-email", Component: AuthViews.VerifyEmail },
+				],
 			},
 		],
 	},
