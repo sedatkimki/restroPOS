@@ -1,5 +1,3 @@
-export * from "./SignUpLayout";
+export * from "./SignUp";
 export * from "./WorkspaceLogin";
 export * from "./CustomerLogin";
-export * from "./SignUp";
-export * from "./VerifyEmail";

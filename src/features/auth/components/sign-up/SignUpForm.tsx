@@ -29,7 +29,8 @@ type SignUpFormProps = {
 };
 
 const SignUpFormSchema = z.object({
-	name: z.string().min(2).max(50),
+	firstName: z.string().min(2).max(30),
+	lastName: z.string().min(2).max(30),
 	email: z.string().email(),
 	password: z.string().min(8).max(50),
 	businessName: z.string().min(2).max(50),
@@ -58,7 +59,8 @@ export const SignUpForm = ({
 	const form = useForm<z.infer<typeof SignUpFormSchema>>({
 		resolver: zodResolver(SignUpFormSchema),
 		defaultValues: {
-			name: "",
+			firstName: "",
+			lastName: "",
 			email: "",
 			password: "",
 			businessName: "",
@@ -97,8 +99,8 @@ export const SignUpForm = ({
 		try {
 			await AuthAPI.registerNewWorkspace({
 				systemUser: {
-					firstName: data.name.split(" ")[0],
-					lastName: data.name.split(" ")[1],
+					firstName: data.firstName,
+					lastName: data.lastName,
 					email: data.email,
 					password: data.password,
 				},
@@ -128,19 +130,35 @@ export const SignUpForm = ({
 			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 				{step === 1 && (
 					<>
-						<FormField
-							control={form.control}
-							name="name"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Your name</FormLabel>
-									<FormControl>
-										<Input placeholder="Ryan Gosling" {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
+						<div className="gap-4 flex-row flex justify-between">
+							<FormField
+								control={form.control}
+								name="firstName"
+								render={({ field }) => (
+									<FormItem className="flex-1">
+										<FormLabel>First Name</FormLabel>
+										<FormControl>
+											<Input placeholder="Ryan" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="lastName"
+								render={({ field }) => (
+									<FormItem className="flex-1">
+										<FormLabel>Last Name</FormLabel>
+										<FormControl>
+											<Input placeholder="Gosling" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</div>
+
 						<FormField
 							control={form.control}
 							name="email"
@@ -176,7 +194,8 @@ export const SignUpForm = ({
 							type="button"
 							onClick={async () => {
 								const isValid = await form.trigger([
-									"name",
+									"firstName",
+									"lastName",
 									"email",
 									"password",
 								]);
@@ -234,7 +253,7 @@ export const SignUpForm = ({
 							name="businessName"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Business name</FormLabel>
+									<FormLabel>Business Name</FormLabel>
 									<FormControl>
 										<Input placeholder="Super restaurant" {...field} />
 									</FormControl>
@@ -247,7 +266,7 @@ export const SignUpForm = ({
 							name="businessDomain"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Business domain</FormLabel>
+									<FormLabel>Business Domain</FormLabel>
 									<FormControl>
 										<div className="relative flex max-w-2xl items-center ">
 											<Input

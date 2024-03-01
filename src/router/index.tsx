@@ -13,10 +13,10 @@ const publicRoutes = createBrowserRouter([
 			{ index: true, element: <Navigate to="/signup" /> },
 			{
 				path: "/signup",
-				Component: AuthViews.SignUpLayout,
+				Component: AuthViews.SignUp,
 				children: [
-					{ index: true, Component: AuthViews.SignUp },
-					{ path: "verify-email", Component: AuthViews.VerifyEmail },
+					{ index: true, Component: AuthViews.SignUp.Form },
+					{ path: "verify-email", Component: AuthViews.SignUp.VerifyEmail },
 				],
 			},
 		],
@@ -98,6 +98,17 @@ const workspaceRoutes = createBrowserRouter([
 			{
 				path: "customer-login",
 				Component: AuthViews.CustomerLogin,
+				children: [
+					{ index: true, Component: AuthViews.CustomerLogin.PhoneCheck },
+					{
+						path: "/customer-login/register",
+						Component: AuthViews.CustomerLogin.Register,
+					},
+					{
+						path: "/customer-login/otp",
+						Component: AuthViews.CustomerLogin.OTP,
+					},
+				],
 			},
 		],
 		errorElement: <div>404</div>,

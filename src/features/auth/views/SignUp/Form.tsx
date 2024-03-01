@@ -1,5 +1,5 @@
 import React from "react";
-import { SignUpForm } from "../components/SignUp";
+import { SignUpForm } from "../../components/sign-up";
 import Typography from "@/components/ui/typography";
 
 const steps = [
@@ -16,7 +16,7 @@ const steps = [
 	},
 ];
 
-export const SignUp = () => {
+export const Form = () => {
 	const [currentStep, setCurrentStep] = React.useState(1);
 
 	const handleNextStep = () => {
