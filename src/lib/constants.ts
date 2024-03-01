@@ -5,3 +5,6 @@ export const ACCEPTED_IMAGE_MIME_TYPES = [
 	"image/png",
 	"image/webp",
 ];
+
+export const PHONE_REGEX =
+	/^^(\+90|0)?\s*(\(\d{3}\)[\s-]*\d{3}[\s-]*\d{2}[\s-]*\d{2}|\(\d{3}\)[\s-]*\d{3}[\s-]*\d{4}|\(\d{3}\)[\s-]*\d{7}|\d{3}[\s-]*\d{3}[\s-]*\d{4}|\d{3}[\s-]*\d{3}[\s-]*\d{2}[\s-]*\d{2})$/;

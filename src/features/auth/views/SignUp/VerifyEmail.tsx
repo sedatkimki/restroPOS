@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCountdown } from "usehooks-ts";
-import { OTPVerification } from "../components/SignUp/OTPVerification";
+import { OTPVerification } from "../../components/sign-up/OTPVerification";
 import { useBeforeUnload } from "@/lib/hooks/useBeforeUnload";
 
 export const VerifyEmail = () => {

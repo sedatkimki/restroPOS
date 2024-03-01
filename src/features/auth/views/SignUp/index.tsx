@@ -1,8 +1,10 @@
 import PageTransition from "@/components/layout/PageTransition";
-import { Layout } from "../components/Layout";
+import { Layout } from "../../components/Layout";
 import { AnimatedOutlet } from "@/components/AnimatedOutlet";
+import { Form } from "./Form";
+import { VerifyEmail } from "./VerifyEmail";
 
-export const SignUpLayout = () => {
+const SignUp = () => {
 	return (
 		<Layout>
 			<PageTransition>
@@ -11,3 +13,8 @@ export const SignUpLayout = () => {
 		</Layout>
 	);
 };
+
+SignUp.Form = Form;
+SignUp.VerifyEmail = VerifyEmail;
+
+export { SignUp };
