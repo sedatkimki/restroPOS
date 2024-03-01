@@ -54,7 +54,7 @@ export const OTPVerification = ({
 			});
 
 			window.onbeforeunload = null;
-			w;
+
 			navigate("/menu");
 		} catch (error) {
 			if (isAxiosError<ResponseMessage>(error)) {
