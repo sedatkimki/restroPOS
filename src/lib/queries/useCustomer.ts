@@ -32,7 +32,7 @@ export function useCustomer() {
 	};
 
 	return {
-		user: data,
+		customer: data,
 		isLoading: isLoading,
 		isError: error,
 		logout,

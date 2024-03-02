@@ -3,8 +3,11 @@ import { Home, Package2, Search, ShoppingCart } from "lucide-react";
 import { BottomNavigation } from "@/components/layout/BottomNavigation";
 
 import { AnimatedOutlet } from "@/components/AnimatedOutlet";
+import Loading from "@/components/layout/Loading";
 import PageTransition from "@/components/layout/PageTransition";
+import { useCustomer } from "@/lib/queries";
 import { NavigationLink } from "@/lib/types";
+import { Navigate } from "react-router-dom";
 
 const links: NavigationLink[] = [
 	{
@@ -30,6 +33,13 @@ const links: NavigationLink[] = [
 ];
 
 export const Menu = () => {
+	const { customer, isLoading } = useCustomer();
+	if (isLoading) {
+		return <Loading />;
+	}
+	if (!customer) {
+		return <Navigate to="/customer-login" />;
+	}
 	return (
 		<div className="max-w-lg mx-auto">
 			<PageTransition>
