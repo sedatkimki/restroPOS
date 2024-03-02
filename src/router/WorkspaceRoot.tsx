@@ -1,9 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-import { FunctionComponent } from "react";
-import { redirectToRoot } from "@/lib/utils";
 import Loading from "@/components/layout/Loading";
-import { useWorkspaceExist } from "@/lib/queries/useWorkspaceExist";
+import { useWorkspaceExist } from "@/lib/queries";
+import { redirectToRoot } from "@/lib/utils";
+import { FunctionComponent } from "react";
 
 type WorkspaceRootProps = object;
 

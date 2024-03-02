@@ -1,5 +1,5 @@
-import NavButton from "./NavButton";
 import { NavigationLink } from "@/lib/types";
+import NavButton from "./NavButton";
 
 type BottomNavigationProps = {
 	links: NavigationLink[];

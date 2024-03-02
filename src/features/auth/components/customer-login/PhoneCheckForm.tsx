@@ -1,11 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 // tslint:disable-next-line: no-submodule-imports
 import InputMask from "react-input-mask";
+import { toast } from "sonner";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { z } from "zod";
 
+import { AuthAPI } from "@/api";
+import { ResponseMessage } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -16,11 +18,9 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { AuthAPI } from "@/api";
-import { isAxiosError } from "axios";
-import { ResponseMessage } from "@/api/client";
-import { useNavigate } from "react-router-dom";
 import { PHONE_REGEX } from "@/lib/constants";
+import { isAxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 
 const PhoneCheckFormSchema = z.object({
 	phoneNumber: z.string().regex(PHONE_REGEX, "Invalid phone number"),
@@ -62,8 +62,6 @@ export const PhoneCheckForm = () => {
 				});
 			}
 		}
-
-		// navigate("/dashboard");
 	};
 
 	return (

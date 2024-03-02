@@ -1,3 +1,7 @@
+import Loading from "@/components/layout/Loading";
+import { SideBar } from "@/components/layout/SideBar";
+import { useUser } from "@/lib/queries";
+import { NavigationLink, UserRoles } from "@/lib/types";
 import {
 	BookOpen,
 	LayoutDashboard,
@@ -7,13 +11,8 @@ import {
 	Settings,
 	UsersRound,
 } from "lucide-react";
-
-import { SideBar } from "@/components/layout/SideBar";
-import { NavigationLink, UserRoles } from "@/lib/types";
-import { SideBarFooter } from "../components/SideBarFooter";
 import { Navigate, Outlet } from "react-router-dom";
-import { useUser } from "@/lib/queries/useUser";
-import Loading from "@/components/layout/Loading";
+import { SideBarFooter } from "../components/SideBarFooter";
 
 const links: NavigationLink[] = [
 	{

@@ -1,10 +1,3 @@
-import React from "react";
-import { Loader2 } from "lucide-react";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { ArrowLeft, ArrowRight, ImageOff } from "lucide-react";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -15,11 +8,18 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, ImageOff } from "lucide-react";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
 
-import { ACCEPTED_IMAGE_MIME_TYPES, MAX_FILE_SIZE } from "@/lib/constants";
-import { isAxiosError, isDomainValid } from "@/lib/utils";
 import { AuthAPI } from "@/api";
 import { ResponseMessage } from "@/api/client";
+import { ACCEPTED_IMAGE_MIME_TYPES, MAX_FILE_SIZE } from "@/lib/constants";
+import { isAxiosError, isDomainValid } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 
 type SignUpFormProps = {

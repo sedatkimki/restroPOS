@@ -1,9 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { z } from "zod";
 
+import { AuthAPI } from "@/api";
+import { ResponseMessage } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -14,13 +16,11 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { AuthAPI } from "@/api";
-import { isAxiosError } from "axios";
-import { ResponseMessage } from "@/api/client";
-import { useNavigate } from "react-router-dom";
 import { ACCEPTED_IMAGE_MIME_TYPES, MAX_FILE_SIZE } from "@/lib/constants";
-import { useState } from "react";
+import { isAxiosError } from "axios";
 import { ImageOff } from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RegisterFormSchema = z.object({
 	firstName: z.string().min(2).max(30),

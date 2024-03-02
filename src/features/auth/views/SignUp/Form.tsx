@@ -1,6 +1,6 @@
+import Typography from "@/components/ui/typography";
 import React from "react";
 import { SignUpForm } from "../../components/sign-up";
-import Typography from "@/components/ui/typography";
 
 const steps = [
 	{

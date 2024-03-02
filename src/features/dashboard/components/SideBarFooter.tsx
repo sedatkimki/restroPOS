@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import Typography from "@/components/ui/typography";
-import { useUser } from "@/lib/queries/useUser";
+import { useUser } from "@/lib/queries";
 import { LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 

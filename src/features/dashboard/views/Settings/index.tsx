@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
-import { Profile } from "./Profile";
-import { Workspace } from "./Workspace";
 import { DashboardPage } from "../../components/DasboardPage";
 import { SidebarNav } from "../../components/settings/SidebarNav";
+import { Profile } from "./Profile";
+import { Workspace } from "./Workspace";
 
 const items = [
 	{ name: "Profile", path: "/dashboard/settings/profile" },

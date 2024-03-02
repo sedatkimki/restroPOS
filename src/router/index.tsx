@@ -1,9 +1,9 @@
-import { Navigate, createBrowserRouter } from "react-router-dom";
-import PublicRoot from "./PublicRoot";
-import WorkspaceRoot from "./WorkspaceRoot";
 import * as AuthViews from "@/features/auth/views";
 import * as DashboardViews from "@/features/dashboard/views";
 import * as MenuViews from "@/features/menu/views";
+import { Navigate, createBrowserRouter } from "react-router-dom";
+import PublicRoot from "./PublicRoot";
+import WorkspaceRoot from "./WorkspaceRoot";
 
 const publicRoutes = createBrowserRouter([
 	{

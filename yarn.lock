@@ -21,7 +21,7 @@
 
 "@biomejs/biome@1.5.3":
   version "1.5.3"
-  resolved "https://registry.npmjs.org/@biomejs/biome/-/biome-1.5.3.tgz"
+  resolved "https://registry.yarnpkg.com/@biomejs/biome/-/biome-1.5.3.tgz#0762b9f681c247a228522e6c506060e734809d48"
   integrity sha512-yvZCa/g3akwTaAQ7PCwPWDCkZs3Qa5ONg/fgOUT9e6wAWsPftCjLQFPXBeGxPK30yZSSpgEmRCfpGTmVbUjGgg==
   optionalDependencies:
     "@biomejs/cli-darwin-arm64" "1.5.3"
