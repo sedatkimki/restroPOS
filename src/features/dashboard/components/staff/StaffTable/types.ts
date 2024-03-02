@@ -1,6 +1,7 @@
 import { BadgeProps } from "@/components/ui/badge";
 import { ChefHat, HandCoins, HandPlatter, LucideIcon } from "lucide-react";
 
+// TODO - refactor to use enum instead of string
 export type StaffRoles = "waiter" | "cash-register" | "kitchen";
 
 export type Staff = {
@@ -26,4 +27,4 @@ export const roles: roleType[] = [
 		badgeColor: "blue",
 	},
 	{ value: "kitchen", label: "Kitchen", icon: ChefHat, badgeColor: "yellow" },
-];
+] as const;
