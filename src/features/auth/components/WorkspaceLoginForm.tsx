@@ -1,9 +1,11 @@
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { z } from "zod";
 
+import { AuthAPI } from "@/api";
+import { ResponseMessage } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -14,9 +16,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { AuthAPI } from "@/api";
 import { isAxiosError, setAuthCookie } from "@/lib/utils";
-import { ResponseMessage } from "@/api/client";
 
 const WorkspaceLoginSchema = z.object({
 	email: z.string().email(),

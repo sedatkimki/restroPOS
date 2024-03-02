@@ -1,6 +1,6 @@
-import axios from "axios";
-import { AuthApiApi, UserApiApi } from "./client";
 import { clearAuthCookie, getAuthCookie } from "@/lib/utils";
+import axios from "axios";
+import { AuthApiApi, CustomerApiApi, UserApiApi } from "./client";
 
 const globalAxios = axios.create({
 	baseURL: import.meta.env.VITE_APP_DEV_API_URL,
@@ -44,7 +44,13 @@ export const AuthAPI = new AuthApiApi(
 	globalAxios,
 );
 
-export const userAPI = new UserApiApi(
+export const UserAPI = new UserApiApi(
+	undefined,
+	import.meta.env.VITE_APP_DEV_API_URL,
+	globalAxios,
+);
+
+export const CustomerAPI = new CustomerApiApi(
 	undefined,
 	import.meta.env.VITE_APP_DEV_API_URL,
 	globalAxios,

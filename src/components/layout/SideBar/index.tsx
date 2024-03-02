@@ -1,7 +1,7 @@
+import brandLogo from "@/assets/restroPosLogo.svg";
+import { NavigationLink } from "@/lib/types";
 import React from "react";
 import NavButton from "./NavButton";
-import { NavigationLink } from "@/lib/types";
-import brandLogo from "@/assets/restroPosLogo.svg";
 
 type SideBarProps = {
 	links: NavigationLink[];

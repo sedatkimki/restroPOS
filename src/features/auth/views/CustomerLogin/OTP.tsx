@@ -1,8 +1,8 @@
+import { useBeforeUnload } from "@/lib/hooks";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCountdown } from "usehooks-ts";
 import { OTPVerification } from "../../components/customer-login";
-import { useBeforeUnload } from "@/lib/hooks/useBeforeUnload";
 
 export const OTP = () => {
 	const location = useLocation() as {

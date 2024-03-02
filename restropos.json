@@ -338,7 +338,7 @@
 						"content": {
 							"*/*": {
 								"schema": {
-									"$ref": "#/components/schemas/OtpResponseDto"
+									"$ref": "#/components/schemas/ResponseMessage"
 								}
 							}
 						}
@@ -655,18 +655,6 @@
 						"enum": ["WORKSPACE_VERIFY_TEMPLATE"]
 					},
 					"templateContent": {
-						"type": "string"
-					}
-				}
-			},
-			"OtpResponseDto": {
-				"type": "object",
-				"properties": {
-					"status": {
-						"type": "string",
-						"enum": ["DELIVERED", "FAILED"]
-					},
-					"message": {
 						"type": "string"
 					}
 				}

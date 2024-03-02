@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react";
-import { RegisterForm } from "../../components/customer-login";
 import { useLocation, useNavigate } from "react-router-dom";
+import { RegisterForm } from "../../components/customer-login";
 
 export const Register: FC = () => {
 	const location = useLocation() as {

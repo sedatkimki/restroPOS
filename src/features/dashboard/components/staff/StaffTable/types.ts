@@ -10,15 +10,20 @@ export type Staff = {
 	role: StaffRoles;
 };
 
-export type roleType ={
-  value: StaffRoles,
-  label: string,
-  icon: LucideIcon,
-  badgeColor: BadgeProps["variant"] ,
-}
+export type roleType = {
+	value: StaffRoles;
+	label: string;
+	icon: LucideIcon;
+	badgeColor: BadgeProps["variant"];
+};
 
-export const roles:roleType[] = [
-	{ value: "waiter", label: "Waiter", icon: HandPlatter, badgeColor : "orange" },
-	{ value: "cash-register", label: "Cash Register", icon: HandCoins, badgeColor: "blue" },
-	{ value: "kitchen", label: "Kitchen", icon: ChefHat , badgeColor: "yellow" },
+export const roles: roleType[] = [
+	{ value: "waiter", label: "Waiter", icon: HandPlatter, badgeColor: "orange" },
+	{
+		value: "cash-register",
+		label: "Cash Register",
+		icon: HandCoins,
+		badgeColor: "blue",
+	},
+	{ value: "kitchen", label: "Kitchen", icon: ChefHat, badgeColor: "yellow" },
 ];

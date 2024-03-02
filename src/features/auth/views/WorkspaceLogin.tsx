@@ -1,8 +1,8 @@
+import Loading from "@/components/layout/Loading";
+import { useUser } from "@/lib/queries";
+import { Navigate } from "react-router-dom";
 import { Layout } from "../components/Layout";
 import { WorkspaceLoginForm } from "../components/WorkspaceLoginForm";
-import { Navigate } from "react-router-dom";
-import { useUser } from "@/lib/queries/useUser";
-import Loading from "@/components/layout/Loading";
 
 export const WorkspaceLogin = () => {
 	const { user, isLoading } = useUser();

@@ -2,9 +2,9 @@ import { Home, Package2, Search, ShoppingCart } from "lucide-react";
 
 import { BottomNavigation } from "@/components/layout/BottomNavigation";
 
-import { NavigationLink } from "@/lib/types";
-import PageTransition from "@/components/layout/PageTransition";
 import { AnimatedOutlet } from "@/components/AnimatedOutlet";
+import PageTransition from "@/components/layout/PageTransition";
+import { NavigationLink } from "@/lib/types";
 
 const links: NavigationLink[] = [
 	{

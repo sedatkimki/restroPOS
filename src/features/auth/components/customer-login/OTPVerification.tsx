@@ -2,6 +2,7 @@ import { AuthAPI } from "@/api";
 import { ResponseMessage } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import { FakeDash, Slot } from "@/components/ui/otp-components";
+import { setAuthCookie } from "@/lib/utils";
 import { isAxiosError } from "axios";
 import { OTPInput } from "input-otp";
 import { useState } from "react";
@@ -48,11 +49,11 @@ export const OTPVerification = ({
 	const verify = async () => {
 		setLoading(true);
 		try {
-			await AuthAPI.loginForPhoneNumber({
+			const response = await AuthAPI.loginForPhoneNumber({
 				tokenCode: value,
 				accountInformation: phoneNumber,
 			});
-
+			setAuthCookie(response.data.accessToken);
 			window.onbeforeunload = null;
 
 			navigate("/menu");

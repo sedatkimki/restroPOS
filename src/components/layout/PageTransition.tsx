@@ -1,5 +1,5 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { ReactNode } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
 
 export default function PageTransition({

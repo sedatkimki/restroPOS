@@ -1,12 +1,12 @@
-import { userAPI } from "@/api";
+import { UserAPI } from "@/api";
 import { clearAuthCookie, getAuthCookie, getSubdomain } from "../utils";
 
-import useSWR from "swr";
 import { UserDto } from "@/api/client";
+import useSWR from "swr";
 
 const userFetcher = async (): Promise<UserDto> => {
 	const subdomain = getSubdomain(window.location.href);
-	const response = await userAPI.getUser(subdomain);
+	const response = await UserAPI.getUser(subdomain);
 	return response.data;
 };
 
