@@ -34,6 +34,7 @@ const links: NavigationLink[] = [
 
 export const Menu = () => {
 	const { customer, isLoading } = useCustomer();
+
 	if (isLoading) {
 		return <Loading />;
 	}

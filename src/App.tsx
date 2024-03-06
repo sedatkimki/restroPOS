@@ -1,5 +1,7 @@
-import { Toaster } from "@/components/ui/sonner";
 import { RouterProvider } from "react-router-dom";
+
+import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "./components/ThemeProvider";
 import { getSubdomain } from "./lib/utils";
 import { router } from "./router";
 
@@ -10,15 +12,12 @@ function App() {
 		: import.meta.env.VITE_APP_BASE_DOMAIN;
 	const selectedRouter =
 		subdomain === domain ? router.publicRoutes : router.workspaceRoutes;
-	console.log("workspace", subdomain);
-	console.log("domain", domain);
-	console.log(selectedRouter);
 	// eğer workspaceName valid değilse publicRoutes'a yönlendir
 	return (
-		<>
+		<ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
 			<RouterProvider router={selectedRouter} />
 			<Toaster richColors theme="light" />
-		</>
+		</ThemeProvider>
 	);
 }
 
