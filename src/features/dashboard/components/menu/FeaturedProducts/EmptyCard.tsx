@@ -1,6 +1,15 @@
 import { Button } from "@/components/ui/button";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
 import { BookMarked } from "lucide-react";
 import { FC } from "react";
+import { FeaturedSectionFrom } from "./FeaturedSectionForm";
 
 export const EmptyCard: FC = () => {
 	return (
@@ -13,9 +22,22 @@ export const EmptyCard: FC = () => {
 				<p className="text-muted-foreground mt-2 text-sm">
 					Add your best selling products to feature them on your menu.
 				</p>
-				<Button size="sm" className="mt-4">
-					Add Featured Section
-				</Button>
+				<Dialog>
+					<DialogTrigger>
+						<Button size="sm" className="mt-4">
+							Add Featured Section
+						</Button>
+					</DialogTrigger>
+					<DialogContent>
+						<DialogHeader>
+							<DialogTitle>New featured section</DialogTitle>
+							<DialogDescription>
+								Select products to feature on your menu.
+							</DialogDescription>
+						</DialogHeader>
+						<FeaturedSectionFrom type="create" />
+					</DialogContent>
+				</Dialog>
 			</div>
 		</div>
 	);

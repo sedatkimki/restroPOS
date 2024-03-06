@@ -1,9 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Edit } from "lucide-react";
 import { FC } from "react";
+import { FeaturedSectionFrom } from "./FeaturedSectionForm";
 import { ProductCard } from "./ProductCard";
 
 // TODO: update with dto
@@ -18,10 +27,23 @@ export const FeaturedSection: FC<FeaturedSectionProps> = ({ title }) => {
 			<CardHeader>
 				<CardTitle className="flex items-center justify-between">
 					{title}
-					<Button size="sm">
-						Edit section
-						<Edit className="h-4 w-4 ml-2" />
-					</Button>
+					<Dialog>
+						<DialogTrigger>
+							<Button size="sm">
+								Edit section
+								<Edit className="h-4 w-4 ml-2" />
+							</Button>
+						</DialogTrigger>
+						<DialogContent>
+							<DialogHeader>
+								<DialogTitle>Edit featured section</DialogTitle>
+								<DialogDescription>
+									Edit the section title and featured products.
+								</DialogDescription>
+							</DialogHeader>
+							<FeaturedSectionFrom type="update" />
+						</DialogContent>
+					</Dialog>
 				</CardTitle>
 			</CardHeader>
 			<Separator className="mb-6" />

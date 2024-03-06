@@ -36,6 +36,7 @@
 		"cmdk": "^0.2.1",
 		"framer-motion": "^11.0.3",
 		"input-otp": "^0.3.31-beta",
+		"lodash": "^4.17.21",
 		"lucide-react": "^0.316.0",
 		"next-themes": "^0.2.1",
 		"react": "^0.0.0-experimental-98b8359f6-20240223",
@@ -53,6 +54,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.5.3",
+		"@types/lodash": "^4.14.202",
 		"@types/node": "^20.11.7",
 		"@types/react": "^18.2.43",
 		"@types/react-dom": "^18.2.17",
