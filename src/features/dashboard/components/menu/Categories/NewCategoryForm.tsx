@@ -12,7 +12,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { ACCEPTED_IMAGE_MIME_TYPES, MAX_FILE_SIZE } from "@/lib/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { z } from "zod";
@@ -31,7 +30,6 @@ const NewCategoryFormSchema = z.object({
 });
 
 export const NewCategoryForm = () => {
-	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const form = useForm<z.infer<typeof NewCategoryFormSchema>>({
 		resolver: zodResolver(NewCategoryFormSchema),
 		defaultValues: {
@@ -62,7 +60,6 @@ export const NewCategoryForm = () => {
 										name={field.name}
 										ref={field.ref}
 										onChange={(e) => {
-											setSelectedFile(e.target.files?.[0] || null);
 											field.onChange(e.target.files);
 										}}
 										id="categoryImage"
