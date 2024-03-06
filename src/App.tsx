@@ -1,6 +1,7 @@
 import { RouterProvider } from "react-router-dom";
 
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "./components/ThemeProvider";
 import { getSubdomain } from "./lib/utils";
 import { router } from "./router";
 
@@ -13,10 +14,10 @@ function App() {
 		subdomain === domain ? router.publicRoutes : router.workspaceRoutes;
 	// eğer workspaceName valid değilse publicRoutes'a yönlendir
 	return (
-		<>
+		<ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
 			<RouterProvider router={selectedRouter} />
 			<Toaster richColors theme="light" />
-		</>
+		</ThemeProvider>
 	);
 }
 

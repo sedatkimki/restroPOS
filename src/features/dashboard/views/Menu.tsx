@@ -1,6 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DashboardPage } from "../components/DasboardPage";
+import { Categories } from "../components/menu/Categories";
 import { FeaturedProducts } from "../components/menu/FeaturedProducts";
+import { Products } from "../components/menu/Products";
 
 const tabs = [
 	{
@@ -10,13 +12,13 @@ const tabs = [
 	},
 	{
 		id: 2,
-		name: "All Products",
-		content: "Change your password here.",
+		name: "Categories",
+		content: <Categories />,
 	},
 	{
 		id: 3,
-		name: "Categories",
-		content: "Categories here.",
+		name: "All Products",
+		content: <Products />,
 	},
 ];
 
