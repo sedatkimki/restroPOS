@@ -2,7 +2,7 @@ import { AuthAPI } from "@/api";
 import { ResponseMessage } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import { FakeDash, Slot } from "@/components/ui/otp-components";
-import { setAuthCookie } from "@/lib/utils";
+import { useCustomer } from "@/lib/queries";
 import { isAxiosError } from "axios";
 import { OTPInput } from "input-otp";
 import { useState } from "react";
@@ -23,6 +23,7 @@ export const OTPVerification = ({
 	phoneNumber,
 }: Props) => {
 	const navigate = useNavigate();
+	const { login } = useCustomer();
 	const [value, setValue] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [sending, setSending] = useState(false);
@@ -49,13 +50,8 @@ export const OTPVerification = ({
 	const verify = async () => {
 		setLoading(true);
 		try {
-			const response = await AuthAPI.loginForPhoneNumber({
-				tokenCode: value,
-				accountInformation: phoneNumber,
-			});
-			setAuthCookie(response.data.accessToken);
+			await login(value, phoneNumber);
 			window.onbeforeunload = null;
-
 			navigate("/menu");
 		} catch (error) {
 			if (isAxiosError<ResponseMessage>(error)) {

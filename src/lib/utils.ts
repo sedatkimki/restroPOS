@@ -31,20 +31,27 @@ export function redirectToRoot() {
 	}
 }
 
-export function setAuthCookie(token: string) {
-	document.cookie = `token=${token};`;
-}
+export const setToken = (token: string, expiryDays: number): void => {
+	const expiryDate = new Date();
+	expiryDate.setDate(expiryDate.getDate() + expiryDays);
+	const expiryString = expiryDate.toUTCString();
+	document.cookie = `token=${token}; expires=${expiryString}; path=/`;
+};
 
-export function clearAuthCookie() {
-	document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-}
+export const clearToken = (): void => {
+	document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+};
 
-export function getAuthCookie() {
-	return document.cookie
-		.split(";")
-		.find((c) => c.includes("token="))
-		?.split("=")[1];
-}
+export const getToken = (): string | null => {
+	const cookies = document.cookie.split(";");
+	for (let i = 0; i < cookies.length; i++) {
+		const cookie = cookies[i].trim();
+		if (cookie.startsWith("token=")) {
+			return cookie.substring(6);
+		}
+	}
+	return null;
+};
 
 export const isDomainValid = debouncePromise(async (value, callBack) => {
 	try {

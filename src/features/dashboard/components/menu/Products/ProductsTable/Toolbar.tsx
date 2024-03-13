@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { DataTableFacetedFilter } from "@/components/ui/data-table/data-table-faceted-filter";
 import { DataTableViewOptions } from "@/components/ui/data-table/data-table-views-options";
 import { X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import dummyData from "./dummyData.json";
 
 interface ToolbarProps<TData> {
@@ -13,6 +14,7 @@ interface ToolbarProps<TData> {
 }
 
 export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
+	const navigate = useNavigate();
 	const isFiltered = table.getState().columnFilters.length > 0;
 	const uniqueCategories = [...new Set(dummyData.map((item) => item.category))];
 	const categories = uniqueCategories.map((item) => {
@@ -52,7 +54,14 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
 				)}
 			</div>
 			<DataTableViewOptions table={table} />
-			<Button variant="default" size="sm" className="ml-2 h-8 lg:flex">
+			<Button
+				variant="default"
+				size="sm"
+				className="ml-2 h-8 lg:flex"
+				onClick={() => {
+					navigate("/dashboard/menu/add-new-product");
+				}}
+			>
 				Add product
 			</Button>
 		</div>

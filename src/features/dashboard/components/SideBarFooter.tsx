@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Typography from "@/components/ui/typography";
 import { useUser } from "@/lib/queries";
@@ -14,6 +15,23 @@ export const SideBarFooter = () => {
 	};
 	return (
 		<>
+			<Card className="p-2 flex flex-row items-center gap-4">
+				<Avatar className="h-12 w-12 rounded-md ">
+					<AvatarImage src={user?.workspaceDto?.imageDto?.link} />
+					<AvatarFallback>
+						{user?.workspaceDto?.businessName?.charAt(0)}
+					</AvatarFallback>
+				</Avatar>
+				<div className="flex flex-col">
+					<span className="text-md">{user?.workspaceDto?.businessName}</span>
+					<span className="text-xs text-muted-foreground">
+						{user?.workspaceDto?.businessDomain}.
+						{import.meta.env.VITE_APP_DOMAIN}
+						{import.meta.env.VITE_APP_BASE_DOMAIN}
+					</span>
+				</div>
+			</Card>
+
 			<Separator className="my-2" />
 			<div className="flex flex-row justify-between">
 				<Button variant="navLink" onClick={navigateToProfile}>

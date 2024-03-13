@@ -1,5 +1,5 @@
-import { CustomerAPI } from "@/api";
-import { clearAuthCookie, getAuthCookie } from "../utils";
+import { AuthAPI, CustomerAPI } from "@/api";
+import { clearToken, getToken, setToken } from "../utils";
 
 import { CustomerDto } from "@/api/client";
 import useSWR from "swr";
@@ -11,9 +11,8 @@ const customerFetcher = async (): Promise<CustomerDto> => {
 };
 
 export function useCustomer() {
-	const cookie = getAuthCookie();
 	const { data, error, isLoading, mutate } = useSWR<CustomerDto>(
-		cookie ? "customer" : null,
+		getToken() ? "customer" : null,
 		customerFetcher,
 		{
 			revalidateOnFocus: false,
@@ -22,12 +21,17 @@ export function useCustomer() {
 		},
 	);
 
-	if (error) {
-		clearAuthCookie();
-	}
+	const login = async (tokenCode: string, accountInformation: string) => {
+		const response = await AuthAPI.loginForPhoneNumber({
+			tokenCode,
+			accountInformation,
+		});
+		setToken(response.data.accessToken, 7);
+		mutate();
+	};
 
 	const logout = () => {
-		clearAuthCookie();
+		clearToken();
 		mutate(undefined);
 	};
 
@@ -36,5 +40,6 @@ export function useCustomer() {
 		isLoading: isLoading,
 		isError: error,
 		logout,
+		login,
 	};
 }

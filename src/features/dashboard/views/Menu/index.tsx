@@ -1,8 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { DashboardPage } from "../components/DasboardPage";
-import { Categories } from "../components/menu/Categories";
-import { FeaturedProducts } from "../components/menu/FeaturedProducts";
-import { Products } from "../components/menu/Products";
+import { DashboardPage } from "../../components/DasboardPage";
+import { Categories } from "../../components/menu/Categories";
+import { FeaturedProducts } from "../../components/menu/FeaturedProducts";
+import { Products } from "../../components/menu/Products";
+import AddNewProduct from "./AddNewProduct";
 
 const tabs = [
 	{
@@ -22,7 +23,7 @@ const tabs = [
 	},
 ];
 
-export const Menu = () => {
+const Menu = () => {
 	return (
 		<DashboardPage pageName="Menu">
 			<DashboardPage.Header>
@@ -50,3 +51,7 @@ export const Menu = () => {
 		</DashboardPage>
 	);
 };
+
+Menu.AddNewProduct = AddNewProduct;
+
+export { Menu };
