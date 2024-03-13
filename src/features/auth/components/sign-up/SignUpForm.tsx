@@ -97,7 +97,7 @@ export const SignUpForm = ({
 
 	const onSubmit = async (data: z.infer<typeof SignUpFormSchema>) => {
 		try {
-			await AuthAPI.registerNewWorkspace({
+			const registerInformation = JSON.stringify({
 				systemUser: {
 					firstName: data.firstName,
 					lastName: data.lastName,
@@ -107,10 +107,12 @@ export const SignUpForm = ({
 				workspace: {
 					businessName: data.businessName,
 					businessDomain: data.businessDomain,
-					// businessLogo: data.businessLogo,
-					// TODO : fix this
 				},
 			});
+			await AuthAPI.registerNewWorkspace(
+				registerInformation,
+				data.businessLogo?.[0],
+			);
 
 			navigate("/signup/verify-email", {
 				state: {

@@ -46,7 +46,16 @@ const workspaceRoutes = createBrowserRouter([
 					},
 					{
 						path: "/dashboard/menu",
-						Component: DashboardViews.Menu,
+						children: [
+							{
+								index: true,
+								Component: DashboardViews.Menu,
+							},
+							{
+								path: "/dashboard/menu/add-new-product",
+								Component: DashboardViews.Menu.AddNewProduct,
+							},
+						],
 					},
 					{
 						path: "/dashboard/staff",

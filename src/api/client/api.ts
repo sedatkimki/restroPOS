@@ -26,6 +26,43 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface BasicUserDto
+ */
+export interface BasicUserDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof BasicUserDto
+     */
+    'email': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BasicUserDto
+     */
+    'password': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BasicUserDto
+     */
+    'role'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BasicUserDto
+     */
+    'deviceName': string;
+    /**
+     * 
+     * @type {WorkspaceDto}
+     * @memberof BasicUserDto
+     */
+    'workspaceDto'?: WorkspaceDto;
+}
+/**
+ * 
+ * @export
  * @interface BearerToken
  */
 export interface BearerToken {
@@ -41,6 +78,19 @@ export interface BearerToken {
      * @memberof BearerToken
      */
     'tokenType': string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateRequest
+ */
+export interface CreateRequest {
+    /**
+     * 
+     * @type {File}
+     * @memberof CreateRequest
+     */
+    'file': File;
 }
 /**
  * 
@@ -95,6 +145,39 @@ export interface EnableToken {
 /**
  * 
  * @export
+ * @interface ImageDto
+ */
+export interface ImageDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof ImageDto
+     */
+    'imageName'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ImageDto
+     */
+    'folderName'?: ImageDtoFolderNameEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof ImageDto
+     */
+    'link'?: string;
+}
+
+export const ImageDtoFolderNameEnum = {
+    BusinessLogo: 'BUSINESS_LOGO',
+    Products: 'PRODUCTS'
+} as const;
+
+export type ImageDtoFolderNameEnum = typeof ImageDtoFolderNameEnum[keyof typeof ImageDtoFolderNameEnum];
+
+/**
+ * 
+ * @export
  * @interface LoginDto
  */
 export interface LoginDto {
@@ -111,33 +194,6 @@ export interface LoginDto {
      */
     'password': string;
 }
-/**
- * 
- * @export
- * @interface OtpResponseDto
- */
-export interface OtpResponseDto {
-    /**
-     * 
-     * @type {string}
-     * @memberof OtpResponseDto
-     */
-    'status'?: OtpResponseDtoStatusEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof OtpResponseDto
-     */
-    'message'?: string;
-}
-
-export const OtpResponseDtoStatusEnum = {
-    Delivered: 'DELIVERED',
-    Failed: 'FAILED'
-} as const;
-
-export type OtpResponseDtoStatusEnum = typeof OtpResponseDtoStatusEnum[keyof typeof OtpResponseDtoStatusEnum];
-
 /**
  * 
  * @export
@@ -164,25 +220,6 @@ export const RawEmailTemplateTemplateNameEnum = {
 
 export type RawEmailTemplateTemplateNameEnum = typeof RawEmailTemplateTemplateNameEnum[keyof typeof RawEmailTemplateTemplateNameEnum];
 
-/**
- * 
- * @export
- * @interface RegisterDto
- */
-export interface RegisterDto {
-    /**
-     * 
-     * @type {SystemUserDto}
-     * @memberof RegisterDto
-     */
-    'systemUser'?: SystemUserDto;
-    /**
-     * 
-     * @type {WorkspaceDto}
-     * @memberof RegisterDto
-     */
-    'workspace'?: WorkspaceDto;
-}
 /**
  * 
  * @export
@@ -300,6 +337,12 @@ export interface SystemUserDto {
      * @type {string}
      * @memberof SystemUserDto
      */
+    'role'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SystemUserDto
+     */
     'firstName': string;
     /**
      * 
@@ -337,6 +380,12 @@ export interface UserDto {
      * @type {string}
      * @memberof UserDto
      */
+    'role': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserDto
+     */
     'firstName': string;
     /**
      * 
@@ -356,12 +405,6 @@ export interface UserDto {
      * @memberof UserDto
      */
     'deviceName': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserDto
-     */
-    'role': string;
 }
 /**
  * 
@@ -383,10 +426,10 @@ export interface WorkspaceDto {
     'businessDomain': string;
     /**
      * 
-     * @type {Array<string>}
+     * @type {ImageDto}
      * @memberof WorkspaceDto
      */
-    'businessLogo'?: Array<string>;
+    'imageDto'?: ImageDto;
 }
 
 /**
@@ -573,13 +616,16 @@ export const AuthApiApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @param {RegisterDto} registerDto 
+         * @param {string} registerInformations 
+         * @param {File} image 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        registerNewWorkspace: async (registerDto: RegisterDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'registerDto' is not null or undefined
-            assertParamExists('registerNewWorkspace', 'registerDto', registerDto)
+        registerNewWorkspace: async (registerInformations: string, image: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'registerInformations' is not null or undefined
+            assertParamExists('registerNewWorkspace', 'registerInformations', registerInformations)
+            // verify required parameter 'image' is not null or undefined
+            assertParamExists('registerNewWorkspace', 'image', image)
             const localVarPath = `/auth/workspace/register`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -591,15 +637,24 @@ export const AuthApiApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
 
 
+            if (registerInformations !== undefined) { 
+                localVarFormParams.append('registerInformations', registerInformations as any);
+            }
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
+            if (image !== undefined) { 
+                localVarFormParams.append('image', image as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(registerDto, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = localVarFormParams;
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -822,12 +877,13 @@ export const AuthApiApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {RegisterDto} registerDto 
+         * @param {string} registerInformations 
+         * @param {File} image 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async registerNewWorkspace(registerDto: RegisterDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.registerNewWorkspace(registerDto, options);
+        async registerNewWorkspace(registerInformations: string, image: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.registerNewWorkspace(registerInformations, image, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApiApi.registerNewWorkspace']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -838,7 +894,7 @@ export const AuthApiApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async sendOtp(phoneNumber: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OtpResponseDto>> {
+        async sendOtp(phoneNumber: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.sendOtp(phoneNumber, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApiApi.sendOtp']?.[localVarOperationServerIndex]?.url;
@@ -937,12 +993,13 @@ export const AuthApiApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @param {RegisterDto} registerDto 
+         * @param {string} registerInformations 
+         * @param {File} image 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        registerNewWorkspace(registerDto: RegisterDto, options?: any): AxiosPromise<ResponseMessage> {
-            return localVarFp.registerNewWorkspace(registerDto, options).then((request) => request(axios, basePath));
+        registerNewWorkspace(registerInformations: string, image: File, options?: any): AxiosPromise<ResponseMessage> {
+            return localVarFp.registerNewWorkspace(registerInformations, image, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -950,7 +1007,7 @@ export const AuthApiApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        sendOtp(phoneNumber: string, options?: any): AxiosPromise<OtpResponseDto> {
+        sendOtp(phoneNumber: string, options?: any): AxiosPromise<ResponseMessage> {
             return localVarFp.sendOtp(phoneNumber, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1047,13 +1104,14 @@ export class AuthApiApi extends BaseAPI {
 
     /**
      * 
-     * @param {RegisterDto} registerDto 
+     * @param {string} registerInformations 
+     * @param {File} image 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthApiApi
      */
-    public registerNewWorkspace(registerDto: RegisterDto, options?: RawAxiosRequestConfig) {
-        return AuthApiApiFp(this.configuration).registerNewWorkspace(registerDto, options).then((request) => request(this.axios, this.basePath));
+    public registerNewWorkspace(registerInformations: string, image: File, options?: RawAxiosRequestConfig) {
+        return AuthApiApiFp(this.configuration).registerNewWorkspace(registerInformations, image, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1582,6 +1640,999 @@ export class CustomerApiApi extends BaseAPI {
      */
     public getUser1(options?: RawAxiosRequestConfig) {
         return CustomerApiApiFp(this.configuration).getUser1(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * ImageApiApi - axios parameter creator
+ * @export
+ */
+export const ImageApiApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} name 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        _delete: async (name: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('_delete', 'name', name)
+            const localVarPath = `/api/v1/images`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} name 
+         * @param {CreateRequest} [createRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        create: async (name: string, createRequest?: CreateRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('create', 'name', name)
+            const localVarPath = `/api/v1/images`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * ImageApiApi - functional programming interface
+ * @export
+ */
+export const ImageApiApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ImageApiApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} name 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async _delete(name: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator._delete(name, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ImageApiApi._delete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} name 
+         * @param {CreateRequest} [createRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async create(name: string, createRequest?: CreateRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.create(name, createRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ImageApiApi.create']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * ImageApiApi - factory interface
+ * @export
+ */
+export const ImageApiApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ImageApiApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} name 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        _delete(name: string, options?: any): AxiosPromise<string> {
+            return localVarFp._delete(name, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} name 
+         * @param {CreateRequest} [createRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        create(name: string, createRequest?: CreateRequest, options?: any): AxiosPromise<string> {
+            return localVarFp.create(name, createRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * ImageApiApi - object-oriented interface
+ * @export
+ * @class ImageApiApi
+ * @extends {BaseAPI}
+ */
+export class ImageApiApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} name 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ImageApiApi
+     */
+    public _delete(name: string, options?: RawAxiosRequestConfig) {
+        return ImageApiApiFp(this.configuration)._delete(name, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} name 
+     * @param {CreateRequest} [createRequest] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ImageApiApi
+     */
+    public create(name: string, createRequest?: CreateRequest, options?: RawAxiosRequestConfig) {
+        return ImageApiApiFp(this.configuration).create(name, createRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * StaffApiApi - axios parameter creator
+ * @export
+ */
+export const StaffApiApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {SystemUserDto} systemUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNewAdminStaffs: async (systemUserDto: SystemUserDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'systemUserDto' is not null or undefined
+            assertParamExists('addNewAdminStaffs', 'systemUserDto', systemUserDto)
+            const localVarPath = `/api/v1/staffs/admin`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(systemUserDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {BasicUserDto} basicUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNewCashDeskStaffs: async (basicUserDto: BasicUserDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'basicUserDto' is not null or undefined
+            assertParamExists('addNewCashDeskStaffs', 'basicUserDto', basicUserDto)
+            const localVarPath = `/api/v1/staffs/cashDesk`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(basicUserDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {BasicUserDto} basicUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNewKitchenStaffs: async (basicUserDto: BasicUserDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'basicUserDto' is not null or undefined
+            assertParamExists('addNewKitchenStaffs', 'basicUserDto', basicUserDto)
+            const localVarPath = `/api/v1/staffs/kitchen`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(basicUserDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {SystemUserDto} systemUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNewWaiterStaffs: async (systemUserDto: SystemUserDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'systemUserDto' is not null or undefined
+            assertParamExists('addNewWaiterStaffs', 'systemUserDto', systemUserDto)
+            const localVarPath = `/api/v1/staffs/waiter`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(systemUserDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} email 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAdminStaff: async (email: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'email' is not null or undefined
+            assertParamExists('deleteAdminStaff', 'email', email)
+            const localVarPath = `/api/v1/staffs/admin`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (email !== undefined) {
+                localVarQueryParameter['email'] = email;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} email 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteCashDeskStaff: async (email: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'email' is not null or undefined
+            assertParamExists('deleteCashDeskStaff', 'email', email)
+            const localVarPath = `/api/v1/staffs/cashDesk`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (email !== undefined) {
+                localVarQueryParameter['email'] = email;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} email 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteKitchenStaff: async (email: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'email' is not null or undefined
+            assertParamExists('deleteKitchenStaff', 'email', email)
+            const localVarPath = `/api/v1/staffs/kitchen`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (email !== undefined) {
+                localVarQueryParameter['email'] = email;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} email 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteWaiterStaff: async (email: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'email' is not null or undefined
+            assertParamExists('deleteWaiterStaff', 'email', email)
+            const localVarPath = `/api/v1/staffs/waiter`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (email !== undefined) {
+                localVarQueryParameter['email'] = email;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllAdminStaffs: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/staffs/admin`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllCashDeskStaffs: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/staffs/cashDesk`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllKitchenStaffs: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/staffs/kitchen`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllWaiterStaffs: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/staffs/waiter`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * StaffApiApi - functional programming interface
+ * @export
+ */
+export const StaffApiApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = StaffApiApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {SystemUserDto} systemUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addNewAdminStaffs(systemUserDto: SystemUserDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addNewAdminStaffs(systemUserDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StaffApiApi.addNewAdminStaffs']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {BasicUserDto} basicUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addNewCashDeskStaffs(basicUserDto: BasicUserDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addNewCashDeskStaffs(basicUserDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StaffApiApi.addNewCashDeskStaffs']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {BasicUserDto} basicUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addNewKitchenStaffs(basicUserDto: BasicUserDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addNewKitchenStaffs(basicUserDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StaffApiApi.addNewKitchenStaffs']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {SystemUserDto} systemUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addNewWaiterStaffs(systemUserDto: SystemUserDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addNewWaiterStaffs(systemUserDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StaffApiApi.addNewWaiterStaffs']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} email 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteAdminStaff(email: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAdminStaff(email, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StaffApiApi.deleteAdminStaff']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} email 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteCashDeskStaff(email: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteCashDeskStaff(email, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StaffApiApi.deleteCashDeskStaff']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} email 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteKitchenStaff(email: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteKitchenStaff(email, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StaffApiApi.deleteKitchenStaff']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} email 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteWaiterStaff(email: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteWaiterStaff(email, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StaffApiApi.deleteWaiterStaff']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllAdminStaffs(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SystemUserDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllAdminStaffs(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StaffApiApi.getAllAdminStaffs']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllCashDeskStaffs(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<BasicUserDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllCashDeskStaffs(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StaffApiApi.getAllCashDeskStaffs']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllKitchenStaffs(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<BasicUserDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllKitchenStaffs(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StaffApiApi.getAllKitchenStaffs']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllWaiterStaffs(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SystemUserDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllWaiterStaffs(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StaffApiApi.getAllWaiterStaffs']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * StaffApiApi - factory interface
+ * @export
+ */
+export const StaffApiApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = StaffApiApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {SystemUserDto} systemUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNewAdminStaffs(systemUserDto: SystemUserDto, options?: any): AxiosPromise<ResponseMessage> {
+            return localVarFp.addNewAdminStaffs(systemUserDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {BasicUserDto} basicUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNewCashDeskStaffs(basicUserDto: BasicUserDto, options?: any): AxiosPromise<ResponseMessage> {
+            return localVarFp.addNewCashDeskStaffs(basicUserDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {BasicUserDto} basicUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNewKitchenStaffs(basicUserDto: BasicUserDto, options?: any): AxiosPromise<ResponseMessage> {
+            return localVarFp.addNewKitchenStaffs(basicUserDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {SystemUserDto} systemUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNewWaiterStaffs(systemUserDto: SystemUserDto, options?: any): AxiosPromise<ResponseMessage> {
+            return localVarFp.addNewWaiterStaffs(systemUserDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} email 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAdminStaff(email: string, options?: any): AxiosPromise<ResponseMessage> {
+            return localVarFp.deleteAdminStaff(email, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} email 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteCashDeskStaff(email: string, options?: any): AxiosPromise<ResponseMessage> {
+            return localVarFp.deleteCashDeskStaff(email, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} email 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteKitchenStaff(email: string, options?: any): AxiosPromise<ResponseMessage> {
+            return localVarFp.deleteKitchenStaff(email, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} email 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteWaiterStaff(email: string, options?: any): AxiosPromise<ResponseMessage> {
+            return localVarFp.deleteWaiterStaff(email, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllAdminStaffs(options?: any): AxiosPromise<Array<SystemUserDto>> {
+            return localVarFp.getAllAdminStaffs(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllCashDeskStaffs(options?: any): AxiosPromise<Array<BasicUserDto>> {
+            return localVarFp.getAllCashDeskStaffs(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllKitchenStaffs(options?: any): AxiosPromise<Array<BasicUserDto>> {
+            return localVarFp.getAllKitchenStaffs(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllWaiterStaffs(options?: any): AxiosPromise<Array<SystemUserDto>> {
+            return localVarFp.getAllWaiterStaffs(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * StaffApiApi - object-oriented interface
+ * @export
+ * @class StaffApiApi
+ * @extends {BaseAPI}
+ */
+export class StaffApiApi extends BaseAPI {
+    /**
+     * 
+     * @param {SystemUserDto} systemUserDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StaffApiApi
+     */
+    public addNewAdminStaffs(systemUserDto: SystemUserDto, options?: RawAxiosRequestConfig) {
+        return StaffApiApiFp(this.configuration).addNewAdminStaffs(systemUserDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {BasicUserDto} basicUserDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StaffApiApi
+     */
+    public addNewCashDeskStaffs(basicUserDto: BasicUserDto, options?: RawAxiosRequestConfig) {
+        return StaffApiApiFp(this.configuration).addNewCashDeskStaffs(basicUserDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {BasicUserDto} basicUserDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StaffApiApi
+     */
+    public addNewKitchenStaffs(basicUserDto: BasicUserDto, options?: RawAxiosRequestConfig) {
+        return StaffApiApiFp(this.configuration).addNewKitchenStaffs(basicUserDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {SystemUserDto} systemUserDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StaffApiApi
+     */
+    public addNewWaiterStaffs(systemUserDto: SystemUserDto, options?: RawAxiosRequestConfig) {
+        return StaffApiApiFp(this.configuration).addNewWaiterStaffs(systemUserDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} email 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StaffApiApi
+     */
+    public deleteAdminStaff(email: string, options?: RawAxiosRequestConfig) {
+        return StaffApiApiFp(this.configuration).deleteAdminStaff(email, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} email 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StaffApiApi
+     */
+    public deleteCashDeskStaff(email: string, options?: RawAxiosRequestConfig) {
+        return StaffApiApiFp(this.configuration).deleteCashDeskStaff(email, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} email 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StaffApiApi
+     */
+    public deleteKitchenStaff(email: string, options?: RawAxiosRequestConfig) {
+        return StaffApiApiFp(this.configuration).deleteKitchenStaff(email, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} email 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StaffApiApi
+     */
+    public deleteWaiterStaff(email: string, options?: RawAxiosRequestConfig) {
+        return StaffApiApiFp(this.configuration).deleteWaiterStaff(email, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StaffApiApi
+     */
+    public getAllAdminStaffs(options?: RawAxiosRequestConfig) {
+        return StaffApiApiFp(this.configuration).getAllAdminStaffs(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StaffApiApi
+     */
+    public getAllCashDeskStaffs(options?: RawAxiosRequestConfig) {
+        return StaffApiApiFp(this.configuration).getAllCashDeskStaffs(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StaffApiApi
+     */
+    public getAllKitchenStaffs(options?: RawAxiosRequestConfig) {
+        return StaffApiApiFp(this.configuration).getAllKitchenStaffs(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StaffApiApi
+     */
+    public getAllWaiterStaffs(options?: RawAxiosRequestConfig) {
+        return StaffApiApiFp(this.configuration).getAllWaiterStaffs(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

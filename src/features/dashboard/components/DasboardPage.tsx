@@ -21,31 +21,38 @@ const DashboardPage = ({ children, pageName }: DashboardPageProps) => {
 const Header = ({ children }: ChildrenProp) => {
 	return (
 		<>
-			<div className="flex flex-row justify-between ">{children}</div>
+			<div className="flex flex-row items-center">{children}</div>
 			<Separator className="my-6" />
 		</>
 	);
 };
 
 const TitleContainer = ({ children }: ChildrenProp) => {
-	return <div className="space-y-0.5">{children}</div>;
+	return <div className="items-center">{children}</div>;
 };
 
 const Title = ({ children }: ChildrenProp) => {
 	return <h1 className="text-3xl font-bold tracking-tight">{children}</h1>;
 };
 
+const SubPageTitle = ({ children }: ChildrenProp) => {
+	return <h2 className="text-2xl font-semibold p-0 m-0">{children}</h2>;
+};
+
 const Subtitle = ({ children }: ChildrenProp) => {
-	return <p className="text-md text-muted-foreground">{children}</p>;
+	return <p className="text-md text-muted-foreground mt-0.5">{children}</p>;
 };
 
 const Action = ({ children }: ChildrenProp) => {
-	return <div className="flex justify-center items-center">{children}</div>;
+	return (
+		<div className="flex justify-center items-center ml-auto">{children}</div>
+	);
 };
 
 DashboardPage.Header = Header;
 DashboardPage.TitleContainer = TitleContainer;
 DashboardPage.Title = Title;
+DashboardPage.SubPageTitle = SubPageTitle;
 DashboardPage.Subtitle = Subtitle;
 DashboardPage.Action = Action;
 

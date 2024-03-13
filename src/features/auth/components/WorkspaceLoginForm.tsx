@@ -1,10 +1,3 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
-import { z } from "zod";
-
-import { AuthAPI } from "@/api";
 import { ResponseMessage } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,7 +9,13 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { isAxiosError, setAuthCookie } from "@/lib/utils";
+import { useUser } from "@/lib/queries";
+import { isAxiosError } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { z } from "zod";
 
 const WorkspaceLoginSchema = z.object({
 	email: z.string().email(),
@@ -25,6 +24,7 @@ const WorkspaceLoginSchema = z.object({
 
 export const WorkspaceLoginForm = () => {
 	const navigate = useNavigate();
+	const { login } = useUser();
 	const form = useForm<z.infer<typeof WorkspaceLoginSchema>>({
 		resolver: zodResolver(WorkspaceLoginSchema),
 		defaultValues: {
@@ -35,13 +35,8 @@ export const WorkspaceLoginForm = () => {
 
 	const onSubmit = async (data: z.infer<typeof WorkspaceLoginSchema>) => {
 		try {
-			const response = await AuthAPI.loginForEmail({
-				email: data.email,
-				password: data.password,
-			});
-			setAuthCookie(response.data.accessToken);
+			await login(data.email, data.password);
 			navigate("/dashboard/overview");
-			// TODO: Redirect to related route
 		} catch (error) {
 			if (isAxiosError<ResponseMessage>(error)) {
 				toast.error(error.response?.data.message);

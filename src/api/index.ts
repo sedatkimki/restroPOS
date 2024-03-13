@@ -1,4 +1,4 @@
-import { clearAuthCookie, getAuthCookie } from "@/lib/utils";
+import { getToken } from "@/lib";
 import axios from "axios";
 import { AuthApiApi, CustomerApiApi, UserApiApi } from "./client";
 
@@ -11,7 +11,7 @@ const globalAxios = axios.create({
 
 globalAxios.interceptors.request.use(
 	async (config) => {
-		const token = getAuthCookie();
+		const token = getToken();
 		if (token) {
 			config.headers.Authorization = `Bearer ${token}`;
 		}
@@ -32,7 +32,7 @@ globalAxios.interceptors.response.use(
 	async (error) => {
 		const originalRequest = error.config;
 		if (error.response.status === 403 && !originalRequest._retry) {
-			clearAuthCookie();
+			// do something
 		}
 		return Promise.reject(error);
 	},
