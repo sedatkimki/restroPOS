@@ -110,7 +110,7 @@ export const ProductModifiersCard: FC<ProductModifiersProps> = ({ form }) => {
 							</div>
 							{modifier.options.length > 0 && (
 								<div className="mt-4 gap-4 flex  flex-col">
-									{modifier.options.map((option, optionIndex) => (
+									{modifier.options.map((_, optionIndex) => (
 										<div className="flex gap-4">
 											<FormField
 												control={form.control}
