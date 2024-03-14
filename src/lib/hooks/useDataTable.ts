@@ -19,6 +19,7 @@ export const useDataTable = <TData, TValue>(
 	data: TData[],
 ): Table<TData> => {
 	const [sorting, setSorting] = React.useState<SortingState>([]);
+	const [globalColumnFilter, setGlobalColumnFilter] = React.useState("");
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
 		[],
 	);
@@ -34,11 +35,13 @@ export const useDataTable = <TData, TValue>(
 			columnVisibility,
 			rowSelection,
 			columnFilters,
+			globalFilter: globalColumnFilter,
 		},
 		enableRowSelection: true,
 		onRowSelectionChange: setRowSelection,
 		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
+		onGlobalFilterChange: setGlobalColumnFilter,
 		onColumnVisibilityChange: setColumnVisibility,
 		getCoreRowModel: getCoreRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),

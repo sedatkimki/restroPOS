@@ -1,9 +1,9 @@
 import { AuthAPI, UserAPI } from "@/api";
-import { UserDto } from "@/api/client";
+import { SystemUserDto } from "@/api/client";
 import useSWR from "swr";
 import { clearToken, getSubdomain, getToken, setToken } from "../utils";
 
-const userFetcher = async (): Promise<UserDto> => {
+const userFetcher = async (): Promise<SystemUserDto> => {
 	const subdomain = getSubdomain(window.location.href);
 	const response = await UserAPI.getUser(subdomain);
 	return response.data;
@@ -11,7 +11,7 @@ const userFetcher = async (): Promise<UserDto> => {
 
 export function useUser() {
 	const subdomain = getSubdomain(window.location.href);
-	const { data, error, isLoading, mutate } = useSWR<UserDto>(
+	const { data, error, isLoading, mutate } = useSWR<SystemUserDto>(
 		getToken() ? `workspace-user/${subdomain}` : null,
 		userFetcher,
 		{

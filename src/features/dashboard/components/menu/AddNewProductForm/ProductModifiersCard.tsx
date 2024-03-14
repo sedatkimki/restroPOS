@@ -205,7 +205,7 @@ export const ProductModifiersCard: FC<ProductModifiersProps> = ({ form }) => {
 												[]),
 											{
 												name: "",
-												price: 0,
+												price: "",
 											},
 										]);
 									}}

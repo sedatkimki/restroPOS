@@ -9,14 +9,14 @@ import { z } from "zod";
 import { ProducDetailsCard } from "./ProductDetailsCard";
 import { ProductImageCard } from "./ProductImageCard";
 import { ProductModifiersCard } from "./ProductModifiersCard";
-
+// TODO price integer
 const AddProductFormScheme = z.object({
 	productName: z.string().min(2).max(50),
 	productDescription: z.string().min(2).max(200),
 	productCategory: z.string({
 		required_error: "Please select a category",
 	}),
-	productPrice: z.number().min(0),
+	productPrice: z.string(),
 	productModifiers: z
 		.array(
 			z.object({
@@ -25,7 +25,7 @@ const AddProductFormScheme = z.object({
 				options: z.array(
 					z.object({
 						name: z.string().min(2).max(20),
-						price: z.number().min(0),
+						price: z.string(),
 					}),
 				),
 				required: z.boolean(),

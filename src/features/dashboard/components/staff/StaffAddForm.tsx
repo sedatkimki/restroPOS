@@ -15,38 +15,46 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { useStaffs } from "@/lib/queries/useStaffs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
 import { roles } from "./StaffTable/types";
 
 const userRoles = roles.map((role) => role.value);
 
-const EmployeeAddFormSchema = z.object({
-	name: z.string().min(2).max(50),
+const StaffAddFormSchema = z.object({
+	firstName: z.string().min(2).max(50),
+	lastName: z.string().min(2).max(50).optional(),
 	email: z.string().email(),
 	role: z.enum([userRoles[0], ...userRoles]), // Convert StaffRoles[] to string[]
 	password: z.string().min(8).max(50),
 });
 
-export const EmployeeAddForm: React.FC<{
+export const StaffAddForm: React.FC<{
 	setDialogOpen: (open: boolean) => void;
 }> = ({ setDialogOpen }) => {
-	const form = useForm<z.infer<typeof EmployeeAddFormSchema>>({
-		resolver: zodResolver(EmployeeAddFormSchema),
+	const form = useForm<z.infer<typeof StaffAddFormSchema>>({
+		resolver: zodResolver(StaffAddFormSchema),
 		defaultValues: {
-			name: "",
+			firstName: "",
+			lastName: "",
 			email: "",
 			role: undefined,
 			password: "",
 		},
 	});
+	const { addNewStaff } = useStaffs();
 
-	const onSubmit = (data: z.infer<typeof EmployeeAddFormSchema>) => {
-		console.log(data);
-		toast.success("Form submitted successfully");
+	const onSubmit = async (data: z.infer<typeof StaffAddFormSchema>) => {
+		await addNewStaff({
+			firstName: data.firstName,
+			lastName: data.lastName,
+			email: data.email,
+			role: data.role,
+			password: data.password,
+		});
 		setDialogOpen(false);
 	};
 
@@ -55,12 +63,25 @@ export const EmployeeAddForm: React.FC<{
 			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 				<FormField
 					control={form.control}
-					name="name"
+					name="firstName"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Employee Name</FormLabel>
+							<FormLabel>First Name</FormLabel>
 							<FormControl>
-								<Input placeholder="Ryan Gosling" {...field} />
+								<Input placeholder="Ryan" {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="lastName"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Last Name</FormLabel>
+							<FormControl>
+								<Input placeholder="Gosling" {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -71,7 +92,7 @@ export const EmployeeAddForm: React.FC<{
 					name="email"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Employee Email</FormLabel>
+							<FormLabel>Email</FormLabel>
 							<FormControl>
 								<Input type="email" placeholder="example@mail.com" {...field} />
 							</FormControl>
@@ -84,7 +105,7 @@ export const EmployeeAddForm: React.FC<{
 					name="role"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Employee Role</FormLabel>
+							<FormLabel>Role</FormLabel>
 							<Select onValueChange={field.onChange} defaultValue={field.value}>
 								<FormControl>
 									<SelectTrigger>
@@ -111,7 +132,7 @@ export const EmployeeAddForm: React.FC<{
 					name="password"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Employee Password</FormLabel>
+							<FormLabel>Staff Password</FormLabel>
 							<FormControl>
 								<Input type="password" placeholder="********" {...field} />
 							</FormControl>
@@ -121,7 +142,7 @@ export const EmployeeAddForm: React.FC<{
 				/>
 				<div className="flex flex-1 justify-end">
 					<Button type="submit" loading={form.formState.isSubmitting}>
-						Add Employee
+						Add Staff
 					</Button>
 				</div>
 			</form>
