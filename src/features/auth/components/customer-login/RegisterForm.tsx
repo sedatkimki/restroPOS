@@ -50,11 +50,12 @@ export const RegisterForm = ({ phoneNumber }: { phoneNumber: string }) => {
 
 	const onSubmit = async (data: z.infer<typeof RegisterFormSchema>) => {
 		try {
-			await AuthAPI.registerNewCustomer({
+			const customerInfo = JSON.stringify({
 				firstName: data.firstName,
 				lastName: data.lastName,
 				phoneNumber: phoneNumber,
 			});
+			await AuthAPI.registerNewCustomer(customerInfo, data.profilePhoto?.[0]);
 			navigate("/customer-login/otp", {
 				state: { phoneNumber: phoneNumber },
 			});

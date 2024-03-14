@@ -1,6 +1,6 @@
 import { getToken } from "@/lib";
 import axios from "axios";
-import { AuthApiApi, CustomerApiApi, UserApiApi } from "./client";
+import { AuthApiApi, CustomerApiApi, StaffApiApi, UserApiApi } from "./client";
 
 const globalAxios = axios.create({
 	baseURL: import.meta.env.VITE_APP_DEV_API_URL,
@@ -51,6 +51,12 @@ export const UserAPI = new UserApiApi(
 );
 
 export const CustomerAPI = new CustomerApiApi(
+	undefined,
+	import.meta.env.VITE_APP_DEV_API_URL,
+	globalAxios,
+);
+
+export const StaffAPI = new StaffApiApi(
 	undefined,
 	import.meta.env.VITE_APP_DEV_API_URL,
 	globalAxios,

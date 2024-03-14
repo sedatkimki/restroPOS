@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import { DashboardPage } from "../components/DasboardPage";
-import { EmployeeAddForm } from "../components/staff/EmployeeAddForm";
+import { StaffAddForm } from "../components/staff/StaffAddForm";
 import { StaffTable } from "../components/staff/StaffTable";
 
 export const Staff = () => {
@@ -36,7 +36,7 @@ export const Staff = () => {
 								</DialogDescription>
 							</DialogHeader>
 							<div className="py-4">
-								<EmployeeAddForm setDialogOpen={setDialogOpen} />
+								<StaffAddForm setDialogOpen={setDialogOpen} />
 							</div>
 						</DialogContent>
 					</Dialog>

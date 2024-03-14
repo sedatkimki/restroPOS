@@ -2,12 +2,13 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { Checkbox } from "@/components/ui/checkbox";
 
+import { SystemUserDtoResponse } from "@/api/client";
 import { Badge } from "@/components/ui/badge";
 import { DataTableColumnHeader } from "@/components/ui/data-table/data-table-column-header";
 import { Actions } from "./Actions";
-import { Staff, roles } from "./types";
+import { roles } from "./types";
 
-export const columns: ColumnDef<Staff>[] = [
+export const columns: ColumnDef<SystemUserDtoResponse>[] = [
 	{
 		id: "select",
 		header: ({ table }) => (
@@ -35,18 +36,29 @@ export const columns: ColumnDef<Staff>[] = [
 	{
 		accessorKey: "id",
 		header: ({ column }) => (
-			<DataTableColumnHeader column={column} title="Employee Id" />
+			<DataTableColumnHeader column={column} title="Id" />
 		),
 		cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
 		enableSorting: false,
 		enableHiding: false,
 	},
 	{
-		accessorKey: "name",
+		accessorKey: "firstName",
 		header: ({ column }) => (
-			<DataTableColumnHeader column={column} title="Name" />
+			<DataTableColumnHeader column={column} title="First Name" />
 		),
-		cell: ({ row }) => <div className="w-[150px]">{row.getValue("name")}</div>,
+		cell: ({ row }) => (
+			<div className="w-[150px]">{row.getValue("firstName")} </div>
+		),
+	},
+	{
+		accessorKey: "lastName",
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title="Last Name" />
+		),
+		cell: ({ row }) => (
+			<div className="w-[150px]">{row.getValue("lastName")} </div>
+		),
 	},
 	{
 		accessorKey: "email",
@@ -58,7 +70,7 @@ export const columns: ColumnDef<Staff>[] = [
 	{
 		accessorKey: "role",
 		header: ({ column }) => (
-			<DataTableColumnHeader column={column} title="Roles" />
+			<DataTableColumnHeader column={column} title="Role" />
 		),
 		cell: ({ row }) => {
 			const role = roles.find((role) => role.value === row.getValue("role"));
@@ -83,6 +95,6 @@ export const columns: ColumnDef<Staff>[] = [
 	{
 		id: "actions",
 		// Todo : row actions
-		cell: () => <Actions />,
+		cell: ({ row }) => <Actions email={row.getValue("email")} />,
 	},
 ];

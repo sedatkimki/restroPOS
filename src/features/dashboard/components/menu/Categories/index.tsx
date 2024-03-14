@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FieldCard } from "@/components/ui/field-card";
 import { FC } from "react";
+import { CategoriesList } from "./CategoriesList";
 import { EmptyList } from "./EmptyList";
 import { NewCategoryForm } from "./NewCategoryForm";
 
@@ -18,7 +19,7 @@ export const Categories: FC = () => {
 					<CardTitle>Categories</CardTitle>
 				</CardHeader>
 				<CardContent>
-					{/* <CategoriesList /> */}
+					<CategoriesList />
 					<EmptyList />
 				</CardContent>
 			</Card>
