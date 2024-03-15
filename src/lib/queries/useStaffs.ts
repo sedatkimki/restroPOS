@@ -1,8 +1,13 @@
 import { StaffAPI } from "@/api";
-import { SystemUserDto, SystemUserDtoResponse } from "@/api/client";
+import {
+	ResponseMessage,
+	SystemUserDto,
+	SystemUserDtoResponse,
+} from "@/api/client";
 
 import { toast } from "sonner";
 import useSWR from "swr";
+import { isAxiosError } from "../utils";
 
 const staffFetcher = async (): Promise<SystemUserDtoResponse[]> => {
 	const response = await StaffAPI.getAllStaffsExceptAdmin();
@@ -57,8 +62,12 @@ export function useStaffs() {
 				revalidate: false,
 			});
 			toast.success("Staff added successfully.");
-		} catch (e) {
-			toast.error("Failed to add the staff.");
+		} catch (error) {
+			if (isAxiosError<ResponseMessage>(error)) {
+				console.log(error.response?.data.message);
+
+				toast.error(error.response?.data.message);
+			}
 		}
 	};
 
@@ -71,8 +80,10 @@ export function useStaffs() {
 				revalidate: false,
 			});
 			toast.success("Staff deleted successfully.");
-		} catch (e) {
-			toast.error("Failed to delete the staff.");
+		} catch (error) {
+			if (isAxiosError<ResponseMessage>(error)) {
+				toast.error(error.response?.data.message);
+			}
 		}
 	};
 
@@ -88,8 +99,10 @@ export function useStaffs() {
 				revalidate: false,
 			});
 			toast.success("Staff updated successfully.");
-		} catch (e) {
-			toast.error("Failed to update the staff.");
+		} catch (error) {
+			if (isAxiosError<ResponseMessage>(error)) {
+				toast.error(error.response?.data.message);
+			}
 		}
 	};
 

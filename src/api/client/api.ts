@@ -26,25 +26,6 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
- * @interface AddNewCategoryRequest
- */
-export interface AddNewCategoryRequest {
-    /**
-     * 
-     * @type {File}
-     * @memberof AddNewCategoryRequest
-     */
-    'image': File;
-    /**
-     * 
-     * @type {string}
-     * @memberof AddNewCategoryRequest
-     */
-    'categoryTitle': string;
-}
-/**
- * 
- * @export
  * @interface BearerToken
  */
 export interface BearerToken {
@@ -67,6 +48,12 @@ export interface BearerToken {
  * @interface CategoryDto
  */
 export interface CategoryDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof CategoryDto
+     */
+    'id'?: number;
     /**
      * 
      * @type {WorkspaceDto}
@@ -1187,11 +1174,16 @@ export const CategoryApiApiAxiosParamCreator = function (configuration?: Configu
     return {
         /**
          * 
-         * @param {AddNewCategoryRequest} [addNewCategoryRequest] 
+         * @param {File} image 
+         * @param {string} categoryTitle 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addNewCategory: async (addNewCategoryRequest?: AddNewCategoryRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        addNewCategory: async (image: File, categoryTitle: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'image' is not null or undefined
+            assertParamExists('addNewCategory', 'image', image)
+            // verify required parameter 'categoryTitle' is not null or undefined
+            assertParamExists('addNewCategory', 'categoryTitle', categoryTitle)
             const localVarPath = `/api/v1/categories`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1203,15 +1195,24 @@ export const CategoryApiApiAxiosParamCreator = function (configuration?: Configu
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
 
 
+            if (image !== undefined) { 
+                localVarFormParams.append('image', image as any);
+            }
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
+            if (categoryTitle !== undefined) { 
+                localVarFormParams.append('categoryTitle', categoryTitle as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(addNewCategoryRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = localVarFormParams;
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1292,12 +1293,13 @@ export const CategoryApiApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {AddNewCategoryRequest} [addNewCategoryRequest] 
+         * @param {File} image 
+         * @param {string} categoryTitle 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addNewCategory(addNewCategoryRequest?: AddNewCategoryRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CategoryDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addNewCategory(addNewCategoryRequest, options);
+        async addNewCategory(image: File, categoryTitle: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CategoryDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addNewCategory(image, categoryTitle, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['CategoryApiApi.addNewCategory']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -1337,12 +1339,13 @@ export const CategoryApiApiFactory = function (configuration?: Configuration, ba
     return {
         /**
          * 
-         * @param {AddNewCategoryRequest} [addNewCategoryRequest] 
+         * @param {File} image 
+         * @param {string} categoryTitle 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addNewCategory(addNewCategoryRequest?: AddNewCategoryRequest, options?: any): AxiosPromise<CategoryDto> {
-            return localVarFp.addNewCategory(addNewCategoryRequest, options).then((request) => request(axios, basePath));
+        addNewCategory(image: File, categoryTitle: string, options?: any): AxiosPromise<CategoryDto> {
+            return localVarFp.addNewCategory(image, categoryTitle, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1373,13 +1376,14 @@ export const CategoryApiApiFactory = function (configuration?: Configuration, ba
 export class CategoryApiApi extends BaseAPI {
     /**
      * 
-     * @param {AddNewCategoryRequest} [addNewCategoryRequest] 
+     * @param {File} image 
+     * @param {string} categoryTitle 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CategoryApiApi
      */
-    public addNewCategory(addNewCategoryRequest?: AddNewCategoryRequest, options?: RawAxiosRequestConfig) {
-        return CategoryApiApiFp(this.configuration).addNewCategory(addNewCategoryRequest, options).then((request) => request(this.axios, this.basePath));
+    public addNewCategory(image: File, categoryTitle: string, options?: RawAxiosRequestConfig) {
+        return CategoryApiApiFp(this.configuration).addNewCategory(image, categoryTitle, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
