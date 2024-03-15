@@ -375,7 +375,7 @@
 				"operationId": "addNewCategory",
 				"requestBody": {
 					"content": {
-						"application/json": {
+						"multipart/form-data": {
 							"schema": {
 								"required": ["categoryTitle", "image"],
 								"type": "object",
@@ -948,6 +948,10 @@
 			"CategoryDto": {
 				"type": "object",
 				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
 					"workspace": {
 						"$ref": "#/components/schemas/WorkspaceDto"
 					},

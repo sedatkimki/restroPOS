@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ACCEPTED_IMAGE_MIME_TYPES, MAX_FILE_SIZE } from "@/lib/constants";
+import { useCategories } from "@/lib/queries/useCategories";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -30,6 +31,7 @@ const NewCategoryFormSchema = z.object({
 });
 
 export const NewCategoryForm = () => {
+	const { addNewCategory } = useCategories();
 	const form = useForm<z.infer<typeof NewCategoryFormSchema>>({
 		resolver: zodResolver(NewCategoryFormSchema),
 		defaultValues: {
@@ -39,7 +41,7 @@ export const NewCategoryForm = () => {
 	});
 
 	const onSubmit = async (data: z.infer<typeof NewCategoryFormSchema>) => {
-		console.log(data);
+		await addNewCategory(data.categoryTitle, data.categoryImage[0]);
 	};
 
 	return (
