@@ -35,13 +35,13 @@ const deleteStaff = async (
 
 const updateStaff = async (
 	data: SystemUserDto,
+	email: string,
 	staffs?: SystemUserDtoResponse[],
 ): Promise<SystemUserDtoResponse[]> => {
-	const response = await StaffAPI.updateStaff(data.email, data);
+	const response = await StaffAPI.updateStaff(email, data);
 	return (
-		staffs?.map((staff) =>
-			staff.email === data.email ? response.data : staff,
-		) ?? []
+		staffs?.map((staff) => (staff.email === email ? response.data : staff)) ??
+		[]
 	);
 };
 
@@ -87,12 +87,12 @@ export function useStaffs() {
 		}
 	};
 
-	const updateStaffByEmail = async (staff: SystemUserDto) => {
+	const updateStaffByEmail = async (staff: SystemUserDto, email: string) => {
 		try {
 			const optimisticData = staffs?.map((s) =>
 				s.email === staff.email ? { ...s, staff } : s,
 			);
-			await mutate(updateStaff(staff, staffs), {
+			await mutate(updateStaff(staff, email, staffs), {
 				optimisticData,
 				rollbackOnError: true,
 				populateCache: true,
