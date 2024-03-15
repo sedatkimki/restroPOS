@@ -49,13 +49,16 @@ export const StaffEditForm: React.FC<{
 	});
 
 	const onSubmit = async (data: z.infer<typeof StaffEditFormSchema>) => {
-		await updateStaffByEmail({
-			firstName: data.firstName,
-			lastName: data.lastName,
-			email: data.email,
-			role: data.role,
-			password: "",
-		});
+		await updateStaffByEmail(
+			{
+				firstName: data.firstName,
+				lastName: data.lastName,
+				email: data.email,
+				role: data.role,
+				password: "",
+			},
+			email,
+		);
 		setDialogOpen(false);
 	};
 
