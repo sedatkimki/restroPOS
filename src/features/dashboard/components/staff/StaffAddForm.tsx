@@ -50,7 +50,7 @@ export const StaffAddForm: React.FC<{
 	const onSubmit = async (data: z.infer<typeof StaffAddFormSchema>) => {
 		await addNewStaff({
 			firstName: data.firstName,
-			lastName: data.lastName,
+			lastName: data.lastName || " ",
 			email: data.email,
 			role: data.role,
 			password: data.password,

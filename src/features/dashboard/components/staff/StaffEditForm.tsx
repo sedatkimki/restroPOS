@@ -42,7 +42,7 @@ export const StaffEditForm: React.FC<{
 		resolver: zodResolver(StaffEditFormSchema),
 		defaultValues: {
 			firstName: staff?.firstName,
-			lastName: staff?.lastName,
+			lastName: staff?.lastName ,
 			email: staff?.email,
 			role: staff?.role as UserRoles,
 		},
@@ -52,7 +52,7 @@ export const StaffEditForm: React.FC<{
 		await updateStaffByEmail(
 			{
 				firstName: data.firstName,
-				lastName: data.lastName,
+				lastName: data.lastName || " ",
 				email: data.email,
 				role: data.role,
 				password: "",

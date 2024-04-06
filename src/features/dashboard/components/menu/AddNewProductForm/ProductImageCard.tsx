@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ImageOff } from "lucide-react";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { AddProductFormValues } from ".";
 
