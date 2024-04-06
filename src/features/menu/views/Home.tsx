@@ -9,6 +9,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useCustomer } from "@/lib/queries";
+import { FeaturedSection } from "../components/FeaturedSection";
 
 export const Home = () => {
 	const { customer, logout } = useCustomer();
@@ -45,6 +46,10 @@ export const Home = () => {
 					</DropdownMenu>
 				</MobilePage.Action>
 			</MobilePage.Header>
+			<MobilePage.Content>
+				<FeaturedSection />
+				<FeaturedSection />
+			</MobilePage.Content>
 		</MobilePage>
 	);
 };

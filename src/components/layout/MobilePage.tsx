@@ -18,7 +18,7 @@ const Header = ({ children }: ChildrenProp) => {
 };
 
 const TitleContainer = ({ children }: ChildrenProp) => {
-	return <div>{children}</div>;
+	return <div className="w-full">{children}</div>;
 };
 
 const Title = ({ children }: ChildrenProp) => {
@@ -29,9 +29,14 @@ const Action = ({ children }: ChildrenProp) => {
 	return <div className="flex justify-center items-center">{children}</div>;
 };
 
+const Content = ({ children }: ChildrenProp) => {
+	return <div className="p-4">{children}</div>;
+};
+
 MobilePage.Header = Header;
 MobilePage.TitleContainer = TitleContainer;
 MobilePage.Title = Title;
 MobilePage.Action = Action;
+MobilePage.Content = Content;
 
 export { MobilePage };

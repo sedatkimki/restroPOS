@@ -9,11 +9,14 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import { Loader2 } from "lucide-react";
+import { DataTableEmptyState } from "./data-table-empty";
 
 interface DataTableProps<TData> {
 	table: TableType<TData>;
+	isLoading?: boolean;
 }
-export function DataTable<TData>({ table }: DataTableProps<TData>) {
+export function DataTable<TData>({ table, isLoading }: DataTableProps<TData>) {
 	return (
 		<div className="rounded-md border">
 			<Table>
@@ -50,12 +53,15 @@ export function DataTable<TData>({ table }: DataTableProps<TData>) {
 							</TableRow>
 						))
 					) : (
-						<TableRow>
-							<TableCell
-								colSpan={table.getAllColumns.length}
-								className="h-24 text-center"
-							>
-								No results.
+						<TableRow className="w-full">
+							<TableCell colSpan={table.getHeaderGroups()[0].headers.length}>
+								{isLoading ? (
+									<div className="flex justify-center items-center">
+										<Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+									</div>
+								) : (
+									<DataTableEmptyState />
+								)}
 							</TableCell>
 						</TableRow>
 					)}

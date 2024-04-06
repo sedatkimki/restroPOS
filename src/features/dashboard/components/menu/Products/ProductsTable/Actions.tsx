@@ -6,9 +6,11 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useProducts } from "@/lib/queries/useProducts";
 import { MoreHorizontal } from "lucide-react";
 
-export function Actions() {
+export function Actions({ productName }: { productName: string }) {
+	const { deleteProductByName } = useProducts();
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -23,7 +25,13 @@ export function Actions() {
 			<DropdownMenuContent align="end" className="w-[160px]">
 				<DropdownMenuItem>Edit</DropdownMenuItem>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem>Delete</DropdownMenuItem>
+				<DropdownMenuItem
+					onClick={() => {
+						deleteProductByName(productName);
+					}}
+				>
+					Delete
+				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

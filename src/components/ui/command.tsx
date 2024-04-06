@@ -140,6 +140,17 @@ const CommandShortcut = ({
 };
 CommandShortcut.displayName = "CommandShortcut";
 
+const CommandLoading = React.forwardRef<
+	React.ElementRef<typeof CommandPrimitive.Loading>,
+	React.ComponentPropsWithoutRef<typeof CommandPrimitive.Loading>
+>((props, ref) => (
+	<CommandPrimitive.Loading
+		ref={ref}
+		className="flex items-center justify-center h-10"
+		{...props}
+	/>
+));
+
 export {
 	Command,
 	CommandDialog,
@@ -150,4 +161,5 @@ export {
 	CommandItem,
 	CommandShortcut,
 	CommandSeparator,
+	CommandLoading,
 };

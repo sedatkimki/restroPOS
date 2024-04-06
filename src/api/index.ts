@@ -4,6 +4,8 @@ import {
 	AuthApiApi,
 	CategoryApiApi,
 	CustomerApiApi,
+	FeaturedGroupsApiApi,
+	ProductApiApi,
 	StaffApiApi,
 	UserApiApi,
 } from "./client";
@@ -69,6 +71,18 @@ export const StaffAPI = new StaffApiApi(
 );
 
 export const CategoryAPI = new CategoryApiApi(
+	undefined,
+	import.meta.env.VITE_APP_DEV_API_URL,
+	globalAxios,
+);
+
+export const ProductAPI = new ProductApiApi(
+	undefined,
+	import.meta.env.VITE_APP_DEV_API_URL,
+	globalAxios,
+);
+
+export const FeaturedGroupsAPI = new FeaturedGroupsApiApi(
 	undefined,
 	import.meta.env.VITE_APP_DEV_API_URL,
 	globalAxios,

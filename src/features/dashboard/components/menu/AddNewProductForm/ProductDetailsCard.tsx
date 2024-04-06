@@ -22,6 +22,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useCategories } from "@/lib/queries/useCategories";
 import { FC } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { AddProductFormValues } from ".";
@@ -31,6 +32,7 @@ type AddNewProductFormProps = {
 };
 
 export const ProducDetailsCard: FC<AddNewProductFormProps> = ({ form }) => {
+	const { categoriesOptions } = useCategories();
 	return (
 		<Card>
 			<CardHeader>
@@ -81,9 +83,13 @@ export const ProducDetailsCard: FC<AddNewProductFormProps> = ({ form }) => {
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
-									<SelectItem value="1">Category 1</SelectItem>
-									<SelectItem value="2">Category 2</SelectItem>
-									<SelectItem value="3">Category 3</SelectItem>
+									{categoriesOptions?.map((category) => {
+										return (
+											<SelectItem key={category.value} value={category.value}>
+												{category.label}
+											</SelectItem>
+										);
+									})}
 								</SelectContent>
 							</Select>
 							<FormDescription>

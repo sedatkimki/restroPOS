@@ -64,8 +64,6 @@ export function useStaffs() {
 			toast.success("Staff added successfully.");
 		} catch (error) {
 			if (isAxiosError<ResponseMessage>(error)) {
-				console.log(error.response?.data.message);
-
 				toast.error(error.response?.data.message);
 			}
 		}

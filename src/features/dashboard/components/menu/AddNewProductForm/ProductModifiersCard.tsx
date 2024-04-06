@@ -53,7 +53,7 @@ export const ProductModifiersCard: FC<ProductModifiersProps> = ({ form }) => {
 									control={form.control}
 									// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 									key={index}
-									name={`productModifiers.${index}.name`}
+									name={`productModifiers.${index}.productModifierName`}
 									render={({ field }) => (
 										<FormItem className="flex-1">
 											<FormControl>
@@ -65,7 +65,7 @@ export const ProductModifiersCard: FC<ProductModifiersProps> = ({ form }) => {
 								/>
 								<FormField
 									control={form.control}
-									name={`productModifiers.${index}.type`}
+									name={`productModifiers.${index}.choice`}
 									render={({ field }) => (
 										<FormItem className=" w-[150px]">
 											<Select
@@ -79,7 +79,7 @@ export const ProductModifiersCard: FC<ProductModifiersProps> = ({ form }) => {
 													</SelectTrigger>
 												</FormControl>
 												<SelectContent>
-													<SelectItem value="single">
+													<SelectItem value="SINGLE">
 														<div className="items-center flex">
 															<RadioGroup defaultValue="a">
 																<RadioGroupItem
@@ -91,7 +91,7 @@ export const ProductModifiersCard: FC<ProductModifiersProps> = ({ form }) => {
 															Single
 														</div>
 													</SelectItem>
-													<SelectItem value="multiple">
+													<SelectItem value="MULTIPLE">
 														<div className="items-center flex">
 															<Checkbox
 																disabled
@@ -108,18 +108,18 @@ export const ProductModifiersCard: FC<ProductModifiersProps> = ({ form }) => {
 									)}
 								/>
 							</div>
-							{modifier.options.length > 0 && (
+							{modifier.productSubmodifierSet.length > 0 && (
 								<div className="mt-4 gap-4 flex  flex-col">
-									{modifier.options.map((_, optionIndex) => (
+									{modifier.productSubmodifierSet.map((_, optionIndex) => (
 										<div className="flex gap-4">
 											<FormField
 												control={form.control}
 												// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 												key={optionIndex}
-												name={`productModifiers.${index}.options.${optionIndex}.name`}
+												name={`productModifiers.${index}.productSubmodifierSet.${optionIndex}.productSubmodifierName`}
 												render={({ field }) => (
 													<FormItem className="flex flex-row items-center gap-4 flex-1">
-														{modifier.type === "single" ? (
+														{modifier.choice === "SINGLE" ? (
 															<RadioGroup>
 																<RadioGroupItem
 																	value="a"
@@ -146,7 +146,7 @@ export const ProductModifiersCard: FC<ProductModifiersProps> = ({ form }) => {
 											/>
 											<FormField
 												control={form.control}
-												name={`productModifiers.${index}.options.${optionIndex}.price`}
+												name={`productModifiers.${index}.productSubmodifierSet.${optionIndex}.price`}
 												render={({ field }) => (
 													<FormItem className="w-[100px]">
 														<FormControl>
@@ -166,11 +166,16 @@ export const ProductModifiersCard: FC<ProductModifiersProps> = ({ form }) => {
 												size={"icon"}
 												type="button"
 												onClick={() => {
-													form.setValue(`productModifiers.${index}.options`, [
-														...form
-															.getValues(`productModifiers.${index}.options`)
-															.filter((_, i) => i !== optionIndex),
-													]);
+													form.setValue(
+														`productModifiers.${index}.productSubmodifierSet`,
+														[
+															...form
+																.getValues(
+																	`productModifiers.${index}.productSubmodifierSet`,
+																)
+																.filter((_, i) => i !== optionIndex),
+														],
+													);
 												}}
 											>
 												<X className="h-5 w-5" />
@@ -180,7 +185,7 @@ export const ProductModifiersCard: FC<ProductModifiersProps> = ({ form }) => {
 								</div>
 							)}
 							<div className="flex flex-row items-center mt-4">
-								{modifier.type === "single" ? (
+								{modifier.choice === "SINGLE" ? (
 									<RadioGroup>
 										<RadioGroupItem
 											value="a"
@@ -200,14 +205,18 @@ export const ProductModifiersCard: FC<ProductModifiersProps> = ({ form }) => {
 									size={"sm"}
 									type="button"
 									onClick={() => {
-										form.setValue(`productModifiers.${index}.options`, [
-											...(form.getValues(`productModifiers.${index}.options`) ||
-												[]),
-											{
-												name: "",
-												price: "",
-											},
-										]);
+										form.setValue(
+											`productModifiers.${index}.productSubmodifierSet`,
+											[
+												...(form.getValues(
+													`productModifiers.${index}.productSubmodifierSet`,
+												) || []),
+												{
+													productSubmodifierName: "",
+													price: 0,
+												},
+											],
+										);
 									}}
 								>
 									Add Option
@@ -217,7 +226,7 @@ export const ProductModifiersCard: FC<ProductModifiersProps> = ({ form }) => {
 							<div className="flex justify-end gap-4">
 								<FormField
 									control={form.control}
-									name={`productModifiers.${index}.required`}
+									name={`productModifiers.${index}.isRequired`}
 									render={({ field }) => (
 										<FormItem className="items-center flex gap-2">
 											<FormLabel>Required</FormLabel>
@@ -257,10 +266,10 @@ export const ProductModifiersCard: FC<ProductModifiersProps> = ({ form }) => {
 						form.setValue("productModifiers", [
 							...(form.getValues("productModifiers") || []),
 							{
-								name: "",
-								type: "single",
-								options: [],
-								required: false,
+								productModifierName: "",
+								choice: "SINGLE",
+								productSubmodifierSet: [],
+								isRequired: false,
 							},
 						]);
 					}}

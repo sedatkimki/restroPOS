@@ -139,6 +139,31 @@ export interface EnableToken {
 /**
  * 
  * @export
+ * @interface FeaturedGroupsDto
+ */
+export interface FeaturedGroupsDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof FeaturedGroupsDto
+     */
+    'groupName'?: string;
+    /**
+     * 
+     * @type {WorkspaceDto}
+     * @memberof FeaturedGroupsDto
+     */
+    'workspaceDto'?: WorkspaceDto;
+    /**
+     * 
+     * @type {Array<ProductDto>}
+     * @memberof FeaturedGroupsDto
+     */
+    'products'?: Array<ProductDto>;
+}
+/**
+ * 
+ * @export
  * @interface ImageDto
  */
 export interface ImageDto {
@@ -189,6 +214,117 @@ export interface LoginDto {
      * @memberof LoginDto
      */
     'password': string;
+}
+/**
+ * 
+ * @export
+ * @interface ProductDto
+ */
+export interface ProductDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof ProductDto
+     */
+    'productName'?: string;
+    /**
+     * 
+     * @type {WorkspaceDto}
+     * @memberof ProductDto
+     */
+    'workspace'?: WorkspaceDto;
+    /**
+     * 
+     * @type {Array<ProductModifierDto>}
+     * @memberof ProductDto
+     */
+    'productModifiers'?: Array<ProductModifierDto>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProductDto
+     */
+    'productDescription'?: string;
+    /**
+     * 
+     * @type {ImageDto}
+     * @memberof ProductDto
+     */
+    'image'?: ImageDto;
+    /**
+     * 
+     * @type {number}
+     * @memberof ProductDto
+     */
+    'price'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProductDto
+     */
+    'categoryTitle'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ProductModifierDto
+ */
+export interface ProductModifierDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof ProductModifierDto
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProductModifierDto
+     */
+    'productModifierName'?: string;
+    /**
+     * 
+     * @type {Array<ProductSubmodifierDto>}
+     * @memberof ProductModifierDto
+     */
+    'productSubmodifierSet'?: Array<ProductSubmodifierDto>;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ProductModifierDto
+     */
+    'isRequired'?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProductModifierDto
+     */
+    'choice'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ProductSubmodifierDto
+ */
+export interface ProductSubmodifierDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof ProductSubmodifierDto
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProductSubmodifierDto
+     */
+    'productSubmodifierName'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ProductSubmodifierDto
+     */
+    'price'?: number;
 }
 /**
  * 
@@ -345,7 +481,7 @@ export interface SystemUserDto {
      * @type {string}
      * @memberof SystemUserDto
      */
-    'lastName'?: string;
+    'lastName': string;
     /**
      * 
      * @type {WorkspaceDto}
@@ -1837,6 +1973,237 @@ export class CustomerApiApi extends BaseAPI {
 
 
 /**
+ * FeaturedGroupsApiApi - axios parameter creator
+ * @export
+ */
+export const FeaturedGroupsApiApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {FeaturedGroupsDto} featuredGroupsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNewFeaturedProduct: async (featuredGroupsDto: FeaturedGroupsDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'featuredGroupsDto' is not null or undefined
+            assertParamExists('addNewFeaturedProduct', 'featuredGroupsDto', featuredGroupsDto)
+            const localVarPath = `/api/v1/featuredGroups`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(featuredGroupsDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {FeaturedGroupsDto} featuredGroupsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteFeaturedGroup: async (featuredGroupsDto: FeaturedGroupsDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'featuredGroupsDto' is not null or undefined
+            assertParamExists('deleteFeaturedGroup', 'featuredGroupsDto', featuredGroupsDto)
+            const localVarPath = `/api/v1/featuredGroups`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(featuredGroupsDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllFeaturedGroups: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/featuredGroups`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * FeaturedGroupsApiApi - functional programming interface
+ * @export
+ */
+export const FeaturedGroupsApiApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = FeaturedGroupsApiApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {FeaturedGroupsDto} featuredGroupsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addNewFeaturedProduct(featuredGroupsDto: FeaturedGroupsDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addNewFeaturedProduct(featuredGroupsDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FeaturedGroupsApiApi.addNewFeaturedProduct']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {FeaturedGroupsDto} featuredGroupsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteFeaturedGroup(featuredGroupsDto: FeaturedGroupsDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteFeaturedGroup(featuredGroupsDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FeaturedGroupsApiApi.deleteFeaturedGroup']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllFeaturedGroups(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<FeaturedGroupsDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllFeaturedGroups(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FeaturedGroupsApiApi.getAllFeaturedGroups']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * FeaturedGroupsApiApi - factory interface
+ * @export
+ */
+export const FeaturedGroupsApiApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = FeaturedGroupsApiApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {FeaturedGroupsDto} featuredGroupsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNewFeaturedProduct(featuredGroupsDto: FeaturedGroupsDto, options?: any): AxiosPromise<ResponseMessage> {
+            return localVarFp.addNewFeaturedProduct(featuredGroupsDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {FeaturedGroupsDto} featuredGroupsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteFeaturedGroup(featuredGroupsDto: FeaturedGroupsDto, options?: any): AxiosPromise<ResponseMessage> {
+            return localVarFp.deleteFeaturedGroup(featuredGroupsDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllFeaturedGroups(options?: any): AxiosPromise<Array<FeaturedGroupsDto>> {
+            return localVarFp.getAllFeaturedGroups(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * FeaturedGroupsApiApi - object-oriented interface
+ * @export
+ * @class FeaturedGroupsApiApi
+ * @extends {BaseAPI}
+ */
+export class FeaturedGroupsApiApi extends BaseAPI {
+    /**
+     * 
+     * @param {FeaturedGroupsDto} featuredGroupsDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FeaturedGroupsApiApi
+     */
+    public addNewFeaturedProduct(featuredGroupsDto: FeaturedGroupsDto, options?: RawAxiosRequestConfig) {
+        return FeaturedGroupsApiApiFp(this.configuration).addNewFeaturedProduct(featuredGroupsDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {FeaturedGroupsDto} featuredGroupsDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FeaturedGroupsApiApi
+     */
+    public deleteFeaturedGroup(featuredGroupsDto: FeaturedGroupsDto, options?: RawAxiosRequestConfig) {
+        return FeaturedGroupsApiApiFp(this.configuration).deleteFeaturedGroup(featuredGroupsDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FeaturedGroupsApiApi
+     */
+    public getAllFeaturedGroups(options?: RawAxiosRequestConfig) {
+        return FeaturedGroupsApiApiFp(this.configuration).getAllFeaturedGroups(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * ImageApiApi - axios parameter creator
  * @export
  */
@@ -2013,6 +2380,250 @@ export class ImageApiApi extends BaseAPI {
      */
     public create(name: string, createRequest?: CreateRequest, options?: RawAxiosRequestConfig) {
         return ImageApiApiFp(this.configuration).create(name, createRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * ProductApiApi - axios parameter creator
+ * @export
+ */
+export const ProductApiApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} productInformations 
+         * @param {File} image 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNewProduct: async (productInformations: string, image: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'productInformations' is not null or undefined
+            assertParamExists('addNewProduct', 'productInformations', productInformations)
+            // verify required parameter 'image' is not null or undefined
+            assertParamExists('addNewProduct', 'image', image)
+            const localVarPath = `/api/v1/products`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+
+            if (productInformations !== undefined) { 
+                localVarFormParams.append('productInformations', productInformations as any);
+            }
+    
+            if (image !== undefined) { 
+                localVarFormParams.append('image', image as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} productName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteProduct: async (productName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'productName' is not null or undefined
+            assertParamExists('deleteProduct', 'productName', productName)
+            const localVarPath = `/api/v1/products/{productName}`
+                .replace(`{${"productName"}}`, encodeURIComponent(String(productName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllProducts: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/products`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * ProductApiApi - functional programming interface
+ * @export
+ */
+export const ProductApiApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ProductApiApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} productInformations 
+         * @param {File} image 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addNewProduct(productInformations: string, image: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addNewProduct(productInformations, image, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ProductApiApi.addNewProduct']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} productName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteProduct(productName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteProduct(productName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ProductApiApi.deleteProduct']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllProducts(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProductDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProducts(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ProductApiApi.getAllProducts']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * ProductApiApi - factory interface
+ * @export
+ */
+export const ProductApiApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ProductApiApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} productInformations 
+         * @param {File} image 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNewProduct(productInformations: string, image: File, options?: any): AxiosPromise<ResponseMessage> {
+            return localVarFp.addNewProduct(productInformations, image, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} productName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteProduct(productName: string, options?: any): AxiosPromise<ResponseMessage> {
+            return localVarFp.deleteProduct(productName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllProducts(options?: any): AxiosPromise<Array<ProductDto>> {
+            return localVarFp.getAllProducts(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * ProductApiApi - object-oriented interface
+ * @export
+ * @class ProductApiApi
+ * @extends {BaseAPI}
+ */
+export class ProductApiApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} productInformations 
+     * @param {File} image 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProductApiApi
+     */
+    public addNewProduct(productInformations: string, image: File, options?: RawAxiosRequestConfig) {
+        return ProductApiApiFp(this.configuration).addNewProduct(productInformations, image, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} productName 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProductApiApi
+     */
+    public deleteProduct(productName: string, options?: RawAxiosRequestConfig) {
+        return ProductApiApiFp(this.configuration).deleteProduct(productName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProductApiApi
+     */
+    public getAllProducts(options?: RawAxiosRequestConfig) {
+        return ProductApiApiFp(this.configuration).getAllProducts(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

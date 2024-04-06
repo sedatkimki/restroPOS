@@ -24,8 +24,6 @@ type ProductImageCardProps = {
 };
 
 export const ProductImageCard: FC<ProductImageCardProps> = ({ form }) => {
-	const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
 	return (
 		<Card>
 			<CardHeader>
@@ -35,10 +33,10 @@ export const ProductImageCard: FC<ProductImageCardProps> = ({ form }) => {
 				</CardDescription>
 			</CardHeader>
 			<CardContent className="gap-4 flex flex-col">
-				{selectedFile ? (
+				{form.watch("productImage")?.[0] ? (
 					<AspectRatio ratio={16 / 10}>
 						<img
-							src={URL.createObjectURL(form.watch("productImage")?.[0])}
+							src={URL.createObjectURL(form.watch("productImage")?.[0] || "")}
 							className="rounded-md border object-contain shadow-sm w-full h-full"
 							alt="Product"
 						/>
@@ -63,7 +61,6 @@ export const ProductImageCard: FC<ProductImageCardProps> = ({ form }) => {
 									name={field.name}
 									ref={field.ref}
 									onChange={(e) => {
-										setSelectedFile(e.target.files?.[0] || null);
 										field.onChange(e.target.files);
 									}}
 									id="productImage"

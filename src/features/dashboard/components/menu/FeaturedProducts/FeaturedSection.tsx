@@ -1,3 +1,4 @@
+import { FeaturedGroupsDto } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -10,51 +11,60 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { Edit } from "lucide-react";
+import { useFeaturedGroups } from "@/lib/queries/useFeaturedGroups";
+import { Edit, Trash } from "lucide-react";
 import { FC } from "react";
 import { FeaturedSectionFrom } from "./FeaturedSectionForm";
 import { ProductCard } from "./ProductCard";
 
-// TODO: update with dto
-
 type FeaturedSectionProps = {
-	title: string;
+	section: FeaturedGroupsDto;
 };
 
-export const FeaturedSection: FC<FeaturedSectionProps> = ({ title }) => {
+export const FeaturedSection: FC<FeaturedSectionProps> = ({ section }) => {
+	const { deleteGroupByName } = useFeaturedGroups();
 	return (
 		<Card>
 			<CardHeader>
 				<CardTitle className="flex items-center justify-between">
-					{title}
-					<Dialog>
-						<DialogTrigger>
-							<Button size="sm">
-								Edit section
-								<Edit className="h-4 w-4 ml-2" />
-							</Button>
-						</DialogTrigger>
-						<DialogContent>
-							<DialogHeader>
-								<DialogTitle>Edit featured section</DialogTitle>
-								<DialogDescription>
-									Edit the section title and featured products.
-								</DialogDescription>
-							</DialogHeader>
-							<FeaturedSectionFrom type="update" />
-						</DialogContent>
-					</Dialog>
+					{section.groupName}
+					<div className="items-center flex gap-2">
+						<Dialog>
+							<DialogTrigger>
+								<Button variant={"outline"}>
+									Edit section
+									<Edit className="h-4 w-4 ml-2" />
+								</Button>
+							</DialogTrigger>
+							<DialogContent>
+								<DialogHeader>
+									<DialogTitle>Edit featured section</DialogTitle>
+									<DialogDescription>
+										Edit the section title and featured products.
+									</DialogDescription>
+								</DialogHeader>
+								<FeaturedSectionFrom type="update" />
+							</DialogContent>
+						</Dialog>
+						<Button
+							size="icon"
+							variant={"destructive"}
+							onClick={() => {
+								deleteGroupByName(section.groupName ?? "");
+							}}
+						>
+							<Trash className="h-4 w-4" />
+						</Button>
+					</div>
 				</CardTitle>
 			</CardHeader>
 			<Separator className="mb-6" />
 			<CardContent>
 				<ScrollArea>
 					<div className="flex w-max space-x-4 pb-4">
-						<ProductCard />
-						<ProductCard />
-						<ProductCard />
-						<ProductCard />
-						<ProductCard />
+						{section?.products?.map((product) => (
+							<ProductCard product={product} />
+						))}
 					</div>
 					<ScrollBar orientation="horizontal" />
 				</ScrollArea>

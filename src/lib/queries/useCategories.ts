@@ -81,6 +81,12 @@ export function useCategories() {
 
 	return {
 		categories,
+		categoriesOptions: categories?.map((category) => {
+			return {
+				label: category.categoryTitle as string,
+				value: category.categoryTitle as string,
+			};
+		}),
 		isLoading,
 		error,
 		mutate,

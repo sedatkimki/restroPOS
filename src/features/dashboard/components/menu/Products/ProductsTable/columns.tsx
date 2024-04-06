@@ -5,9 +5,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { DataTableColumnHeader } from "@/components/ui/data-table/data-table-column-header";
 import { Actions } from "./Actions";
-import { Product } from "./types";
 
-export const columns: ColumnDef<Product>[] = [
+import { ProductDto } from "@/api/client";
+
+export const columns: ColumnDef<ProductDto>[] = [
 	{
 		id: "select",
 		header: ({ table }) => (
@@ -33,23 +34,27 @@ export const columns: ColumnDef<Product>[] = [
 		enableHiding: false,
 	},
 	{
-		accessorKey: "name",
+		accessorKey: "productName",
 		header: ({ column }) => (
 			<DataTableColumnHeader column={column} title="Product Name" />
 		),
-		cell: ({ row }) => <div className="w-[200px]">{row.getValue("name")}</div>,
+		cell: ({ row }) => (
+			<div className="w-[200px]">{row.getValue("productName")}</div>
+		),
 	},
 	{
-		accessorKey: "description",
+		accessorKey: "productDescription",
 		header: ({ column }) => (
 			<DataTableColumnHeader column={column} title="Description" />
 		),
 		cell: ({ row }) => (
-			<div className="w-[400px]">{row.getValue("description")}</div>
+			<div className="w-[200px] line-clamp-2">
+				{row.getValue("productDescription")}
+			</div>
 		),
 	},
 	{
-		accessorKey: "category",
+		accessorKey: "categoryTitle",
 		header: ({ column }) => (
 			<DataTableColumnHeader column={column} title="Category" />
 		),
@@ -57,7 +62,7 @@ export const columns: ColumnDef<Product>[] = [
 			return (
 				<div className="flex w-[150px] items-center">
 					<Badge variant="orange">
-						<span>{row.getValue("category")}</span>
+						<span>{row.getValue("categoryTitle")}</span>
 					</Badge>
 				</div>
 			);
@@ -76,6 +81,6 @@ export const columns: ColumnDef<Product>[] = [
 	{
 		id: "actions",
 		// Todo : row actions
-		cell: () => <Actions />,
+		cell: ({ row }) => <Actions productName={row.getValue("productName")} />,
 	},
 ];

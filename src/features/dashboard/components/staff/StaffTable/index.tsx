@@ -6,14 +6,14 @@ import { Toolbar } from "./Toolbar";
 import { columns } from "./columns";
 
 export function StaffTable() {
-	const { staffs } = useStaffs();
+	const { staffs, isLoading } = useStaffs();
 
 	const table = useDataTable(columns, staffs || []); // Add a default empty array if staffs is undefined
 
 	return (
 		<div className="space-y-4">
 			<Toolbar table={table} />
-			<DataTable table={table} />
+			<DataTable table={table} isLoading={isLoading} />
 			<DataTablePagination table={table} />
 		</div>
 	);
