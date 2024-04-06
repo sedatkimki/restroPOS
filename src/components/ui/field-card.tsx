@@ -1,50 +1,50 @@
 import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 
 type ChildrenProp = {
-	children?: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 function FieldCard({ children }: ChildrenProp) {
-	return <Card>{children}</Card>;
+  return <Card>{children}</Card>;
 }
 
 function Title({ children }: ChildrenProp) {
-	return (
-		<CardHeader>
-			<CardTitle className="text-xl">{children}</CardTitle>
-		</CardHeader>
-	);
+  return (
+    <CardHeader>
+      <CardTitle className="text-xl">{children}</CardTitle>
+    </CardHeader>
+  );
 }
 
 function Content({ children }: ChildrenProp) {
-	return (
-		<CardContent>
-			<CardDescription>{children}</CardDescription>
-		</CardContent>
-	);
+  return (
+    <CardContent>
+      <CardDescription>{children}</CardDescription>
+    </CardContent>
+  );
 }
 
 function Footer({ children }: ChildrenProp) {
-	return (
-		<CardFooter className="border-t p-6 bg-muted justify-between">
-			{children}
-		</CardFooter>
-	);
+  return (
+    <CardFooter className="border-t p-6 bg-muted justify-between">
+      {children}
+    </CardFooter>
+  );
 }
 
 function FooterDescription({ children }: ChildrenProp) {
-	return <p className="text-sm text-muted-foreground">{children}</p>;
+  return <p className="text-sm text-muted-foreground">{children}</p>;
 }
 
 function FooterAction({ children }: ChildrenProp) {
-	return <div className="flex justify-center items-center">{children}</div>;
+  return <div className="flex justify-center items-center">{children}</div>;
 }
 
 FieldCard.Title = Title;

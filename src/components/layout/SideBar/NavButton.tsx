@@ -3,23 +3,23 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 type NavButtonProps = {
-	icon: React.ReactNode;
-	name: string;
-	path: string;
+  icon: React.ReactNode;
+  name: string;
+  path: string;
 };
 
 const NavButton = ({ icon, name, path }: NavButtonProps) => {
-	const location = useLocation();
-	const isCurrentPath = location.pathname.includes(path);
+  const location = useLocation();
+  const isCurrentPath = location.pathname.includes(path);
 
-	return (
-		<Button variant={isCurrentPath ? "selected" : "navLink"} asChild>
-			<Link to={path}>
-				{icon}
-				{name}
-			</Link>
-		</Button>
-	);
+  return (
+    <Button variant={isCurrentPath ? "selected" : "navLink"} asChild>
+      <Link to={path}>
+        {icon}
+        {name}
+      </Link>
+    </Button>
+  );
 };
 
 export default NavButton;
