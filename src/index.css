@@ -1,9 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 html {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 @layer base {
@@ -53,7 +53,6 @@ html {
   }
 }
 
- 
 @layer base {
   * {
     @apply border-border;

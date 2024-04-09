@@ -1,32 +1,31 @@
-import { Navigate, Outlet } from "react-router-dom";
-
 import Loading from "@/components/layout/Loading";
 import { useWorkspaceExist } from "@/lib/queries";
 import { redirectToRoot } from "@/lib/utils";
 import { FunctionComponent } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 
 type WorkspaceRootProps = object;
 
 type WorkspaceRootType = FunctionComponent<WorkspaceRootProps> & {
-	index: FunctionComponent;
+  index: FunctionComponent;
 };
 
 const WorkspaceRoot: WorkspaceRootType = () => {
-	const { workspaceExist, isLoading } = useWorkspaceExist();
+  const { workspaceExist, isLoading } = useWorkspaceExist();
 
-	if (isLoading) {
-		return <Loading />;
-	}
+  if (isLoading) {
+    return <Loading />;
+  }
 
-	if (!workspaceExist) {
-		redirectToRoot();
-	}
+  if (!workspaceExist) {
+    redirectToRoot();
+  }
 
-	return <Outlet />;
+  return <Outlet />;
 };
 
 WorkspaceRoot.index = () => {
-	return <Navigate to="/dashboard" />;
+  return <Navigate to="/dashboard" />;
 };
 
 export default WorkspaceRoot;
