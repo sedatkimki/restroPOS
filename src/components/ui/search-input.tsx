@@ -25,6 +25,7 @@ const SearchInput = React.forwardRef<HTMLInputElement, InputProps>(
           <Button
             variant={"ghost"}
             size={"icon"}
+            type="button"
             className=" absolute right-2 top-1/2 flex h-4 w-4 -translate-y-1/2 transform items-center  p-0 text-sm cursor-pointer"
             onClick={() => {
               props.onChange?.({
