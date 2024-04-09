@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useTables } from "@/lib/queries/useTables";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -21,6 +22,7 @@ const AddTableFormSchema = z.object({
 });
 
 export const AddTableForm = () => {
+  const { addNewTable } = useTables();
   const form = useForm<z.infer<typeof AddTableFormSchema>>({
     resolver: zodResolver(AddTableFormSchema),
     defaultValues: {
@@ -29,7 +31,7 @@ export const AddTableForm = () => {
   });
 
   const onSubmit = async (data: z.infer<typeof AddTableFormSchema>) => {
-    console.log(data);
+    await addNewTable(data.tableName);
   };
 
   return (

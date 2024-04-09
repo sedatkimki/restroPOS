@@ -191,7 +191,8 @@ export const ImageDtoFolderNameEnum = {
     BusinessLogo: 'BUSINESS_LOGO',
     Products: 'PRODUCTS',
     Customers: 'CUSTOMERS',
-    Categories: 'CATEGORIES'
+    Categories: 'CATEGORIES',
+    Tables: 'TABLES'
 } as const;
 
 export type ImageDtoFolderNameEnum = typeof ImageDtoFolderNameEnum[keyof typeof ImageDtoFolderNameEnum];
@@ -554,6 +555,31 @@ export interface WorkspaceDto {
      * 
      * @type {ImageDto}
      * @memberof WorkspaceDto
+     */
+    'imageDto'?: ImageDto;
+}
+/**
+ * 
+ * @export
+ * @interface WorkspaceTableDto
+ */
+export interface WorkspaceTableDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkspaceTableDto
+     */
+    'tableName'?: string;
+    /**
+     * 
+     * @type {WorkspaceDto}
+     * @memberof WorkspaceTableDto
+     */
+    'workspaceDto'?: WorkspaceDto;
+    /**
+     * 
+     * @type {ImageDto}
+     * @memberof WorkspaceTableDto
      */
     'imageDto'?: ImageDto;
 }
@@ -1417,6 +1443,35 @@ export const CategoryApiApiAxiosParamCreator = function (configuration?: Configu
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllCategoriesForCustomer: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/categories/customer`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -1463,6 +1518,17 @@ export const CategoryApiApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['CategoryApiApi.getAllCategories']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllCategoriesForCustomer(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CategoryDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllCategoriesForCustomer(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CategoryApiApi.getAllCategoriesForCustomer']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -1499,6 +1565,14 @@ export const CategoryApiApiFactory = function (configuration?: Configuration, ba
          */
         getAllCategories(options?: any): AxiosPromise<Array<CategoryDto>> {
             return localVarFp.getAllCategories(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllCategoriesForCustomer(options?: any): AxiosPromise<Array<CategoryDto>> {
+            return localVarFp.getAllCategoriesForCustomer(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1541,6 +1615,16 @@ export class CategoryApiApi extends BaseAPI {
      */
     public getAllCategories(options?: RawAxiosRequestConfig) {
         return CategoryApiApiFp(this.configuration).getAllCategories(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CategoryApiApi
+     */
+    public getAllCategoriesForCustomer(options?: RawAxiosRequestConfig) {
+        return CategoryApiApiFp(this.configuration).getAllCategoriesForCustomer(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -3102,6 +3186,239 @@ export class UserApiApi extends BaseAPI {
      */
     public getUser(businessDomain: string, options?: RawAxiosRequestConfig) {
         return UserApiApiFp(this.configuration).getUser(businessDomain, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * WorkspaceTableApiApi - axios parameter creator
+ * @export
+ */
+export const WorkspaceTableApiApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} tableName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNewTable: async (tableName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tableName' is not null or undefined
+            assertParamExists('addNewTable', 'tableName', tableName)
+            const localVarPath = `/api/v1/tables`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (tableName !== undefined) {
+                localVarQueryParameter['tableName'] = tableName;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} tableName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteTable: async (tableName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tableName' is not null or undefined
+            assertParamExists('deleteTable', 'tableName', tableName)
+            const localVarPath = `/api/v1/tables`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (tableName !== undefined) {
+                localVarQueryParameter['tableName'] = tableName;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllTablesOfWorkspace: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/tables`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * WorkspaceTableApiApi - functional programming interface
+ * @export
+ */
+export const WorkspaceTableApiApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = WorkspaceTableApiApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} tableName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addNewTable(tableName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WorkspaceTableDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addNewTable(tableName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WorkspaceTableApiApi.addNewTable']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} tableName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteTable(tableName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteTable(tableName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WorkspaceTableApiApi.deleteTable']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllTablesOfWorkspace(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<WorkspaceTableDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllTablesOfWorkspace(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WorkspaceTableApiApi.getAllTablesOfWorkspace']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * WorkspaceTableApiApi - factory interface
+ * @export
+ */
+export const WorkspaceTableApiApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = WorkspaceTableApiApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} tableName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addNewTable(tableName: string, options?: any): AxiosPromise<WorkspaceTableDto> {
+            return localVarFp.addNewTable(tableName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} tableName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteTable(tableName: string, options?: any): AxiosPromise<ResponseMessage> {
+            return localVarFp.deleteTable(tableName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllTablesOfWorkspace(options?: any): AxiosPromise<Array<WorkspaceTableDto>> {
+            return localVarFp.getAllTablesOfWorkspace(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * WorkspaceTableApiApi - object-oriented interface
+ * @export
+ * @class WorkspaceTableApiApi
+ * @extends {BaseAPI}
+ */
+export class WorkspaceTableApiApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} tableName 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkspaceTableApiApi
+     */
+    public addNewTable(tableName: string, options?: RawAxiosRequestConfig) {
+        return WorkspaceTableApiApiFp(this.configuration).addNewTable(tableName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} tableName 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkspaceTableApiApi
+     */
+    public deleteTable(tableName: string, options?: RawAxiosRequestConfig) {
+        return WorkspaceTableApiApiFp(this.configuration).deleteTable(tableName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkspaceTableApiApi
+     */
+    public getAllTablesOfWorkspace(options?: RawAxiosRequestConfig) {
+        return WorkspaceTableApiApiFp(this.configuration).getAllTablesOfWorkspace(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

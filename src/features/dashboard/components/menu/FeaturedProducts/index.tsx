@@ -16,10 +16,11 @@ export const FeaturedProducts: FC = () => {
         </div>
       )}
       {featuredGroups?.map((section) => <FeaturedSection section={section} />)}
-      {featuredGroups && featuredGroups.length === 0 ? (
-        <EmptyCard />
-      ) : (
-        <FeaturedSectionFormDialog />
+      {featuredGroups && featuredGroups.length === 0 ? <EmptyCard /> : null}
+      {!isLoading && featuredGroups && featuredGroups.length > 0 && (
+        <div className="flex justify-center">
+          <FeaturedSectionFormDialog />
+        </div>
       )}
     </div>
   );
