@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { SearchInput } from "@/components/ui/search-input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronLeft, ChevronLeftIcon } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
