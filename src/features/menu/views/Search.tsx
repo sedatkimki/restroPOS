@@ -1,14 +1,12 @@
 import { MobilePage } from "@/components/layout/MobilePage";
 
-// import { Button } from "@/components/ui/button";
 // import { ScrollArea } from "@/components/ui/scroll-area";
 // import { SearchInput } from "@/components/ui/search-input";
-// import usePaginatedFilterList from "@/lib/hooks/useSearch";
 // import useSearch from "@/lib/hooks/useSearch";
-
 // import { ScrollAreaScrollbar } from "@radix-ui/react-scroll-area";
 // import { useState } from "react";
 // import { ProductCard } from "../components/ProductCard";
+import { SearchHeader } from "../components/search/SearchHeader";
 
 // type Product = {
 //   id: string;
@@ -186,20 +184,11 @@ import { MobilePage } from "@/components/layout/MobilePage";
 
 // todo: implement url state for search
 export const Search = () => {
-  // const [searchValue, setSearchValue] = useState("");
-
   return (
     <MobilePage>
       <MobilePage.Header>
         <MobilePage.TitleContainer>
-          {/* <SearchInput
-            type="text"
-            placeholder="search products"
-            value={searchValue}
-            onChange={(e) => {
-              setSearchValue(e.target.value);
-            }}
-          /> */}
+          <SearchHeader />
         </MobilePage.TitleContainer>
       </MobilePage.Header>
       <MobilePage.Content>
