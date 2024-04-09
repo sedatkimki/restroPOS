@@ -15,7 +15,7 @@ export const FeaturedSectionFormDialog: FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   return (
     <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-      <DialogTrigger>
+      <DialogTrigger className="flex">
         <Button
           size="sm"
           className="mt-4"

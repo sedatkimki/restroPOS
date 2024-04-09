@@ -102,6 +102,10 @@ const workspaceRoutes = createBrowserRouter([
         ],
       },
       {
+        path: "/table/:tableId",
+        Component: MenuViews.Table,
+      },
+      {
         path: "login",
         Component: AuthViews.WorkspaceLogin,
       },

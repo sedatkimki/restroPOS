@@ -8,6 +8,7 @@ import {
 	ProductApiApi,
 	StaffApiApi,
 	UserApiApi,
+	WorkspaceTableApiApi,
 } from "./client";
 
 const globalAxios = axios.create({
@@ -83,6 +84,12 @@ export const ProductAPI = new ProductApiApi(
 );
 
 export const FeaturedGroupsAPI = new FeaturedGroupsApiApi(
+	undefined,
+	import.meta.env.VITE_APP_DEV_API_URL,
+	globalAxios,
+);
+
+export const TablesAPI = new WorkspaceTableApiApi(
 	undefined,
 	import.meta.env.VITE_APP_DEV_API_URL,
 	globalAxios,

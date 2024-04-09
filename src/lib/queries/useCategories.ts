@@ -42,6 +42,8 @@ export function useCategories() {
     mutate,
   } = useSWR<CategoryDto[]>("categories", categoriesFetcher);
 
+
+
   const addNewCategory = async (categoryTitle: string, image: File) => {
     try {
       await mutate(createNewCategory(categoryTitle, image, categories), {
