@@ -132,7 +132,14 @@ export const AddNewProductForm: FC = () => {
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={() => {
-                form.reset();
+                form.reset({
+                  productName: "",
+                  productDescription: "",
+                  productCategory: "",
+                  productPrice: 0,
+                  productModifiers: [],
+                  productImage: undefined,
+                });
                 setAddMoreDialog(false);
               }}
             >

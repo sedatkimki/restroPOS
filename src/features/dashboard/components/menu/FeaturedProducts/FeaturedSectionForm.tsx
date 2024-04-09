@@ -1,4 +1,3 @@
-import { FeaturedGroupsAPI } from "@/api";
 import { ProductDto } from "@/api/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -21,6 +20,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useFeaturedGroups } from "@/lib/queries/useFeaturedGroups";
 import { useProducts } from "@/lib/queries/useProducts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import _ from "lodash";
@@ -56,6 +56,7 @@ export const FeaturedSectionFrom: React.FC<FeaturedSectionFormProps> = ({
   setModalOpen,
 }) => {
   const { products, isLoading } = useProducts();
+  const { addFeaturedGroup } = useFeaturedGroups();
   const form = useForm<z.infer<typeof FeaturedSectionFromSchema>>({
     resolver: zodResolver(FeaturedSectionFromSchema),
     defaultValues: {
@@ -66,7 +67,7 @@ export const FeaturedSectionFrom: React.FC<FeaturedSectionFormProps> = ({
 
   const onSubmit = async (data: z.infer<typeof FeaturedSectionFromSchema>) => {
     if (type === "create") {
-      await FeaturedGroupsAPI.addNewFeaturedProduct({
+      await addFeaturedGroup({
         groupName: data.title,
         products: data.products.map(
           (product) =>
@@ -76,9 +77,8 @@ export const FeaturedSectionFrom: React.FC<FeaturedSectionFormProps> = ({
         ),
       });
       setModalOpen?.(false);
-      console.log("Create", data);
     } else {
-      console.log("Update", data);
+      // update
     }
   };
 

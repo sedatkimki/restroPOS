@@ -2093,7 +2093,7 @@ export const FeaturedGroupsApiApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addNewFeaturedProduct(featuredGroupsDto: FeaturedGroupsDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseMessage>> {
+        async addNewFeaturedProduct(featuredGroupsDto: FeaturedGroupsDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FeaturedGroupsDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.addNewFeaturedProduct(featuredGroupsDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['FeaturedGroupsApiApi.addNewFeaturedProduct']?.[localVarOperationServerIndex]?.url;
@@ -2138,7 +2138,7 @@ export const FeaturedGroupsApiApiFactory = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addNewFeaturedProduct(featuredGroupsDto: FeaturedGroupsDto, options?: any): AxiosPromise<ResponseMessage> {
+        addNewFeaturedProduct(featuredGroupsDto: FeaturedGroupsDto, options?: any): AxiosPromise<FeaturedGroupsDto> {
             return localVarFp.addNewFeaturedProduct(featuredGroupsDto, options).then((request) => request(axios, basePath));
         },
         /**

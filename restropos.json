@@ -1,6 +1,9 @@
 {
   "openapi": "3.0.1",
-  "info": { "title": "OpenAPI definition", "version": "v0" },
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
   "servers": [
     {
       "url": "https://restropos-kpc5.onrender.com",
@@ -17,13 +20,17 @@
             "name": "email",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/SystemUserDto" }
+              "schema": {
+                "$ref": "#/components/schemas/SystemUserDto"
+              }
             }
           },
           "required": true
@@ -49,7 +56,9 @@
             "name": "email",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -57,7 +66,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/ResponseMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
               }
             }
           }
@@ -75,8 +86,13 @@
                 "required": ["customerDto", "image"],
                 "type": "object",
                 "properties": {
-                  "customerDto": { "type": "string" },
-                  "image": { "type": "string", "format": "binary" }
+                  "customerDto": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
                 }
               }
             }
@@ -87,7 +103,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/ResponseMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
               }
             }
           }
@@ -105,8 +123,13 @@
                 "required": ["image", "registerInformations"],
                 "type": "object",
                 "properties": {
-                  "registerInformations": { "type": "string" },
-                  "image": { "type": "string", "format": "binary" }
+                  "registerInformations": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
                 }
               }
             }
@@ -117,7 +140,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/ResponseMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
               }
             }
           }
@@ -131,7 +156,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/EnableToken" }
+              "schema": {
+                "$ref": "#/components/schemas/EnableToken"
+              }
             }
           },
           "required": true
@@ -141,7 +168,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/BearerToken" }
+                "schema": {
+                  "$ref": "#/components/schemas/BearerToken"
+                }
               }
             }
           }
@@ -155,7 +184,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/LoginDto" }
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
             }
           },
           "required": true
@@ -165,7 +196,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/BearerToken" }
+                "schema": {
+                  "$ref": "#/components/schemas/BearerToken"
+                }
               }
             }
           }
@@ -179,7 +212,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/EnableToken" }
+              "schema": {
+                "$ref": "#/components/schemas/EnableToken"
+              }
             }
           },
           "required": true
@@ -189,7 +224,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/ResponseMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
               }
             }
           }
@@ -222,7 +259,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/SystemUserDto" }
+              "schema": {
+                "$ref": "#/components/schemas/SystemUserDto"
+              }
             }
           },
           "required": true
@@ -252,7 +291,9 @@
               "*/*": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/ProductDto" }
+                  "items": {
+                    "$ref": "#/components/schemas/ProductDto"
+                  }
                 }
               }
             }
@@ -269,8 +310,13 @@
                 "required": ["image", "productInformations"],
                 "type": "object",
                 "properties": {
-                  "productInformations": { "type": "string" },
-                  "image": { "type": "string", "format": "binary" }
+                  "productInformations": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
                 }
               }
             }
@@ -281,7 +327,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/ResponseMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
               }
             }
           }
@@ -297,7 +345,9 @@
             "name": "name",
             "in": "query",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -307,7 +357,10 @@
                 "required": ["file"],
                 "type": "object",
                 "properties": {
-                  "file": { "type": "string", "format": "binary" }
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
                 }
               }
             }
@@ -316,7 +369,13 @@
         "responses": {
           "200": {
             "description": "OK",
-            "content": { "*/*": { "schema": { "type": "string" } } }
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -328,13 +387,21 @@
             "name": "name",
             "in": "query",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "content": { "*/*": { "schema": { "type": "string" } } }
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -350,7 +417,9 @@
               "*/*": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/FeaturedGroupsDto" }
+                  "items": {
+                    "$ref": "#/components/schemas/FeaturedGroupsDto"
+                  }
                 }
               }
             }
@@ -363,7 +432,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/FeaturedGroupsDto" }
+              "schema": {
+                "$ref": "#/components/schemas/FeaturedGroupsDto"
+              }
             }
           },
           "required": true
@@ -373,7 +444,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/ResponseMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/FeaturedGroupsDto"
+                }
               }
             }
           }
@@ -385,7 +458,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/FeaturedGroupsDto" }
+              "schema": {
+                "$ref": "#/components/schemas/FeaturedGroupsDto"
+              }
             }
           },
           "required": true
@@ -395,7 +470,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/ResponseMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
               }
             }
           }
@@ -413,7 +490,9 @@
               "*/*": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/CategoryDto" }
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryDto"
+                  }
                 }
               }
             }
@@ -430,8 +509,13 @@
                 "required": ["categoryTitle", "image"],
                 "type": "object",
                 "properties": {
-                  "image": { "type": "string", "format": "binary" },
-                  "categoryTitle": { "type": "string" }
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "categoryTitle": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -442,7 +526,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/CategoryDto" }
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryDto"
+                }
               }
             }
           }
@@ -467,7 +553,13 @@
         "responses": {
           "200": {
             "description": "OK",
-            "content": { "*/*": { "schema": { "type": "boolean" } } }
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
           }
         }
       }
@@ -481,13 +573,21 @@
             "name": "businessDomain",
             "in": "query",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "content": { "*/*": { "schema": { "type": "boolean" } } }
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
           }
         }
       }
@@ -499,7 +599,13 @@
         "responses": {
           "200": {
             "description": "OK",
-            "content": { "*/*": { "schema": { "type": "string" } } }
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -513,7 +619,12 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "type": "array", "items": { "type": "object" } }
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
               }
             }
           }
@@ -524,7 +635,11 @@
       "get": {
         "tags": ["custom-test-api"],
         "operationId": "sendMail",
-        "responses": { "200": { "description": "OK" } }
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/auth/tests/email": {
@@ -536,7 +651,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/RawEmailTemplate" }
+                "schema": {
+                  "$ref": "#/components/schemas/RawEmailTemplate"
+                }
               }
             }
           }
@@ -552,7 +669,12 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "type": "array", "items": { "type": "object" } }
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
               }
             }
           }
@@ -568,7 +690,9 @@
             "name": "phoneNumber",
             "in": "query",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -576,7 +700,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/ResponseMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
               }
             }
           }
@@ -592,7 +718,9 @@
             "name": "email",
             "in": "query",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -600,7 +728,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/ResponseMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
               }
             }
           }
@@ -616,13 +746,21 @@
             "name": "phoneNumber",
             "in": "query",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "content": { "*/*": { "schema": { "type": "boolean" } } }
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
           }
         }
       }
@@ -636,7 +774,9 @@
             "name": "businessDomain",
             "in": "query",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -644,7 +784,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/SystemUserDto" }
+                "schema": {
+                  "$ref": "#/components/schemas/SystemUserDto"
+                }
               }
             }
           }
@@ -660,7 +802,9 @@
             "name": "userType",
             "in": "query",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -689,7 +833,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/CustomerDto" }
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerDto"
+                }
               }
             }
           }
@@ -705,7 +851,9 @@
             "name": "productName",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -713,7 +861,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/ResponseMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
               }
             }
           }
@@ -729,7 +879,9 @@
             "name": "categoryTitle",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -737,7 +889,9 @@
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/ResponseMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
               }
             }
           }
@@ -750,51 +904,82 @@
       "ImageDto": {
         "type": "object",
         "properties": {
-          "imageName": { "type": "string" },
+          "imageName": {
+            "type": "string"
+          },
           "folderName": {
             "type": "string",
             "enum": ["BUSINESS_LOGO", "PRODUCTS", "CUSTOMERS", "CATEGORIES"]
           },
-          "link": { "type": "string" }
+          "link": {
+            "type": "string"
+          }
         }
       },
       "SystemUserDto": {
         "required": ["email", "firstName", "lastName", "password", "role"],
         "type": "object",
         "properties": {
-          "email": { "type": "string" },
+          "email": {
+            "type": "string"
+          },
           "password": {
             "maxLength": 2147483647,
             "minLength": 8,
             "type": "string"
           },
-          "role": { "type": "string" },
-          "firstName": { "type": "string" },
-          "lastName": { "type": "string" },
-          "workspaceDto": { "$ref": "#/components/schemas/WorkspaceDto" }
+          "role": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "workspaceDto": {
+            "$ref": "#/components/schemas/WorkspaceDto"
+          }
         }
       },
       "WorkspaceDto": {
         "required": ["businessDomain", "businessName"],
         "type": "object",
         "properties": {
-          "businessName": { "type": "string" },
+          "businessName": {
+            "type": "string"
+          },
           "businessDomain": {
             "pattern": "[A-Za-z0-9](?:[A-Za-z0-9\\-]{0,61}[A-Za-z0-9])?",
             "type": "string"
           },
-          "imageDto": { "$ref": "#/components/schemas/ImageDto" }
+          "imageDto": {
+            "$ref": "#/components/schemas/ImageDto"
+          }
         }
       },
       "SystemUserDtoResponse": {
         "type": "object",
         "properties": {
-          "id": { "type": "integer", "format": "int64" },
-          "firstName": { "type": "string" },
-          "lastName": { "type": "string" },
-          "workspaceDto": { "$ref": "#/components/schemas/WorkspaceDto" },
-          "role": { "type": "string" },
-          "email": { "type": "string" }
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "workspaceDto": {
+            "$ref": "#/components/schemas/WorkspaceDto"
+          },
+          "role": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
         }
       },
       "ResponseMessage": {
@@ -874,87 +1059,152 @@
               "511 NETWORK_AUTHENTICATION_REQUIRED"
             ]
           },
-          "message": { "type": "string" }
+          "message": {
+            "type": "string"
+          }
         }
       },
       "EnableToken": {
         "required": ["accountInformation", "tokenCode"],
         "type": "object",
         "properties": {
-          "tokenCode": { "maxLength": 6, "minLength": 6, "type": "string" },
-          "accountInformation": { "type": "string" }
+          "tokenCode": {
+            "maxLength": 6,
+            "minLength": 6,
+            "type": "string"
+          },
+          "accountInformation": {
+            "type": "string"
+          }
         }
       },
       "BearerToken": {
         "required": ["accessToken", "tokenType"],
         "type": "object",
         "properties": {
-          "accessToken": { "type": "string" },
-          "tokenType": { "type": "string" }
+          "accessToken": {
+            "type": "string"
+          },
+          "tokenType": {
+            "type": "string"
+          }
         }
       },
       "LoginDto": {
         "required": ["email", "password"],
         "type": "object",
         "properties": {
-          "email": { "type": "string" },
-          "password": { "type": "string" }
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
         }
       },
       "FeaturedGroupsDto": {
         "type": "object",
         "properties": {
-          "groupName": { "type": "string" },
-          "workspaceDto": { "$ref": "#/components/schemas/WorkspaceDto" },
+          "groupName": {
+            "type": "string"
+          },
+          "workspaceDto": {
+            "$ref": "#/components/schemas/WorkspaceDto"
+          },
           "products": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/ProductDto" }
+            "items": {
+              "$ref": "#/components/schemas/ProductDto"
+            }
           }
         }
       },
       "ProductDto": {
         "type": "object",
         "properties": {
-          "productName": { "type": "string" },
-          "workspace": { "$ref": "#/components/schemas/WorkspaceDto" },
+          "productName": {
+            "type": "string"
+          },
+          "workspace": {
+            "$ref": "#/components/schemas/WorkspaceDto"
+          },
           "productModifiers": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/ProductModifierDto" }
+            "items": {
+              "$ref": "#/components/schemas/ProductModifierDto"
+            }
           },
-          "productDescription": { "type": "string" },
-          "image": { "$ref": "#/components/schemas/ImageDto" },
-          "price": { "type": "number", "format": "double" },
-          "categoryTitle": { "type": "string" }
+          "productDescription": {
+            "type": "string"
+          },
+          "image": {
+            "$ref": "#/components/schemas/ImageDto"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "categoryTitle": {
+            "type": "string"
+          }
         }
       },
       "ProductModifierDto": {
         "type": "object",
         "properties": {
-          "id": { "type": "integer", "format": "int64" },
-          "productModifierName": { "type": "string" },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productModifierName": {
+            "type": "string"
+          },
           "productSubmodifierSet": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/ProductSubmodifierDto" }
+            "items": {
+              "$ref": "#/components/schemas/ProductSubmodifierDto"
+            }
           },
-          "isRequired": { "type": "boolean" },
-          "choice": { "type": "string" }
+          "isRequired": {
+            "type": "boolean"
+          },
+          "choice": {
+            "type": "string"
+          }
         }
       },
       "ProductSubmodifierDto": {
         "type": "object",
         "properties": {
-          "id": { "type": "integer", "format": "int64" },
-          "productSubmodifierName": { "type": "string" },
-          "price": { "type": "number", "format": "double" }
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productSubmodifierName": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          }
         }
       },
       "CategoryDto": {
         "type": "object",
         "properties": {
-          "id": { "type": "integer", "format": "int64" },
-          "workspace": { "$ref": "#/components/schemas/WorkspaceDto" },
-          "image": { "$ref": "#/components/schemas/ImageDto" },
-          "categoryTitle": { "type": "string" }
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "workspace": {
+            "$ref": "#/components/schemas/WorkspaceDto"
+          },
+          "image": {
+            "$ref": "#/components/schemas/ImageDto"
+          },
+          "categoryTitle": {
+            "type": "string"
+          }
         }
       },
       "RawEmailTemplate": {
@@ -964,17 +1214,27 @@
             "type": "string",
             "enum": ["WORKSPACE_VERIFY_TEMPLATE"]
           },
-          "templateContent": { "type": "string" }
+          "templateContent": {
+            "type": "string"
+          }
         }
       },
       "CustomerDto": {
         "required": ["firstName", "lastName", "phoneNumber"],
         "type": "object",
         "properties": {
-          "firstName": { "type": "string" },
-          "lastName": { "type": "string" },
-          "imageDto": { "$ref": "#/components/schemas/ImageDto" },
-          "phoneNumber": { "type": "string" }
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "imageDto": {
+            "$ref": "#/components/schemas/ImageDto"
+          },
+          "phoneNumber": {
+            "type": "string"
+          }
         }
       }
     }

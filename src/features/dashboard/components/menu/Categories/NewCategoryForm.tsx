@@ -43,6 +43,10 @@ export const NewCategoryForm = () => {
 
   const onSubmit = async (data: z.infer<typeof NewCategoryFormSchema>) => {
     await addNewCategory(data.categoryTitle, data.categoryImage[0]);
+    form.reset({
+      categoryTitle: "",
+      categoryImage: undefined,
+    });
   };
 
   return (

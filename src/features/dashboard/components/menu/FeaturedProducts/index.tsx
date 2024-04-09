@@ -4,6 +4,7 @@ import { FC } from "react";
 
 import { EmptyCard } from "./EmptyCard";
 import { FeaturedSection } from "./FeaturedSection";
+import { FeaturedSectionFormDialog } from "./FeaturedSectionFormDialog";
 
 export const FeaturedProducts: FC = () => {
   const { featuredGroups, isLoading } = useFeaturedGroups();
@@ -15,7 +16,11 @@ export const FeaturedProducts: FC = () => {
         </div>
       )}
       {featuredGroups?.map((section) => <FeaturedSection section={section} />)}
-      {featuredGroups && featuredGroups.length === 0 && <EmptyCard />}
+      {featuredGroups && featuredGroups.length === 0 ? (
+        <EmptyCard />
+      ) : (
+        <FeaturedSectionFormDialog />
+      )}
     </div>
   );
 };

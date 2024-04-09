@@ -23,6 +23,14 @@ const deleteProductGroup = async (
   return featuredGroups ?? [];
 };
 
+const createFeaturedProductGroup = async (
+  data: FeaturedGroupsDto,
+  featuredGroups?: FeaturedGroupsDto[],
+): Promise<FeaturedGroupsDto[]> => {
+  const response = await FeaturedGroupsAPI.addNewFeaturedProduct(data);
+  return [...(featuredGroups ?? []), response.data];
+}
+
 export function useFeaturedGroups() {
   const {
     data: featuredGroups,
@@ -48,6 +56,20 @@ export function useFeaturedGroups() {
       }
     }
   };
+  const addFeaturedGroup = async (newFeaturedGroup: FeaturedGroupsDto,) => {
+    try {
+      await mutate(createFeaturedProductGroup(newFeaturedGroup, featuredGroups), {
+        rollbackOnError: true,
+        populateCache: true,
+        revalidate: false,
+      });
+      toast.success("Featured section added successfully.");
+    } catch (error) {
+      if (isAxiosError<ResponseMessage>(error)) {
+        toast.error(error.response?.data.message);
+      }
+    }
+  };
 
   return {
     featuredGroups,
@@ -55,5 +77,6 @@ export function useFeaturedGroups() {
     error,
     mutate,
     deleteGroupByName,
+    addFeaturedGroup
   };
 }
