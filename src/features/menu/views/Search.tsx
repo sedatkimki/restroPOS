@@ -1,5 +1,7 @@
 import { MobilePage } from "@/components/layout/MobilePage";
+import { useCustomerCategories } from "@/lib/queries/customer/useCustomerCategories";
 
+import { CategoryCard } from "../components/search/CategoryCard";
 // import { ScrollArea } from "@/components/ui/scroll-area";
 // import { SearchInput } from "@/components/ui/search-input";
 // import useSearch from "@/lib/hooks/useSearch";
@@ -184,6 +186,7 @@ import { SearchHeader } from "../components/search/SearchHeader";
 
 // todo: implement url state for search
 export const Search = () => {
+  const { categories } = useCustomerCategories();
   return (
     <MobilePage>
       <MobilePage.Header>
@@ -192,6 +195,11 @@ export const Search = () => {
         </MobilePage.TitleContainer>
       </MobilePage.Header>
       <MobilePage.Content>
+        {categories?.map((category) => (
+          <div className="grid grid-cols-2 gap-4">
+            <CategoryCard category={category} key={category.id} />
+          </div>
+        ))}
         {/* <ScrollArea className="flex flex-col gap-4">
           <Results data={dummyData} searchValue={searchValue} />
           <ScrollAreaScrollbar orientation="vertical" />

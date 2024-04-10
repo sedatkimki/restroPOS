@@ -30,7 +30,7 @@ const Action = ({ children }: ChildrenProp) => {
 };
 
 const Content = ({ children }: ChildrenProp) => {
-  return <div className="px-6 py-4">{children}</div>;
+  return <div className="px-6 py-4 pb-20">{children}</div>;
 };
 
 MobilePage.Header = Header;
