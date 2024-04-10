@@ -897,6 +897,48 @@
         }
       }
     },
+    "/api/v1/products/customer": {
+      "get": {
+        "tags": ["product-api"],
+        "operationId": "getAllProductsForCustomer",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/featuredGroups/customer": {
+      "get": {
+        "tags": ["featured-groups-api"],
+        "operationId": "getAllFeaturedGroupsForCustomer",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FeaturedGroupsDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/customers/token": {
       "get": {
         "tags": ["customer-api"],

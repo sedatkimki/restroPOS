@@ -2161,6 +2161,35 @@ export const FeaturedGroupsApiApiAxiosParamCreator = function (configuration?: C
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllFeaturedGroupsForCustomer: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/featuredGroups/customer`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -2206,6 +2235,17 @@ export const FeaturedGroupsApiApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['FeaturedGroupsApiApi.getAllFeaturedGroups']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllFeaturedGroupsForCustomer(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<FeaturedGroupsDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllFeaturedGroupsForCustomer(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FeaturedGroupsApiApi.getAllFeaturedGroupsForCustomer']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -2241,6 +2281,14 @@ export const FeaturedGroupsApiApiFactory = function (configuration?: Configurati
          */
         getAllFeaturedGroups(options?: any): AxiosPromise<Array<FeaturedGroupsDto>> {
             return localVarFp.getAllFeaturedGroups(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllFeaturedGroupsForCustomer(options?: any): AxiosPromise<Array<FeaturedGroupsDto>> {
+            return localVarFp.getAllFeaturedGroupsForCustomer(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -2282,6 +2330,16 @@ export class FeaturedGroupsApiApi extends BaseAPI {
      */
     public getAllFeaturedGroups(options?: RawAxiosRequestConfig) {
         return FeaturedGroupsApiApiFp(this.configuration).getAllFeaturedGroups(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FeaturedGroupsApiApi
+     */
+    public getAllFeaturedGroupsForCustomer(options?: RawAxiosRequestConfig) {
+        return FeaturedGroupsApiApiFp(this.configuration).getAllFeaturedGroupsForCustomer(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -2584,6 +2642,35 @@ export const ProductApiApiAxiosParamCreator = function (configuration?: Configur
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllProductsForCustomer: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/products/customer`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -2630,6 +2717,17 @@ export const ProductApiApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['ProductApiApi.getAllProducts']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllProductsForCustomer(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProductDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProductsForCustomer(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ProductApiApi.getAllProductsForCustomer']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -2666,6 +2764,14 @@ export const ProductApiApiFactory = function (configuration?: Configuration, bas
          */
         getAllProducts(options?: any): AxiosPromise<Array<ProductDto>> {
             return localVarFp.getAllProducts(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllProductsForCustomer(options?: any): AxiosPromise<Array<ProductDto>> {
+            return localVarFp.getAllProductsForCustomer(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -2708,6 +2814,16 @@ export class ProductApiApi extends BaseAPI {
      */
     public getAllProducts(options?: RawAxiosRequestConfig) {
         return ProductApiApiFp(this.configuration).getAllProducts(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProductApiApi
+     */
+    public getAllProductsForCustomer(options?: RawAxiosRequestConfig) {
+        return ProductApiApiFp(this.configuration).getAllProductsForCustomer(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
