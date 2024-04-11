@@ -11,7 +11,7 @@ import {
 import { FC } from "react";
 import { UseFormReturn } from "react-hook-form";
 
-import { ProductFormValues } from ".";
+import { ProductFormValues } from "./ProductDetailsForm";
 
 export type MultipleSelectFieldProps = {
   form: UseFormReturn<ProductFormValues>;

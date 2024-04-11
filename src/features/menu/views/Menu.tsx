@@ -7,6 +7,8 @@ import { NavigationLink } from "@/lib/types";
 import { Home, Package2, Search, ShoppingCart } from "lucide-react";
 import { Navigate } from "react-router-dom";
 
+import { ProductDetails } from "../components/ProductDetails";
+
 const links: NavigationLink[] = [
   {
     name: "Home",
@@ -45,6 +47,7 @@ export const Menu = () => {
         <AnimatedOutlet />
       </PageTransition>
       <BottomNavigation links={links} />
+      <ProductDetails />
     </div>
   );
 };

@@ -11,7 +11,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FC } from "react";
 import { UseFormReturn } from "react-hook-form";
 
-import { ProductFormValues } from ".";
+import { ProductFormValues } from "./ProductDetailsForm";
 
 export type SingleSelectFieldProps = {
   form: UseFormReturn<ProductFormValues>;
