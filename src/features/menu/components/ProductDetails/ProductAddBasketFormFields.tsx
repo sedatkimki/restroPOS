@@ -9,16 +9,16 @@ import { NumberInput } from "@/components/ui/number-input";
 import { FC } from "react";
 import { UseFormReturn } from "react-hook-form";
 
-import { ProductFormValues } from ".";
 import { MultipleSelectField } from "./MultipleSelectField";
-import { SingleSelectField } from "./SıngleSelectField";
+import { ProductFormValues } from "./ProductDetailsForm";
+import { SingleSelectField } from "./SingleSelectField";
 
 interface ProductAddBasketFormProps {
   product: ProductDto;
   form: UseFormReturn<ProductFormValues>;
 }
 
-export const ProductAddBasketForm: FC<ProductAddBasketFormProps> = ({
+export const ProductAddBasketFormFields: FC<ProductAddBasketFormProps> = ({
   product,
   form,
 }) => {
