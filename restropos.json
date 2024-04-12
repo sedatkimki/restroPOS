@@ -866,6 +866,34 @@
         }
       }
     },
+    "/api/v1/tables/{tableId}": {
+      "get": {
+        "tags": ["workspace-table-api"],
+        "operationId": "getTableById",
+        "parameters": [
+          {
+            "name": "tableId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceTableDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/staffs/getByType": {
       "get": {
         "tags": ["staff-api"],

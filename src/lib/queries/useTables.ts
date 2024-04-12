@@ -1,5 +1,5 @@
-import {  TablesAPI } from "@/api";
-import {  ResponseMessage, WorkspaceTableDto } from "@/api/client";
+import { TablesAPI } from "@/api";
+import { ResponseMessage, WorkspaceTableDto } from "@/api/client";
 import { toast } from "sonner";
 import useSWR from "swr";
 
@@ -24,11 +24,7 @@ const deleteTable = async (
 ): Promise<WorkspaceTableDto[]> => {
   const response = await TablesAPI.deleteTable(tableName);
   if (response.data.status) {
-    return (
-        tables?.filter(
-        (table) => table.tableName !== tableName,
-      ) ?? []
-    );
+    return tables?.filter((table) => table.tableName !== tableName) ?? [];
   }
   return tables ?? [];
 };
@@ -43,7 +39,7 @@ export function useTables() {
 
   const addNewTable = async (tableName: string) => {
     try {
-      await mutate(createNewTable(tableName,tables), {
+      await mutate(createNewTable(tableName, tables), {
         optimisticData: [
           ...(tables ?? []),
           {
