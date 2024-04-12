@@ -18,7 +18,7 @@ export const FeaturedSection: FC<FeaturedSectionProps> = ({
       <ScrollArea className="pt-2">
         <div className="flex w-max space-x-4 pb-4">
           {featuredGroup?.products?.map((product) => (
-            <ProductCard product={product} />
+            <ProductCard product={product} key={product.productName} />
           ))}
         </div>
         <ScrollBar orientation="horizontal" />

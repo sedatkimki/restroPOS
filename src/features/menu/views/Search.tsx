@@ -1,192 +1,74 @@
+import { ProductDto } from "@/api/client";
+import Loading from "@/components/layout/Loading";
 import { MobilePage } from "@/components/layout/MobilePage";
+import useSearch from "@/lib/hooks/useSearch";
 import { useCustomerCategories } from "@/lib/queries/customer/useCustomerCategories";
+import { useCustomerProducts } from "@/lib/queries/customer/useCustomerProducts";
+import { useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 
+import { ProductCard } from "../components/ProductCard";
 import { CategoryCard } from "../components/search/CategoryCard";
-// import { ScrollArea } from "@/components/ui/scroll-area";
-// import { SearchInput } from "@/components/ui/search-input";
-// import useSearch from "@/lib/hooks/useSearch";
-// import { ScrollAreaScrollbar } from "@radix-ui/react-scroll-area";
-// import { useState } from "react";
-// import { ProductCard } from "../components/ProductCard";
 import { SearchHeader } from "../components/search/SearchHeader";
 
-// type Product = {
-//   id: string;
-//   name: string;
-//   category: string;
-//   price: number;
-//   image: string;
-// };
+const keysToSearch = ["productName", "productDescription", "categoryTitle"];
 
-// const dummyData: Product[] = [
-//   {
-//     id: "1",
-//     name: "Apple",
-//     category: "Fruit",
-//     price: 10,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "2",
-//     name: "Banana",
-//     category: "Fruit",
-//     price: 20,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "3",
-//     name: "Carrot",
-//     category: "Vegetable",
-//     price: 30,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "4",
-//     name: "Broccoli",
-//     category: "Vegetable",
-//     price: 40,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "5",
-//     name: "Milk",
-//     category: "Dairy",
-//     price: 50,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "6",
-//     name: "Cheese",
-//     category: "Dairy",
-//     price: 60,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "7",
-//     name: "Bread",
-//     category: "Bakery",
-//     price: 70,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "8",
-//     name: "Cake",
-//     category: "Bakery",
-//     price: 80,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "9",
-//     name: "Chicken",
-//     category: "Meat",
-//     price: 90,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "10",
-//     name: "Beef",
-//     category: "Meat",
-//     price: 100,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "11",
-//     name: "Beef",
-//     category: "Meat",
-//     price: 100,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "12",
-//     name: "Beef",
-//     category: "Meat",
-//     price: 100,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "13",
-//     name: "Beef",
-//     category: "Meat",
-//     price: 100,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "14",
-//     name: "Beef",
-//     category: "Meat",
-//     price: 100,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "15",
-//     name: "Beef",
-//     category: "Meat",
-//     price: 100,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "16",
-//     name: "Beef",
-//     category: "Meat",
-//     price: 100,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "17",
-//     name: "Beef",
-//     category: "Meat",
-//     price: 100,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-//   {
-//     id: "18",
-//     name: "Beef",
-//     category: "Meat",
-//     price: 100,
-//     image:
-//       "https://cdn.yemek.com/mnresize/1250/833/uploads/2023/11/beyti-yemekcom.jpg",
-//   },
-// ];
+const Results = ({
+  data,
+  searchValue,
+}: {
+  data?: ProductDto[];
+  searchValue: string;
+}) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [searchParams, _] = useSearchParams();
 
-// const keysToSearch = ["name", "category"];
-// const Results = ({ data, searchValue }) => {
-//   const searchResults = useSearch<Product>(data, searchValue, keysToSearch);
+  const filteredData = useMemo(
+    () =>
+      data?.filter(
+        (value) => value.categoryTitle === searchParams.get("category"),
+      ) ?? [],
+    [data, searchParams],
+  );
 
-//   return (
-//     <div className="flex flex-col gap-4 pb-16">
-//       <div className="flex justify-between items-center">
-//         <h1 className="text-xl font-semibold">Search Results</h1>
-//         <span className=" text-sm text-muted-foreground">
-//           {searchResults.length} results
-//         </span>
-//       </div>
-//       {searchResults.map((item) => (
-//         <ProductCard fullWidth product={item} key={item.id} />
-//       ))}
-//     </div>
-//   );
-// };
+  const searchResults = useSearch<ProductDto>(
+    searchParams.get("category") ? filteredData : data || [],
+    searchValue,
+    keysToSearch,
+  );
 
-// todo: implement url state for search
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex justify-between items-center">
+        <h1 className="text-xl font-semibold">Search Results</h1>
+        <span className=" text-sm text-muted-foreground">
+          {!searchValue && searchParams.get("category")
+            ? filteredData?.length
+            : searchResults.length}{" "}
+          results
+        </span>
+      </div>
+      {!searchValue && searchParams.get("category")
+        ? filteredData?.map((item) => (
+            <ProductCard fullWidth product={item} key={item.productName} />
+          ))
+        : searchResults.map((item) => (
+            <ProductCard fullWidth product={item} key={item.productName} />
+          ))}
+    </div>
+  );
+};
+
 export const Search = () => {
-  const { categories } = useCustomerCategories();
+  const { categories, isLoading } = useCustomerCategories();
+  const { products } = useCustomerProducts();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <MobilePage>
       <MobilePage.Header>
@@ -195,15 +77,29 @@ export const Search = () => {
         </MobilePage.TitleContainer>
       </MobilePage.Header>
       <MobilePage.Content>
-        {categories?.map((category) => (
+        {searchParams.get("query") || searchParams.get("category") ? (
+          <Results
+            data={products}
+            searchValue={searchParams.get("query") || ""}
+          />
+        ) : (
           <div className="grid grid-cols-2 gap-4">
-            <CategoryCard category={category} key={category.id} />
+            {categories?.map((category) => (
+              <CategoryCard
+                category={category}
+                key={category.id}
+                onClick={() => {
+                  setSearchParams((prev) => {
+                    if (category.categoryTitle) {
+                      prev.set("category", category.categoryTitle);
+                    }
+                    return prev;
+                  });
+                }}
+              />
+            ))}
           </div>
-        ))}
-        {/* <ScrollArea className="flex flex-col gap-4">
-          <Results data={dummyData} searchValue={searchValue} />
-          <ScrollAreaScrollbar orientation="vertical" />
-        </ScrollArea> */}
+        )}
       </MobilePage.Content>
     </MobilePage>
   );

@@ -23,15 +23,16 @@ export const SearchHeader: FC = () => {
   });
 
   const onSubmit = (data: z.infer<typeof SearchInputFormSchema>) => {
-    console.log(data);
-
-    setSearchParams({ query: data.search });
+    setSearchParams((prev) => {
+      prev.set("query", data.search);
+      return prev;
+    });
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-4">
-        {searchParams.get("query") && (
+        {searchParams.get("query") || searchParams.get("category") ? (
           <Button
             variant="ghost"
             size="icon"
@@ -44,7 +45,7 @@ export const SearchHeader: FC = () => {
           >
             <ChevronLeft className="w-8 h-8" strokeWidth={1} />
           </Button>
-        )}
+        ) : null}
 
         <FormField
           control={form.control}

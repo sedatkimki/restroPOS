@@ -3414,6 +3414,39 @@ export const WorkspaceTableApiApiAxiosParamCreator = function (configuration?: C
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {string} tableId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTableById: async (tableId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tableId' is not null or undefined
+            assertParamExists('getTableById', 'tableId', tableId)
+            const localVarPath = `/api/v1/tables/{tableId}`
+                .replace(`{${"tableId"}}`, encodeURIComponent(String(tableId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -3459,6 +3492,18 @@ export const WorkspaceTableApiApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['WorkspaceTableApiApi.getAllTablesOfWorkspace']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @param {string} tableId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTableById(tableId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WorkspaceTableDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTableById(tableId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WorkspaceTableApiApi.getTableById']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -3494,6 +3539,15 @@ export const WorkspaceTableApiApiFactory = function (configuration?: Configurati
          */
         getAllTablesOfWorkspace(options?: any): AxiosPromise<Array<WorkspaceTableDto>> {
             return localVarFp.getAllTablesOfWorkspace(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} tableId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTableById(tableId: string, options?: any): AxiosPromise<WorkspaceTableDto> {
+            return localVarFp.getTableById(tableId, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -3535,6 +3589,17 @@ export class WorkspaceTableApiApi extends BaseAPI {
      */
     public getAllTablesOfWorkspace(options?: RawAxiosRequestConfig) {
         return WorkspaceTableApiApiFp(this.configuration).getAllTablesOfWorkspace(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} tableId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkspaceTableApiApi
+     */
+    public getTableById(tableId: string, options?: RawAxiosRequestConfig) {
+        return WorkspaceTableApiApiFp(this.configuration).getTableById(tableId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -6,11 +6,12 @@ import { FC } from "react";
 
 type CategoryCardProps = {
   category: CategoryDto;
+  onClick?: () => void;
 };
 
-export const CategoryCard: FC<CategoryCardProps> = ({ category }) => {
+export const CategoryCard: FC<CategoryCardProps> = ({ category, onClick }) => {
   return (
-    <Card>
+    <Card onClick={onClick}>
       <img
         src={category.image?.link}
         alt="category-image"
