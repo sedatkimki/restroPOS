@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 import { X } from "lucide-react";
 import { FC, PropsWithChildren, useEffect, useMemo } from "react";
-import { useForm } from "react-hook-form";
+import { UseFormReturn, useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 import { v4 as uuid } from "uuid";
 import { z } from "zod";
@@ -50,6 +50,39 @@ export const ProductFormSchema = z.object({
 
 export type ProductFormValues = z.infer<typeof ProductFormSchema>;
 
+type Selections = {
+  value: number;
+  label: string;
+};
+
+type ProductModifier = {
+  id: number;
+  name: string;
+  selections?: Selections[];
+};
+
+const calculateTotalPrice = (
+  product: ProductDto,
+  form: UseFormReturn<ProductFormValues>,
+) => {
+  let totalPrice = product.price || 0;
+  const modifiers = product.productModifiers;
+  form.getValues().productModifiers?.forEach((modifier: ProductModifier) => {
+    modifier.selections?.forEach((selection: Selections) => {
+      modifiers?.forEach((productModifier) => {
+        if (modifier.id === productModifier.id) {
+          productModifier.productSubmodifierSet?.forEach((productSelection) => {
+            if (selection.value === productSelection.id) {
+              totalPrice += productSelection?.price || 0;
+            }
+          });
+        }
+      });
+    });
+  });
+  return totalPrice * form.getValues().quantity;
+};
+
 export const ProductDetailsForm: FC<ProductDetailsProps> = ({ product }) => {
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(ProductFormSchema),
@@ -64,6 +97,24 @@ export const ProductDetailsForm: FC<ProductDetailsProps> = ({ product }) => {
       }, [product]),
     },
   });
+
+  const productModifiers = useWatch({
+    control: form.control,
+    name: "productModifiers",
+    defaultValue: [],
+  });
+
+  const quantity = useWatch({
+    control: form.control,
+    name: "quantity",
+    defaultValue: 1,
+  });
+
+  const totalPrice = useMemo(
+    () => calculateTotalPrice(product, form),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [product, productModifiers, quantity, form],
+  );
 
   const closeDrawer = useProductDrawer((state) => state.closeDrawer);
 
@@ -105,6 +156,7 @@ export const ProductDetailsForm: FC<ProductDetailsProps> = ({ product }) => {
         product: product,
         quantity: values.quantity,
         productModifiers: values?.productModifiers,
+        calculatedPrice: totalPrice,
       });
 
       toast.success("Product added to cart", { position: "top-center" });
@@ -154,12 +206,17 @@ export const ProductDetailsForm: FC<ProductDetailsProps> = ({ product }) => {
             </div>
           </div>
 
-          <DrawerFooter className=" z-50">
+          <DrawerFooter className="z-50 flex flex-row justify-between px-6 border border-t-1">
+            <div className="flex flex-col">
+              <span className="text-muted-foreground text-xs">Total</span>
+              <span className="text-md font-bold">₺{totalPrice}</span>
+            </div>
             <Button
               disabled={!form.formState.isValid}
               onClick={() => {
                 form.handleSubmit(onSubmit)();
               }}
+              className="w-[75%]"
             >
               Add to cart
             </Button>

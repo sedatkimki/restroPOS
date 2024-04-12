@@ -7,7 +7,7 @@ import { FeaturedSection } from "./FeaturedSection";
 export const FeaturedGroupsList: FC = () => {
   const { featuredGroups, isLoading } = useCustomerFeaturedGroups();
   if (isLoading) {
-    return <Loading />;
+    return <Loading withLogo={false} />;
   }
 
   return (

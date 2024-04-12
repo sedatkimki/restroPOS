@@ -2,6 +2,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { RouterProvider } from "react-router-dom";
 
 import { ThemeProvider } from "./components/ThemeProvider";
+import { ConfirmDialog } from "./components/dialogs/ConfirmDialog";
 import { getSubdomain } from "./lib/utils";
 import { router } from "./router";
 
@@ -17,6 +18,7 @@ function App() {
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <RouterProvider router={selectedRouter} />
       <Toaster richColors theme="light" />
+      <ConfirmDialog />
     </ThemeProvider>
   );
 }
