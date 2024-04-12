@@ -66,7 +66,7 @@ export const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   if (isLoading) {
-    return <Loading />;
+    return <Loading withLogo={false} />;
   }
 
   return (
