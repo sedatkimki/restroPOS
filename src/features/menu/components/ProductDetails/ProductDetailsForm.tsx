@@ -168,7 +168,7 @@ export const ProductDetailsForm: FC<ProductDetailsProps> = ({ product }) => {
   return (
     <Form {...form}>
       <form>
-        <DrawerContent className="outline-none max-h-[96%]">
+        <DrawerContent className="outline-none min-h-[96%] max-h-[96%]">
           <DrawerHeader className="text-left flex justify-between items-center px-6">
             <DrawerTitle className="text-lg">Add Product</DrawerTitle>
             <DrawerClose>
@@ -209,7 +209,7 @@ export const ProductDetailsForm: FC<ProductDetailsProps> = ({ product }) => {
           <DrawerFooter className="z-50 flex flex-row justify-between px-6 border border-t-1">
             <div className="flex flex-col">
               <span className="text-muted-foreground text-xs">Total</span>
-              <span className="text-md font-bold">₺{totalPrice}</span>
+              <span className="text-md font-bold">{totalPrice}₺</span>
             </div>
             <Button
               disabled={!form.formState.isValid}
