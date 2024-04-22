@@ -8,7 +8,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { fetchEventSource } from "@microsoft/fetch-event-source";
 import { create } from "zustand";
 
 type ConfirmDialogStore = {

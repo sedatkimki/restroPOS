@@ -1,4 +1,3 @@
-import { OrdersAPI } from "@/api";
 import { getSubdomain, getToken } from "@/lib";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import useSWRSubscription, { SWRSubscription } from "swr/subscription";
