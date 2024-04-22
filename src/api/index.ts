@@ -6,6 +6,7 @@ import {
   CategoryApiApi,
   CustomerApiApi,
   FeaturedGroupsApiApi,
+  OrderApiApi,
   ProductApiApi,
   StaffApiApi,
   UserApiApi,
@@ -91,6 +92,12 @@ export const FeaturedGroupsAPI = new FeaturedGroupsApiApi(
 );
 
 export const TablesAPI = new WorkspaceTableApiApi(
+  undefined,
+  import.meta.env.VITE_APP_DEV_API_URL,
+  globalAxios,
+);
+
+export const OrdersAPI = new OrderApiApi(
   undefined,
   import.meta.env.VITE_APP_DEV_API_URL,
   globalAxios,

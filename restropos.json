@@ -149,6 +149,34 @@
         }
       }
     },
+    "/auth/orders": {
+      "post": {
+        "tags": ["order-api"],
+        "operationId": "createOrder",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth/login/phoneNumber": {
       "post": {
         "tags": ["auth-api"],
@@ -201,6 +229,27 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/auth/employees/{status}": {
+      "post": {
+        "tags": ["employee-controller"],
+        "operationId": "setId",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -810,6 +859,102 @@
         }
       }
     },
+    "/auth/orders/{businessDomain}/{userType}/{userInfo}": {
+      "get": {
+        "tags": ["order-api"],
+        "operationId": "getEvents",
+        "parameters": [
+          {
+            "name": "businessDomain",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userType",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userInfo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/orders/qq": {
+      "get": {
+        "tags": ["order-api"],
+        "operationId": "getEventsEx",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/employees/{id}": {
+      "get": {
+        "tags": ["employee-controller"],
+        "operationId": "getEmployeeById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth/customer/valid": {
       "get": {
         "tags": ["auth-api"],
@@ -1234,6 +1379,149 @@
           }
         }
       },
+      "OrderDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "orderProducts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderProductDto"
+            }
+          },
+          "totalOrderPrice": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "OrderProductDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "product": {
+            "$ref": "#/components/schemas/ProductDto"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productSelectedModifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductSelectedModifierDto"
+            }
+          },
+          "calculatedPrice": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "ProductDto": {
+        "type": "object",
+        "properties": {
+          "productName": {
+            "type": "string"
+          },
+          "workspace": {
+            "$ref": "#/components/schemas/WorkspaceDto"
+          },
+          "productModifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductModifierDto"
+            }
+          },
+          "productDescription": {
+            "type": "string"
+          },
+          "image": {
+            "$ref": "#/components/schemas/ImageDto"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "categoryTitle": {
+            "type": "string"
+          }
+        }
+      },
+      "ProductModifierDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productModifierName": {
+            "type": "string"
+          },
+          "productSubmodifierSet": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductSubmodifierDto"
+            }
+          },
+          "isRequired": {
+            "type": "boolean"
+          },
+          "choice": {
+            "type": "string"
+          }
+        }
+      },
+      "ProductSelectedModifierDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "selections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SelectionDto"
+            }
+          }
+        }
+      },
+      "ProductSubmodifierDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productSubmodifierName": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "SelectionDto": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "EnableToken": {
         "required": ["accountInformation", "tokenCode"],
         "type": "object",
@@ -1300,76 +1588,6 @@
             "items": {
               "$ref": "#/components/schemas/ProductDto"
             }
-          }
-        }
-      },
-      "ProductDto": {
-        "type": "object",
-        "properties": {
-          "productName": {
-            "type": "string"
-          },
-          "workspace": {
-            "$ref": "#/components/schemas/WorkspaceDto"
-          },
-          "productModifiers": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ProductModifierDto"
-            }
-          },
-          "productDescription": {
-            "type": "string"
-          },
-          "image": {
-            "$ref": "#/components/schemas/ImageDto"
-          },
-          "price": {
-            "type": "number",
-            "format": "double"
-          },
-          "categoryTitle": {
-            "type": "string"
-          }
-        }
-      },
-      "ProductModifierDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "productModifierName": {
-            "type": "string"
-          },
-          "productSubmodifierSet": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ProductSubmodifierDto"
-            }
-          },
-          "isRequired": {
-            "type": "boolean"
-          },
-          "choice": {
-            "type": "string"
-          }
-        }
-      },
-      "ProductSubmodifierDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "productSubmodifierName": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number",
-            "format": "double"
           }
         }
       },

@@ -8,6 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { fetchEventSource } from "@microsoft/fetch-event-source";
 import { create } from "zustand";
 
 type ConfirmDialogStore = {
@@ -15,12 +16,12 @@ type ConfirmDialogStore = {
   message: string;
   isOpen: boolean;
   onConfirm: () => void;
-  onCancel: () => void;
+  onCancel?: () => void;
   openDialog: (
     title: string,
     message: string,
     onConfirm: () => void,
-    onCancel: () => void,
+    onCancel?: () => void,
   ) => void;
   closeDialog: () => void;
   onOpenChange: (open: boolean) => void;
@@ -41,6 +42,7 @@ export const useConfirmDialog = create<ConfirmDialogStore>()((set) => ({
 export function ConfirmDialog() {
   const { title, message, isOpen, onConfirm, onCancel, onOpenChange } =
     useConfirmDialog((state) => state);
+
   return (
     <AlertDialog open={isOpen} onOpenChange={onOpenChange}>
       <AlertDialogContent>
@@ -51,7 +53,7 @@ export function ConfirmDialog() {
         <AlertDialogFooter>
           <AlertDialogCancel
             onClick={() => {
-              onCancel();
+              onCancel?.();
             }}
           >
             Cancel

@@ -5,7 +5,11 @@ type ChildrenProp = {
 };
 
 const MobilePage = ({ children }: ChildrenProp) => {
-  return <div className="mx-auto w-full max-w-lg ">{children}</div>;
+  return (
+    <div className="mx-auto w-full max-w-lg h-[calc(100vh-63px)] flex flex-col">
+      {children}
+    </div>
+  );
 };
 
 const Header = ({ children }: ChildrenProp) => {
@@ -30,7 +34,15 @@ const Action = ({ children }: ChildrenProp) => {
 };
 
 const Content = ({ children }: ChildrenProp) => {
-  return <div className="px-6 py-4 pb-20">{children}</div>;
+  return <div className="px-6 py-4 pb-20 ">{children}</div>;
+};
+
+const Footer = ({ children }: ChildrenProp) => {
+  return (
+    <div className="px-6 py-4 fixed bottom-[63px] left-0 z-50 w-full border-t bg-white">
+      {children}
+    </div>
+  );
 };
 
 MobilePage.Header = Header;
@@ -38,5 +50,6 @@ MobilePage.TitleContainer = TitleContainer;
 MobilePage.Title = Title;
 MobilePage.Action = Action;
 MobilePage.Content = Content;
+MobilePage.Footer = Footer;
 
 export { MobilePage };
