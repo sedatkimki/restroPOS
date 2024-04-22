@@ -16,9 +16,11 @@ function App() {
   // eğer workspaceName valid değilse publicRoutes'a yönlendir
   return (
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-      <RouterProvider router={selectedRouter} />
-      <Toaster richColors theme="light" />
-      <ConfirmDialog />
+      <div vaul-drawer-wrapper="" className="bg-white min-h-[100vh]">
+        <RouterProvider router={selectedRouter} />
+        <Toaster richColors theme="light" />
+        <ConfirmDialog />
+      </div>
     </ThemeProvider>
   );
 }

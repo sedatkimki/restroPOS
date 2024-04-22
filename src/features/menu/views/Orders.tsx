@@ -1,30 +1,9 @@
-import { OrdersAPI } from "@/api";
 import { MobilePage } from "@/components/layout/MobilePage";
-import { Button } from "@/components/ui/button";
-import { useActiveOrders } from "@/lib/queries/customer/useActiveOrders";
-import { useCart } from "@/lib/store/useCart";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const DenemeComponent = () => {
-  const { orders } = useActiveOrders();
-  const items = useCart((state) => state.items);
+import { InProgress } from "../components/orders/InProgress";
+import { PastOrders } from "../components/orders/PastOrders";
 
-  return (
-    <div>
-      <h1>{orders}</h1>
-      <Button
-        onClick={() => {
-          OrdersAPI.createOrder({
-            orderProducts: items,
-          }).then((res) => {
-            console.log(res);
-          });
-        }}
-      >
-        deneme
-      </Button>
-    </div>
-  );
-};
 export const Orders = () => {
   return (
     <MobilePage>
@@ -33,8 +12,20 @@ export const Orders = () => {
           <MobilePage.Title>Orders</MobilePage.Title>
         </MobilePage.TitleContainer>
       </MobilePage.Header>
-
-      <DenemeComponent />
+      <MobilePage.Content>
+        <Tabs defaultValue="inProgress" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="inProgress">Orders in Progress</TabsTrigger>
+            <TabsTrigger value="past">Past Orders</TabsTrigger>
+          </TabsList>
+          <TabsContent value="inProgress">
+            <InProgress />
+          </TabsContent>
+          <TabsContent value="past">
+            <PastOrders />
+          </TabsContent>
+        </Tabs>
+      </MobilePage.Content>
     </MobilePage>
   );
 };

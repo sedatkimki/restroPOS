@@ -13,3 +13,12 @@ export enum UserRoles {
   KITCHEN = "KITCHEN",
   WAITER = "WAITER",
 }
+
+export enum OrderStatus {
+  RECEIVED = "RECEIVED",
+  PREPARING = "PREPARING",
+  SERVING = "SERVING",
+  ON_TABLE = "ON_TABLE",
+  COMPLETED = "COMPLETED",
+  CANCELED = "CANCELED",
+}
