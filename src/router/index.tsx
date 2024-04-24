@@ -1,5 +1,6 @@
 import * as AuthViews from "@/features/auth/views";
 import * as DashboardViews from "@/features/dashboard/views";
+import * as KitchenViews from "@/features/kitchen/views";
 import * as MenuViews from "@/features/menu/views";
 import * as WaiterViews from "@/features/waiter/views";
 import { Navigate, createBrowserRouter } from "react-router-dom";
@@ -109,6 +110,14 @@ const workspaceRoutes = createBrowserRouter([
           { index: true, element: <Navigate to="/waiter/orders" /> },
           { path: "/waiter/orders", Component: WaiterViews.Orders },
           { path: "/waiter/profile", Component: WaiterViews.Profile },
+        ],
+      },
+      {
+        path: "/kitchen",
+        Component: KitchenViews.Kitchen,
+        children: [
+          { index: true, element: <Navigate to="/kitchen/orders" /> },
+          { path: "/kitchen/orders", Component: KitchenViews.Orders },
         ],
       },
       {
