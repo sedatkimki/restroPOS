@@ -155,7 +155,7 @@ export const ProductDetailsForm: FC<ProductDetailsProps> = ({ product }) => {
         id: unique_id,
         product: product,
         quantity: values.quantity,
-        productModifiers: values?.productModifiers,
+        productSelectedModifiers: values?.productModifiers,
         calculatedPrice: totalPrice,
       });
 

@@ -26,7 +26,7 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
           {item.product.productName}
         </span>
         <span className="text-xs text-muted-foreground line-clamp-2 pt-1">
-          {item?.productModifiers?.map((modifiers) => {
+          {item?.productSelectedModifiers?.map((modifiers) => {
             return modifiers?.selections?.map((selection) => {
               return `${selection.label}, `;
             });

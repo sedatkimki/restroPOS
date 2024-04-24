@@ -1,14 +1,19 @@
 import { OrdersAPI } from "@/api";
+import { ResponseMessage } from "@/api/client";
 import { useConfirmDialog } from "@/components/dialogs/ConfirmDialog";
 import { MobilePage } from "@/components/layout/MobilePage";
 import { Button } from "@/components/ui/button";
+import { isAxiosError } from "@/lib";
 import { useCart } from "@/lib/store/useCart";
 import { Trash2 } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 import { CartItem } from "../components/cart/CartItem";
 
 export const Cart = () => {
+  const [loading, setLoading] = useState(false);
   const items = useCart((state) => state.items);
   const clearCart = useCart((state) => state.clearCart);
   const openDialog = useConfirmDialog((state) => state.openDialog);
@@ -16,6 +21,27 @@ export const Cart = () => {
     () => items.reduce((acc, item) => acc + item.calculatedPrice, 0),
     [items],
   );
+  const navigate = useNavigate();
+  const handleCheckout = async () => {
+    setLoading(true);
+    try {
+      await OrdersAPI.createOrder("subdomain1", {
+        orderProducts: items,
+      });
+      toast.success("Your order created successfuly", {
+        position: "top-center",
+      });
+      clearCart();
+      navigate("/menu/orders");
+    } catch (error) {
+      if (isAxiosError<ResponseMessage>(error)) {
+        toast.error(error.response?.data.message, {
+          position: "top-center",
+        });
+      }
+    }
+    setLoading(false);
+  };
 
   return (
     <MobilePage>
@@ -57,17 +83,12 @@ export const Cart = () => {
           </div>
           <Button
             className="w-[75%]"
+            loading={loading}
             onClick={() => {
               openDialog(
                 "Checkout",
                 "Are you sure you want to checkout?",
-                () => {
-                  OrdersAPI.createOrder({
-                    orderProducts: items,
-                  }).then((res) => {
-                    console.log(res);
-                  });
-                },
+                handleCheckout,
               );
             }}
           >
