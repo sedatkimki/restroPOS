@@ -15,7 +15,7 @@ export type CartItem = {
   id: string;
   product: ProductDto;
   quantity: number;
-  productModifiers?: ProductModifiers[];
+  productSelectedModifiers?: ProductModifiers[];
   calculatedPrice: number;
 };
 

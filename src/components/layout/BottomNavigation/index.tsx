@@ -9,7 +9,7 @@ type BottomNavigationProps = {
 export const BottomNavigation = ({ links }: BottomNavigationProps) => {
   return (
     <nav className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t">
-      <div className="grid h-full max-w-lg grid-cols-4 mx-auto">
+      <div className={`grid h-full max-w-lg grid-cols-${links.length} mx-auto`}>
         {links.map((link) => (
           <NavButton
             key={link.name}

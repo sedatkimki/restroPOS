@@ -1,6 +1,7 @@
 import * as AuthViews from "@/features/auth/views";
 import * as DashboardViews from "@/features/dashboard/views";
 import * as MenuViews from "@/features/menu/views";
+import * as WaiterViews from "@/features/waiter/views";
 import { Navigate, createBrowserRouter } from "react-router-dom";
 
 import PublicRoot from "./PublicRoot";
@@ -99,6 +100,15 @@ const workspaceRoutes = createBrowserRouter([
           { path: "/menu/search", Component: MenuViews.Search },
           { path: "/menu/orders", Component: MenuViews.Orders },
           { path: "/menu/cart", Component: MenuViews.Cart },
+        ],
+      },
+      {
+        path: "/waiter",
+        Component: WaiterViews.Waiter,
+        children: [
+          { index: true, element: <Navigate to="/waiter/orders" /> },
+          { path: "/waiter/orders", Component: WaiterViews.Orders },
+          { path: "/waiter/profile", Component: WaiterViews.Profile },
         ],
       },
       {
