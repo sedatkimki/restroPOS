@@ -9,8 +9,10 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
+import { OrderStatus } from "@/lib";
 import { useWaiterOrderDrawer } from "@/lib/store/useWaiterOrderDrawer";
 import { X } from "lucide-react";
+import moment from "moment";
 import { FC } from "react";
 
 import { OrderStatusBadge } from "./OrderStatusBadge";
@@ -19,7 +21,7 @@ import { ORDER_COLORS, ORDER_LABELS } from "./constants";
 export const OrderDrawer: FC = () => {
   const isDrawerOpen = useWaiterOrderDrawer((state) => state.isDrawerOpen);
   const onOpenChange = useWaiterOrderDrawer((state) => state.onOpenChange);
-  const orderStatus = useWaiterOrderDrawer((state) => state.orderStatus);
+  const order = useWaiterOrderDrawer((state) => state.order);
 
   return (
     <Drawer open={isDrawerOpen} onOpenChange={onOpenChange}>
@@ -35,15 +37,15 @@ export const OrderDrawer: FC = () => {
         <div className=" overflow-auto">
           <div className="mx-auto w-full max-w-lg px-6 py-4 gap-4 grid">
             <Card className="p-3 flex gap-3">
-              <OrderStatusBadge status={orderStatus} />
+              <OrderStatusBadge status={order.orderStatus as OrderStatus} />
               <div className="flex flex-col gap-1">
                 <span className="font-normal text-muted-foreground text-xs leading-3">
                   Order Status
                 </span>
                 <span
-                  className={`font-semibold text-md ${ORDER_COLORS[orderStatus][1]} leading-4`}
+                  className={`font-semibold text-md ${ORDER_COLORS[order.orderStatus || OrderStatus.RECEIVED][1]} leading-4`}
                 >
-                  {ORDER_LABELS[orderStatus]}
+                  {ORDER_LABELS[order.orderStatus || OrderStatus.RECEIVED]}
                 </span>
               </div>
             </Card>
@@ -53,43 +55,44 @@ export const OrderDrawer: FC = () => {
                   <span className="text-sm text-muted-foreground">
                     Order Number
                   </span>
-                  <span className="text-sm">123123</span>
+                  <span className="text-sm">#{order.id}</span>
                 </li>
                 <li className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">
                     Order Date
                   </span>
-                  <span className="text-sm">26.11.2023 - 16:32</span>
+                  <span className="text-sm">
+                    {moment(order?.orderCreationTime).format("LLL")}
+                  </span>
                 </li>
                 <li className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">
                     Table No
                   </span>
-                  <span className="text-sm">A5</span>
+                  <span className="text-sm">
+                    {order.workspaceTableDto?.tableName}
+                  </span>
                 </li>
               </ul>
             </Card>
             <Card className="p-3 grid gap-3">
               <div className="font-semibold">Order Summary</div>
               <ul className="grid gap-3">
-                <li className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">
-                    1 x Ekmek arası döner
-                  </span>
-                  <span className="text-sm">125 ₺</span>
-                </li>
-                <li className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">
-                    2 x Ayran
-                  </span>
-                  <span className="text-sm">80 ₺</span>
-                </li>
+                {order?.orderProducts?.map((product) => (
+                  <li className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">
+                      {product.quantity}x {product.product?.productName}
+                    </span>
+                    <span className="text-sm">{product.calculatedPrice} ₺</span>
+                  </li>
+                ))}
+
                 <Separator />
                 <li className="flex items-center justify-between font-semibold">
                   <span className="text-sm text-muted-foreground">
                     Total Amount
                   </span>
-                  <span className="text-sm ">205 ₺</span>
+                  <span className="text-sm ">{order.totalOrderPrice} ₺</span>
                 </li>
               </ul>
             </Card>

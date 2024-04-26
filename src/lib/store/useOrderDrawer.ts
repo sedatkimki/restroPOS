@@ -1,22 +1,20 @@
+import { OrderDto } from "@/api/client";
 import { create } from "zustand";
-
-import { OrderStatus } from "../types";
 
 // TODO: OrderDTO
 
 type OrderDrawerStore = {
-  orderStatus: OrderStatus;
+  order: OrderDto;
   isDrawerOpen: boolean;
-  openDrawer: (orderStatus: OrderStatus) => void;
+  openDrawer: (orderStatus: OrderDto) => void;
   closeDrawer: () => void;
   onOpenChange: (open: boolean) => void;
 };
 
 export const useOrderDrawer = create<OrderDrawerStore>()((set) => ({
-  //   order: {},
-  orderStatus: OrderStatus.RECEIVED,
+  order: {},
   isDrawerOpen: false,
-  openDrawer: (orderStatus) => set({ orderStatus, isDrawerOpen: true }),
+  openDrawer: (order) => set({ order, isDrawerOpen: true }),
   closeDrawer: () => set({ isDrawerOpen: false }),
   onOpenChange: (open) => set({ isDrawerOpen: open }),
 }));

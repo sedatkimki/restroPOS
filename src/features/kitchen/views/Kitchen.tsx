@@ -17,11 +17,11 @@ export const Kitchen = () => {
     case UserRoles.CUSTOMER:
       return <Navigate to="/menu" />;
     case UserRoles.ADMIN:
-      return <Navigate to="/waiter" />;
+      return <Navigate to="/" />;
     case UserRoles.WAITER:
-      return <Navigate to="/kitchen" />;
+      return <Navigate to="/waiter" />;
     case UserRoles.CASH_DESK:
-      return <Navigate to="/cashier" />;
+      return <Navigate to="/cash-desk" />;
     default:
       break;
   }

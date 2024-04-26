@@ -71,7 +71,7 @@ export const Dashboard = () => {
     case UserRoles.KITCHEN:
       return <Navigate to="/kitchen" />;
     case UserRoles.CASH_DESK:
-      return <Navigate to="/cashier" />;
+      return <Navigate to="/cash-desk" />;
     default:
       break;
   }

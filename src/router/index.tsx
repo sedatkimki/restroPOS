@@ -1,4 +1,5 @@
 import * as AuthViews from "@/features/auth/views";
+import * as CashDeskViews from "@/features/cash-desk/views";
 import * as DashboardViews from "@/features/dashboard/views";
 import * as KitchenViews from "@/features/kitchen/views";
 import * as MenuViews from "@/features/menu/views";
@@ -118,6 +119,14 @@ const workspaceRoutes = createBrowserRouter([
         children: [
           { index: true, element: <Navigate to="/kitchen/orders" /> },
           { path: "/kitchen/orders", Component: KitchenViews.Orders },
+        ],
+      },
+      {
+        path: "/cash-desk",
+        Component: CashDeskViews.CashDesk,
+        children: [
+          { index: true, element: <Navigate to="/cash-desk/tables" /> },
+          { path: "/cash-desk/tables", Component: CashDeskViews.Tables },
         ],
       },
       {

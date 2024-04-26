@@ -35,11 +35,11 @@ export const Waiter = () => {
     case UserRoles.CUSTOMER:
       return <Navigate to="/menu" />;
     case UserRoles.ADMIN:
-      return <Navigate to="/waiter" />;
+      return <Navigate to="/" />;
     case UserRoles.KITCHEN:
       return <Navigate to="/kitchen" />;
     case UserRoles.CASH_DESK:
-      return <Navigate to="/cashier" />;
+      return <Navigate to="/cash-desk" />;
     default:
       break;
   }
@@ -49,7 +49,7 @@ export const Waiter = () => {
       <PageTransition>
         <AnimatedOutlet />
       </PageTransition>
-      <BottomNavigation links={links} />
+      <BottomNavigation links={links} col={2} />
       <OrderDrawer />
     </div>
   );

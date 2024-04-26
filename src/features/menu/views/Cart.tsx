@@ -4,6 +4,7 @@ import { useConfirmDialog } from "@/components/dialogs/ConfirmDialog";
 import { MobilePage } from "@/components/layout/MobilePage";
 import { Button } from "@/components/ui/button";
 import { isAxiosError } from "@/lib";
+import { useTable } from "@/lib/queries/customer";
 import { useCart } from "@/lib/store/useCart";
 import { Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -13,9 +14,11 @@ import { toast } from "sonner";
 import { CartItem } from "../components/cart/CartItem";
 
 export const Cart = () => {
+  const tableId = localStorage.getItem("tableId");
   const [loading, setLoading] = useState(false);
   const items = useCart((state) => state.items);
   const clearCart = useCart((state) => state.clearCart);
+  const { table } = useTable(tableId);
   const openDialog = useConfirmDialog((state) => state.openDialog);
   const totalPrice = useMemo(
     () => items.reduce((acc, item) => acc + item.calculatedPrice, 0),
@@ -26,7 +29,13 @@ export const Cart = () => {
     setLoading(true);
     try {
       await OrdersAPI.createOrder("subdomain1", {
-        orderProducts: items,
+        workspaceTableDto: table,
+        orderProducts: items.map((item) => ({
+          product: item.product,
+          quantity: item.quantity,
+          productSelectedModifiers: item.productSelectedModifiers,
+          calculatedPrice: item.calculatedPrice,
+        })),
       });
       toast.success("Your order created successfuly", {
         position: "top-center",
@@ -84,6 +93,7 @@ export const Cart = () => {
           <Button
             className="w-[75%]"
             loading={loading}
+            disabled={items.length === 0}
             onClick={() => {
               openDialog(
                 "Checkout",

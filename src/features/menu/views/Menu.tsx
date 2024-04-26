@@ -60,7 +60,7 @@ export const Menu = () => {
       <PageTransition>
         <AnimatedOutlet />
       </PageTransition>
-      <BottomNavigation links={links} />
+      <BottomNavigation links={links} col={4} />
       <ProductDetails />
       <OrderDrawer />
     </div>

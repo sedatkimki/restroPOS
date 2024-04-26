@@ -1,16 +1,18 @@
-import { OrderStatus } from "@/lib";
+import Loading from "@/components/layout/Loading";
+import { useActiveOrders } from "@/lib/queries/customer/useActiveOrders";
 
 import { OrderCard } from "./order-details";
 
 export const ActiveOrders = () => {
+  const { orders, error } = useActiveOrders();
+
+  if (orders === undefined && error === undefined) {
+    return <Loading withLogo={false} />;
+  }
+
   return (
     <div className="pt-2 divide-y">
-      <OrderCard status={OrderStatus.RECEIVED} />
-      <OrderCard status={OrderStatus.PREPARING} />
-      <OrderCard status={OrderStatus.SERVING} />
-      <OrderCard status={OrderStatus.ON_TABLE} />
-      <OrderCard status={OrderStatus.COMPLETED} />
-      <OrderCard status={OrderStatus.CANCELED} />
+      {orders?.map((order) => <OrderCard key={order.id} order={order} />)}
     </div>
   );
 };

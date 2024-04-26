@@ -246,6 +246,18 @@ export interface OrderDto {
      * @memberof OrderDto
      */
     'orderStatus'?: OrderDtoOrderStatusEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderDto
+     */
+    'orderCreationTime'?: string;
+    /**
+     * 
+     * @type {WorkspaceTableDto}
+     * @memberof OrderDto
+     */
+    'workspaceTableDto'?: WorkspaceTableDto;
 }
 
 export const OrderDtoOrderStatusEnum = {
@@ -266,10 +278,10 @@ export type OrderDtoOrderStatusEnum = typeof OrderDtoOrderStatusEnum[keyof typeo
 export interface OrderProductDto {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof OrderProductDto
      */
-    'id'?: string;
+    'id'?: number;
     /**
      * 
      * @type {ProductDto}
@@ -687,6 +699,12 @@ export interface WorkspaceDto {
  * @interface WorkspaceTableDto
  */
 export interface WorkspaceTableDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkspaceTableDto
+     */
+    'tableId'?: string;
     /**
      * 
      * @type {string}
@@ -2939,7 +2957,7 @@ export const OrderApiApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getEvents(businessDomain: string, userType: string, userInfo: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<OrderDto>>> {
+        async getEvents(businessDomain: string, userType: string, userInfo: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Array<OrderDto>>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getEvents(businessDomain, userType, userInfo, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['OrderApiApi.getEvents']?.[localVarOperationServerIndex]?.url;
@@ -2973,7 +2991,7 @@ export const OrderApiApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEvents(businessDomain: string, userType: string, userInfo: string, options?: any): AxiosPromise<Array<OrderDto>> {
+        getEvents(businessDomain: string, userType: string, userInfo: string, options?: any): AxiosPromise<Array<Array<OrderDto>>> {
             return localVarFp.getEvents(businessDomain, userType, userInfo, options).then((request) => request(axios, basePath));
         },
     };

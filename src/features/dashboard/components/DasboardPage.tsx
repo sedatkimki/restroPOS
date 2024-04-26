@@ -19,11 +19,15 @@ const DashboardPage = ({ children, pageName }: DashboardPageProps) => {
   );
 };
 
-const Header = ({ children }: ChildrenProp) => {
+type HeaderProps = {
+  separator?: boolean;
+} & ChildrenProp;
+
+const Header = ({ children, separator = true }: HeaderProps) => {
   return (
     <>
       <div className="flex flex-row items-center">{children}</div>
-      <Separator className="my-6" />
+      {separator && <Separator className="my-6" />}
     </>
   );
 };
