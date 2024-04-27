@@ -56,7 +56,7 @@ export function useActiveOrders() {
 
   const { data: orders, error } = useSWRSubscription<OrderDto[]>(
     customer && businessDomain
-      ? `/api/v1/orders/${businessDomain}/${UserRoles.CUSTOMER}/${customer?.phoneNumber}`
+      ? `/auth/orders/${businessDomain}/${UserRoles.CUSTOMER}/${customer?.phoneNumber}`
       : null,
     subscribeOrders,
   );
