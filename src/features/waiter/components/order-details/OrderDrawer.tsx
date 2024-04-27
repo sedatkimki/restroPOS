@@ -1,3 +1,6 @@
+import { OrdersAPI } from "@/api";
+import { ResponseMessage } from "@/api/client";
+import { useConfirmDialog } from "@/components/dialogs/ConfirmDialog";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Drawer } from "@/components/ui/drawer";
@@ -9,11 +12,12 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
-import { OrderStatus } from "@/lib";
+import { OrderStatus, isAxiosError } from "@/lib";
 import { useWaiterOrderDrawer } from "@/lib/store/useWaiterOrderDrawer";
 import { X } from "lucide-react";
 import moment from "moment";
-import { FC } from "react";
+import { FC, useState } from "react";
+import { toast } from "sonner";
 
 import { OrderStatusBadge } from "./OrderStatusBadge";
 import { ORDER_COLORS, ORDER_LABELS } from "./constants";
@@ -22,6 +26,46 @@ export const OrderDrawer: FC = () => {
   const isDrawerOpen = useWaiterOrderDrawer((state) => state.isDrawerOpen);
   const onOpenChange = useWaiterOrderDrawer((state) => state.onOpenChange);
   const order = useWaiterOrderDrawer((state) => state.order);
+  const assigned = useWaiterOrderDrawer((state) => state.assigned);
+  const openDialog = useConfirmDialog((state) => state.openDialog);
+  const closeDrawer = useWaiterOrderDrawer((state) => state.closeDrawer);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [serveLoading, setServeLoading] = useState(false);
+
+  const handleConfirm = async () => {
+    setConfirmLoading(true);
+    try {
+      await OrdersAPI.waiterTakeOrder(order.id as string);
+      toast.success("Order successfully taken!", {
+        position: "top-center",
+      });
+      closeDrawer();
+    } catch (error) {
+      if (isAxiosError<ResponseMessage>(error)) {
+        toast.error(error.response?.data.message, {
+          position: "top-center",
+        });
+      }
+    }
+    setConfirmLoading(false);
+  };
+  const handleServe = async () => {
+    setServeLoading(true);
+    try {
+      await OrdersAPI.waiterServeOrder(order.id as string);
+      toast.success("Order successfully served", {
+        position: "top-center",
+      });
+      closeDrawer();
+    } catch (error) {
+      if (isAxiosError<ResponseMessage>(error)) {
+        toast.error(error.response?.data.message, {
+          position: "top-center",
+        });
+      }
+    }
+    setServeLoading(false);
+  };
 
   return (
     <Drawer open={isDrawerOpen} onOpenChange={onOpenChange}>
@@ -100,7 +144,39 @@ export const OrderDrawer: FC = () => {
         </div>
 
         <DrawerFooter className="z-50 flex flex-row justify-between px-6 border border-t-1">
-          <Button className="w-full">Rate Order</Button>
+          {assigned && order.orderStatus === OrderStatus.SERVING ? (
+            <Button
+              className="w-full"
+              loading={serveLoading}
+              onClick={(e) => {
+                e.stopPropagation();
+
+                openDialog(
+                  "Confirm Serve",
+                  "Are you sure you want to serve this order?",
+                  handleServe,
+                );
+              }}
+            >
+              Serve Order
+            </Button>
+          ) : null}
+          {!assigned && (
+            <Button
+              className="w-full"
+              onClick={(e) => {
+                e.stopPropagation();
+                openDialog(
+                  "Confirm Order",
+                  "Are you sure you want to confirm this order",
+                  handleConfirm,
+                );
+              }}
+              loading={confirmLoading}
+            >
+              Confirm Order
+            </Button>
+          )}
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

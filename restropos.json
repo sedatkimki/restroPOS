@@ -435,31 +435,40 @@
             }
           }
         }
-      },
-      "delete": {
-        "tags": ["order-api"],
-        "operationId": "deleteOrder",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrderDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
       }
     },
     "/api/v1/orders/waiter/take": {
       "post": {
         "tags": ["order-api"],
         "operationId": "waiterTakeOrder",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/orders/waiter/serve": {
+      "post": {
+        "tags": ["order-api"],
+        "operationId": "waiterServeOrder",
         "parameters": [
           {
             "name": "orderId",
@@ -492,6 +501,93 @@
           {
             "name": "orderId",
             "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/orders/kitchen/cancel": {
+      "post": {
+        "tags": ["order-api"],
+        "operationId": "kitchenCancelOrder",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/orders/cashDesk/pay": {
+      "post": {
+        "tags": ["order-api"],
+        "operationId": "cashDeskPayAll",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/orders/cashDesk/pay/{orderId}": {
+      "post": {
+        "tags": ["order-api"],
+        "operationId": "cashDeskPayById",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "string"
@@ -1049,6 +1145,66 @@
         }
       }
     },
+    "/api/v1/orders/{customerInfo}/{businessDomain}": {
+      "get": {
+        "tags": ["order-api"],
+        "operationId": "getCustomerOrders",
+        "parameters": [
+          {
+            "name": "customerInfo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "businessDomain",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/orders/admin": {
+      "get": {
+        "tags": ["order-api"],
+        "operationId": "getBusinessOrders",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/featuredGroups/customer": {
       "get": {
         "tags": ["featured-groups-api"],
@@ -1451,6 +1607,9 @@
             "$ref": "#/components/schemas/SystemUserDto"
           },
           "kitchenDto": {
+            "$ref": "#/components/schemas/SystemUserDto"
+          },
+          "cashDeskDto": {
             "$ref": "#/components/schemas/SystemUserDto"
           }
         }

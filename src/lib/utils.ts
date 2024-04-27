@@ -3,6 +3,8 @@ import { ResponseMessage } from "@/api/client";
 import debouncePromise from "awesome-debounce-promise";
 import axios, { AxiosError } from "axios";
 import { type ClassValue, clsx } from "clsx";
+import { Timestamp } from "firebase/firestore";
+import moment from "moment";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -72,4 +74,11 @@ export function isAxiosError<ResponseType>(
 
 export const normalizeValue = (value: number, min: number, max: number) => {
   return ((value - min) / (max - min)) * 100;
+};
+
+export const getDate = (orderCreationTime?: Timestamp | string) => {
+  if (orderCreationTime instanceof Timestamp) {
+    return moment(orderCreationTime.toDate()).format("LLL");
+  }
+  return moment(orderCreationTime).format("LLL");
 };

@@ -6,8 +6,9 @@ import { FirestoreOrderDto } from "../types";
 
 type OrderDrawerStore = {
   order: FirestoreOrderDto;
+  assigned: boolean;
   isDrawerOpen: boolean;
-  openDrawer: (order: FirestoreOrderDto) => void;
+  openDrawer: (order: FirestoreOrderDto, assigned: boolean) => void;
   closeDrawer: () => void;
   onOpenChange: (open: boolean) => void;
 };
@@ -15,7 +16,8 @@ type OrderDrawerStore = {
 export const useWaiterOrderDrawer = create<OrderDrawerStore>()((set) => ({
   order: {},
   isDrawerOpen: false,
-  openDrawer: (order) => set({ order, isDrawerOpen: true }),
+  assigned: false,
+  openDrawer: (order, assigned) => set({ order, assigned, isDrawerOpen: true }),
   closeDrawer: () => set({ isDrawerOpen: false }),
   onOpenChange: (open) => set({ isDrawerOpen: open }),
 }));

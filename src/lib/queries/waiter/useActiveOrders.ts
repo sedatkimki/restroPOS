@@ -10,7 +10,6 @@ export function useActiveOrders() {
   const workspaceCollection = collection(useFirestore(), `/${businessDomain}`);
   const q = query(workspaceCollection, where("waiterDto", "==", null));
   const { status, data: orders, error } = useFirestoreCollectionData(q);
-  console.log(orders, error);
 
   return {
     orders,
@@ -26,7 +25,6 @@ export function useAssignedOrders() {
   const workspaceCollection = collection(useFirestore(), `/${businessDomain}`);
   const q = query(workspaceCollection, where("waiterDto", "==", user));
   const { status, data: orders, error } = useFirestoreCollectionData(q);
-  console.log(orders, error);
 
   return {
     orders,

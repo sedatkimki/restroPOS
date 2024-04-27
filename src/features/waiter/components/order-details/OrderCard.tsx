@@ -14,17 +14,18 @@ import { ORDER_COLORS, ORDER_LABELS } from "./constants";
 
 type OrderCardProps = {
   order: FirestoreOrderDto;
-  assigned?: boolean;
+  assigned: boolean;
 };
 
 export const OrderCard: FC<OrderCardProps> = ({ order, assigned }) => {
   const openDrawer = useWaiterOrderDrawer((state) => state.openDrawer);
   const openDialog = useConfirmDialog((state) => state.openDialog);
 
-  const [loading, setLoading] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [serveLoading, setServeLoading] = useState(false);
 
   const handleConfirm = async () => {
-    setLoading(true);
+    setConfirmLoading(true);
     try {
       await OrdersAPI.waiterTakeOrder(order.id as string);
       toast.success("Order successfully taken!", {
@@ -37,14 +38,30 @@ export const OrderCard: FC<OrderCardProps> = ({ order, assigned }) => {
         });
       }
     }
-    setLoading(false);
+    setConfirmLoading(false);
+  };
+  const handleServe = async () => {
+    setServeLoading(true);
+    try {
+      await OrdersAPI.waiterServeOrder(order.id as string);
+      toast.success("Order successfully served", {
+        position: "top-center",
+      });
+    } catch (error) {
+      if (isAxiosError<ResponseMessage>(error)) {
+        toast.error(error.response?.data.message, {
+          position: "top-center",
+        });
+      }
+    }
+    setServeLoading(false);
   };
 
   return (
     <div
       className="flex gap-3 py-2"
       onClick={() => {
-        openDrawer(order);
+        openDrawer(order, assigned);
       }}
     >
       <OrderStatusBadge status={order.orderStatus as OrderStatus} />
@@ -65,18 +82,25 @@ export const OrderCard: FC<OrderCardProps> = ({ order, assigned }) => {
           </span>
           {order?.totalOrderPrice} ₺
         </span>
-        {assigned ? (
+        {assigned && order.orderStatus === OrderStatus.SERVING ? (
           <Button
             className="text-xs h-7 w-min"
-            disabled={order.orderStatus == OrderStatus.PREPARING}
+            loading={serveLoading}
+            onClick={(e) => {
+              e.stopPropagation();
+
+              openDialog(
+                "Confirm Serve",
+                "Are you sure you want to serve this order?",
+                handleServe,
+              );
+            }}
           >
-            {order.orderStatus == OrderStatus.PREPARING
-              ? "Waiting for preparation"
-              : "Serve Order"}
+            Serve Order
           </Button>
-        ) : (
+        ) : null}
+        {!assigned && (
           <Button
-            variant={"outline"}
             className="text-xs h-7 w-min"
             onClick={(e) => {
               e.stopPropagation();
@@ -86,7 +110,7 @@ export const OrderCard: FC<OrderCardProps> = ({ order, assigned }) => {
                 handleConfirm,
               );
             }}
-            loading={loading}
+            loading={confirmLoading}
           >
             Confirm Order
           </Button>

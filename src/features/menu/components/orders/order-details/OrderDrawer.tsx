@@ -9,10 +9,9 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
-import { OrderStatus } from "@/lib";
+import { OrderStatus, getDate } from "@/lib";
 import { useOrderDrawer } from "@/lib/store/useOrderDrawer";
 import { X } from "lucide-react";
-import moment from "moment";
 import { FC } from "react";
 
 import { OrderStatusBadge } from "./OrderStatusBadge";
@@ -62,7 +61,7 @@ export const OrderDrawer: FC = () => {
                     Order Date
                   </span>
                   <span className="text-sm">
-                    {moment(order.orderCreationTime?.toDate()).format("LLL")}
+                    {getDate(order.orderCreationTime)}
                   </span>
                 </li>
                 <li className="flex items-center justify-between">

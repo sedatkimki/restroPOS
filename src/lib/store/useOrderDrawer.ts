@@ -1,3 +1,4 @@
+import { OrderDto } from "@/api/client";
 import { create } from "zustand";
 
 import { FirestoreOrderDto } from "../types";
@@ -5,9 +6,9 @@ import { FirestoreOrderDto } from "../types";
 // TODO: OrderDTO
 
 type OrderDrawerStore = {
-  order: FirestoreOrderDto;
+  order: FirestoreOrderDto | OrderDto;
   isDrawerOpen: boolean;
-  openDrawer: (orderStatus: FirestoreOrderDto) => void;
+  openDrawer: (orderStatus: FirestoreOrderDto | OrderDto) => void;
   closeDrawer: () => void;
   onOpenChange: (open: boolean) => void;
 };

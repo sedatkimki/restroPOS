@@ -1,14 +1,14 @@
-import { FirestoreOrderDto, OrderStatus } from "@/lib";
+import { OrderDto } from "@/api/client";
+import { FirestoreOrderDto, OrderStatus, getDate } from "@/lib";
 import { useOrderDrawer } from "@/lib/store/useOrderDrawer";
 import { ChevronRight } from "lucide-react";
-import moment from "moment";
 import { FC } from "react";
 
 import { OrderStatusBadge } from "./OrderStatusBadge";
 import { ORDER_COLORS, ORDER_LABELS } from "./constants";
 
 type OrderCardProps = {
-  order: FirestoreOrderDto;
+  order: FirestoreOrderDto | OrderDto;
 };
 
 export const OrderCard: FC<OrderCardProps> = ({ order }) => {
@@ -38,8 +38,8 @@ export const OrderCard: FC<OrderCardProps> = ({ order }) => {
         </span>
         <span className="text-xs font-medium">
           <span className="text-muted-foreground">
-            {moment(order.orderCreationTime?.toDate()).format("LLL")} •{" "}
-            {order?.orderProducts?.length} products •{" "}
+            {getDate(order.orderCreationTime)} • {order?.orderProducts?.length}{" "}
+            products •{" "}
           </span>
           {order?.totalOrderPrice} ₺
         </span>
