@@ -149,44 +149,6 @@
         }
       }
     },
-    "/auth/orders": {
-      "post": {
-        "tags": ["order-api"],
-        "operationId": "createOrder",
-        "parameters": [
-          {
-            "name": "businessDomain",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrderDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrderDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/auth/login/phoneNumber": {
       "post": {
         "tags": ["auth-api"],
@@ -461,6 +423,44 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ResponseMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/orders": {
+      "post": {
+        "tags": ["order-api"],
+        "operationId": "createOrder",
+        "parameters": [
+          {
+            "name": "businessDomain",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDto"
                 }
               }
             }
@@ -869,56 +869,6 @@
         }
       }
     },
-    "/auth/orders/{businessDomain}/{userType}/{userInfo}": {
-      "get": {
-        "tags": ["order-api"],
-        "operationId": "getEvents",
-        "parameters": [
-          {
-            "name": "businessDomain",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userType",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userInfo",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/event-stream": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/OrderDto"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/auth/employees/{id}": {
       "get": {
         "tags": ["employee-controller"],
@@ -1075,6 +1025,56 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/ProductDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/orders/{businessDomain}/{userType}/{userInfo}": {
+      "get": {
+        "tags": ["order-api"],
+        "operationId": "getEvents",
+        "parameters": [
+          {
+            "name": "businessDomain",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userType",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userInfo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/OrderDto"
+                    }
                   }
                 }
               }
@@ -1371,6 +1371,61 @@
           }
         }
       },
+      "EnableToken": {
+        "required": ["accountInformation", "tokenCode"],
+        "type": "object",
+        "properties": {
+          "tokenCode": {
+            "maxLength": 6,
+            "minLength": 6,
+            "type": "string"
+          },
+          "accountInformation": {
+            "type": "string"
+          }
+        }
+      },
+      "BearerToken": {
+        "required": ["accessToken", "tokenType"],
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string"
+          },
+          "tokenType": {
+            "type": "string"
+          }
+        }
+      },
+      "LoginDto": {
+        "required": ["email", "password"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "WorkspaceTableDto": {
+        "type": "object",
+        "properties": {
+          "tableId": {
+            "type": "string"
+          },
+          "tableName": {
+            "type": "string"
+          },
+          "workspaceDto": {
+            "$ref": "#/components/schemas/WorkspaceDto"
+          },
+          "imageDto": {
+            "$ref": "#/components/schemas/ImageDto"
+          }
+        }
+      },
       "CustomerDto": {
         "required": ["firstName", "lastName", "phoneNumber"],
         "type": "object",
@@ -1554,61 +1609,6 @@
           "value": {
             "type": "number",
             "format": "double"
-          }
-        }
-      },
-      "WorkspaceTableDto": {
-        "type": "object",
-        "properties": {
-          "tableId": {
-            "type": "string"
-          },
-          "tableName": {
-            "type": "string"
-          },
-          "workspaceDto": {
-            "$ref": "#/components/schemas/WorkspaceDto"
-          },
-          "imageDto": {
-            "$ref": "#/components/schemas/ImageDto"
-          }
-        }
-      },
-      "EnableToken": {
-        "required": ["accountInformation", "tokenCode"],
-        "type": "object",
-        "properties": {
-          "tokenCode": {
-            "maxLength": 6,
-            "minLength": 6,
-            "type": "string"
-          },
-          "accountInformation": {
-            "type": "string"
-          }
-        }
-      },
-      "BearerToken": {
-        "required": ["accessToken", "tokenType"],
-        "type": "object",
-        "properties": {
-          "accessToken": {
-            "type": "string"
-          },
-          "tokenType": {
-            "type": "string"
-          }
-        }
-      },
-      "LoginDto": {
-        "required": ["email", "password"],
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
           }
         }
       },

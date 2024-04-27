@@ -2868,7 +2868,7 @@ export const OrderApiApiAxiosParamCreator = function (configuration?: Configurat
             assertParamExists('createOrder', 'businessDomain', businessDomain)
             // verify required parameter 'orderDto' is not null or undefined
             assertParamExists('createOrder', 'orderDto', orderDto)
-            const localVarPath = `/auth/orders`;
+            const localVarPath = `/api/v1/orders`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -2913,7 +2913,7 @@ export const OrderApiApiAxiosParamCreator = function (configuration?: Configurat
             assertParamExists('getEvents', 'userType', userType)
             // verify required parameter 'userInfo' is not null or undefined
             assertParamExists('getEvents', 'userInfo', userInfo)
-            const localVarPath = `/auth/orders/{businessDomain}/{userType}/{userInfo}`
+            const localVarPath = `/api/v1/orders/{businessDomain}/{userType}/{userInfo}`
                 .replace(`{${"businessDomain"}}`, encodeURIComponent(String(businessDomain)))
                 .replace(`{${"userType"}}`, encodeURIComponent(String(userType)))
                 .replace(`{${"userInfo"}}`, encodeURIComponent(String(userInfo)));

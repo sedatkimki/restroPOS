@@ -20,13 +20,7 @@ function App() {
         <RouterProvider router={selectedRouter} />
         <ConfirmDialog />
       </div>
-      <Toaster
-        richColors
-        theme="light"
-        toastOptions={{
-          className: " z-[99999]",
-        }}
-      />
+      <Toaster richColors theme="light" />
     </ThemeProvider>
   );
 }
