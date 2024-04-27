@@ -34,7 +34,7 @@ export const OrderDrawer: FC = () => {
             </Button>
           </DrawerClose>
         </DrawerHeader>
-        <div className=" overflow-auto">
+        <div className="overflow-auto">
           <div className="mx-auto w-full max-w-lg px-6 py-4 gap-4 grid">
             <Card className="p-3 flex gap-3">
               <OrderStatusBadge status={order.orderStatus as OrderStatus} />

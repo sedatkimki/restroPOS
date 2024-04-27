@@ -1,7 +1,9 @@
+import { baseURL } from "@/api";
 import { OrderDto } from "@/api/client";
 import { UserRoles, getSubdomain, getToken } from "@/lib";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import { useCallback } from "react";
+import { toast } from "sonner";
 import useSWRSubscription, { SWRSubscription } from "swr/subscription";
 
 import { useCustomer } from "../useCustomer";
@@ -13,7 +15,7 @@ export function useActiveOrders() {
   const subscribeOrders: SWRSubscription<string, OrderDto[], Error> =
     useCallback((key: string, { next }) => {
       const ctrl = new AbortController();
-      fetchEventSource(`${import.meta.env.VITE_APP_DEV_API_URL}${key}`, {
+      fetchEventSource(`${baseURL}${key}`, {
         headers: {
           Accept: "text/event-stream",
           Authorization: `Bearer ${getToken()}`,
@@ -40,16 +42,22 @@ export function useActiveOrders() {
         },
         onerror(err) {
           console.log("There was an error from server", err);
+          toast.error("There was an error from server", {
+            position: "top-center",
+          });
           next(err);
         },
       });
+
       return () => {
         ctrl.abort();
       };
     }, []);
 
   const { data: orders, error } = useSWRSubscription<OrderDto[]>(
-    `/api/v1/orders/${businessDomain}/${UserRoles.CUSTOMER}/${customer?.phoneNumber}`,
+    customer && businessDomain
+      ? `/api/v1/orders/${businessDomain}/${UserRoles.CUSTOMER}/${customer?.phoneNumber}`
+      : null,
     subscribeOrders,
   );
 

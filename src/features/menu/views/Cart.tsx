@@ -4,6 +4,7 @@ import { useConfirmDialog } from "@/components/dialogs/ConfirmDialog";
 import { MobilePage } from "@/components/layout/MobilePage";
 import { Button } from "@/components/ui/button";
 import { isAxiosError } from "@/lib";
+import { useCustomer } from "@/lib/queries";
 import { useTable } from "@/lib/queries/customer";
 import { useCart } from "@/lib/store/useCart";
 import { Trash2 } from "lucide-react";
@@ -16,6 +17,7 @@ import { CartItem } from "../components/cart/CartItem";
 export const Cart = () => {
   const tableId = localStorage.getItem("tableId");
   const [loading, setLoading] = useState(false);
+  const { customer } = useCustomer();
   const items = useCart((state) => state.items);
   const clearCart = useCart((state) => state.clearCart);
   const { table } = useTable(tableId);
@@ -36,6 +38,7 @@ export const Cart = () => {
           productSelectedModifiers: item.productSelectedModifiers,
           calculatedPrice: item.calculatedPrice,
         })),
+        customerDto: customer,
       });
       toast.success("Your order created successfuly", {
         position: "top-center",

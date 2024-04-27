@@ -1,5 +1,5 @@
 import Loading from "@/components/layout/Loading";
-import { useActiveOrders } from "@/lib/queries/customer/useActiveOrders";
+import { useActiveOrders } from "@/lib/queries/waiter/useActiveOrders";
 
 import { OrderCard } from "./order-details";
 

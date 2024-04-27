@@ -13,8 +13,12 @@ import {
   WorkspaceTableApiApi,
 } from "./client";
 
+export const baseURL = import.meta.env.PROD
+  ? import.meta.env.VITE_APP_DEV_API_URL
+  : import.meta.env.VITE_APP_LOCAL_API_URL;
+
 const globalAxios = axios.create({
-  baseURL: import.meta.env.VITE_APP_DEV_API_URL,
+  baseURL: baseURL,
   headers: {
     "accept-language": "en",
   },
@@ -49,56 +53,28 @@ globalAxios.interceptors.response.use(
   },
 );
 
-export const AuthAPI = new AuthApiApi(
-  undefined,
-  import.meta.env.VITE_APP_DEV_API_URL,
-  globalAxios,
-);
+export const AuthAPI = new AuthApiApi(undefined, baseURL, globalAxios);
 
-export const UserAPI = new UserApiApi(
-  undefined,
-  import.meta.env.VITE_APP_DEV_API_URL,
-  globalAxios,
-);
+export const UserAPI = new UserApiApi(undefined, baseURL, globalAxios);
 
-export const CustomerAPI = new CustomerApiApi(
-  undefined,
-  import.meta.env.VITE_APP_DEV_API_URL,
-  globalAxios,
-);
+export const CustomerAPI = new CustomerApiApi(undefined, baseURL, globalAxios);
 
-export const StaffAPI = new StaffApiApi(
-  undefined,
-  import.meta.env.VITE_APP_DEV_API_URL,
-  globalAxios,
-);
+export const StaffAPI = new StaffApiApi(undefined, baseURL, globalAxios);
 
-export const CategoryAPI = new CategoryApiApi(
-  undefined,
-  import.meta.env.VITE_APP_DEV_API_URL,
-  globalAxios,
-);
+export const CategoryAPI = new CategoryApiApi(undefined, baseURL, globalAxios);
 
-export const ProductAPI = new ProductApiApi(
-  undefined,
-  import.meta.env.VITE_APP_DEV_API_URL,
-  globalAxios,
-);
+export const ProductAPI = new ProductApiApi(undefined, baseURL, globalAxios);
 
 export const FeaturedGroupsAPI = new FeaturedGroupsApiApi(
   undefined,
-  import.meta.env.VITE_APP_DEV_API_URL,
+  baseURL,
   globalAxios,
 );
 
 export const TablesAPI = new WorkspaceTableApiApi(
   undefined,
-  import.meta.env.VITE_APP_DEV_API_URL,
+  baseURL,
   globalAxios,
 );
 
-export const OrdersAPI = new OrderApiApi(
-  undefined,
-  import.meta.env.VITE_APP_DEV_API_URL,
-  globalAxios,
-);
+export const OrdersAPI = new OrderApiApi(undefined, baseURL, globalAxios);

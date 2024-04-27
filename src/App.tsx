@@ -18,9 +18,15 @@ function App() {
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <div vaul-drawer-wrapper="" className="bg-white min-h-[100vh]">
         <RouterProvider router={selectedRouter} />
-        <Toaster richColors theme="light" />
         <ConfirmDialog />
       </div>
+      <Toaster
+        richColors
+        theme="light"
+        toastOptions={{
+          className: " z-[99999]",
+        }}
+      />
     </ThemeProvider>
   );
 }

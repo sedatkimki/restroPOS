@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://restropos-kpc5.onrender.com",
+      "url": "http://localhost:8080",
       "description": "Generated server url"
     }
   ],
@@ -1426,6 +1426,24 @@
           }
         }
       },
+      "CustomerDto": {
+        "required": ["firstName", "lastName", "phoneNumber"],
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "imageDto": {
+            "$ref": "#/components/schemas/ImageDto"
+          },
+          "phoneNumber": {
+            "type": "string"
+          }
+        }
+      },
       "OrderDto": {
         "type": "object",
         "properties": {
@@ -1449,7 +1467,8 @@
               "PREPARING",
               "SERVING",
               "ON_TABLE",
-              "COMPLETED"
+              "COMPLETED",
+              "CANCELED"
             ]
           },
           "orderCreationTime": {
@@ -1458,6 +1477,12 @@
           },
           "workspaceTableDto": {
             "$ref": "#/components/schemas/WorkspaceTableDto"
+          },
+          "customerDto": {
+            "$ref": "#/components/schemas/CustomerDto"
+          },
+          "waiterDto": {
+            "$ref": "#/components/schemas/SystemUserDto"
           }
         }
       },
@@ -1630,24 +1655,6 @@
             "enum": ["WORKSPACE_VERIFY_TEMPLATE"]
           },
           "templateContent": {
-            "type": "string"
-          }
-        }
-      },
-      "CustomerDto": {
-        "required": ["firstName", "lastName", "phoneNumber"],
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "imageDto": {
-            "$ref": "#/components/schemas/ImageDto"
-          },
-          "phoneNumber": {
             "type": "string"
           }
         }

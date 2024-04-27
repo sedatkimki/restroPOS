@@ -258,6 +258,18 @@ export interface OrderDto {
      * @memberof OrderDto
      */
     'workspaceTableDto'?: WorkspaceTableDto;
+    /**
+     * 
+     * @type {CustomerDto}
+     * @memberof OrderDto
+     */
+    'customerDto'?: CustomerDto;
+    /**
+     * 
+     * @type {SystemUserDto}
+     * @memberof OrderDto
+     */
+    'waiterDto'?: SystemUserDto;
 }
 
 export const OrderDtoOrderStatusEnum = {
@@ -265,7 +277,8 @@ export const OrderDtoOrderStatusEnum = {
     Preparing: 'PREPARING',
     Serving: 'SERVING',
     OnTable: 'ON_TABLE',
-    Completed: 'COMPLETED'
+    Completed: 'COMPLETED',
+    Canceled: 'CANCELED'
 } as const;
 
 export type OrderDtoOrderStatusEnum = typeof OrderDtoOrderStatusEnum[keyof typeof OrderDtoOrderStatusEnum];
