@@ -31,6 +31,246 @@ const tables: Table[] = [
     name: "Table 3",
     description: "Table 3 description",
   },
+  {
+    id: "table-1",
+    name: "Table 1",
+    description: "Table 1 description",
+  },
+  {
+    id: "table-2",
+    name: "Table 2",
+    description: "Table 2 description",
+  },
+  {
+    id: "table-3",
+    name: "Table 3",
+    description: "Table 3 description",
+  },
+  {
+    id: "table-1",
+    name: "Table 1",
+    description: "Table 1 description",
+  },
+  {
+    id: "table-2",
+    name: "Table 2",
+    description: "Table 2 description",
+  },
+  {
+    id: "table-3",
+    name: "Table 3",
+    description: "Table 3 description",
+  },
+  {
+    id: "table-1",
+    name: "Table 1",
+    description: "Table 1 description",
+  },
+  {
+    id: "table-2",
+    name: "Table 2",
+    description: "Table 2 description",
+  },
+  {
+    id: "table-3",
+    name: "Table 3",
+    description: "Table 3 description",
+  },
+  {
+    id: "table-1",
+    name: "Table 1",
+    description: "Table 1 description",
+  },
+  {
+    id: "table-2",
+    name: "Table 2",
+    description: "Table 2 description",
+  },
+  {
+    id: "table-3",
+    name: "Table 3",
+    description: "Table 3 description",
+  },
+  {
+    id: "table-1",
+    name: "Table 1",
+    description: "Table 1 description",
+  },
+  {
+    id: "table-2",
+    name: "Table 2",
+    description: "Table 2 description",
+  },
+  {
+    id: "table-3",
+    name: "Table 3",
+    description: "Table 3 description",
+  },
+  {
+    id: "table-1",
+    name: "Table 1",
+    description: "Table 1 description",
+  },
+  {
+    id: "table-2",
+    name: "Table 2",
+    description: "Table 2 description",
+  },
+  {
+    id: "table-3",
+    name: "Table 3",
+    description: "Table 3 description",
+  },
+  {
+    id: "table-1",
+    name: "Table 1",
+    description: "Table 1 description",
+  },
+  {
+    id: "table-2",
+    name: "Table 2",
+    description: "Table 2 description",
+  },
+  {
+    id: "table-3",
+    name: "Table 3",
+    description: "Table 3 description",
+  },
+  {
+    id: "table-1",
+    name: "Table 1",
+    description: "Table 1 description",
+  },
+  {
+    id: "table-2",
+    name: "Table 2",
+    description: "Table 2 description",
+  },
+  {
+    id: "table-3",
+    name: "Table 3",
+    description: "Table 3 description",
+  },
+  {
+    id: "table-1",
+    name: "Table 1",
+    description: "Table 1 description",
+  },
+  {
+    id: "table-2",
+    name: "Table 2",
+    description: "Table 2 description",
+  },
+  {
+    id: "table-3",
+    name: "Table 3",
+    description: "Table 3 description",
+  },
+  {
+    id: "table-1",
+    name: "Table 1",
+    description: "Table 1 description",
+  },
+  {
+    id: "table-2",
+    name: "Table 2",
+    description: "Table 2 description",
+  },
+  {
+    id: "table-3",
+    name: "Table 3",
+    description: "Table 3 description",
+  },
+  {
+    id: "table-1",
+    name: "Table 1",
+    description: "Table 1 description",
+  },
+  {
+    id: "table-2",
+    name: "Table 2",
+    description: "Table 2 description",
+  },
+  {
+    id: "table-3",
+    name: "Table 3",
+    description: "Table 3 description",
+  },
+  {
+    id: "table-1",
+    name: "Table 1",
+    description: "Table 1 description",
+  },
+  {
+    id: "table-2",
+    name: "Table 2",
+    description: "Table 2 description",
+  },
+  {
+    id: "table-3",
+    name: "Table 3",
+    description: "Table 3 description",
+  },
+  {
+    id: "table-1",
+    name: "Table 1",
+    description: "Table 1 description",
+  },
+  {
+    id: "table-2",
+    name: "Table 2",
+    description: "Table 2 description",
+  },
+  {
+    id: "table-3",
+    name: "Table 3",
+    description: "Table 3 description",
+  },
+  {
+    id: "table-1",
+    name: "Table 1",
+    description: "Table 1 description",
+  },
+  {
+    id: "table-2",
+    name: "Table 2",
+    description: "Table 2 description",
+  },
+  {
+    id: "table-3",
+    name: "Table 3",
+    description: "Table 3 description",
+  },
+  {
+    id: "table-1",
+    name: "Table 1",
+    description: "Table 1 description",
+  },
+  {
+    id: "table-2",
+    name: "Table 2",
+    description: "Table 2 description",
+  },
+  {
+    id: "table-3",
+    name: "Table 3",
+    description: "Table 3 description",
+  },
+  {
+    id: "table-1",
+    name: "Table 1",
+    description: "Table 1 description",
+  },
+  {
+    id: "table-2",
+    name: "Table 2",
+    description: "Table 2 description",
+  },
+  {
+    id: "table-3",
+    name: "Table 3",
+    description: "Table 3 description",
+  },
 ];
 
 const TableCard = ({ table }: { table: Table }) => {
@@ -107,10 +347,10 @@ export const Tables = () => {
         </DashboardPage.Action>
       </DashboardPage.Header>
       <Separator className="mt-6" />
-      <div className="flex h-screen ">
+      <div className="flex">
         <div
           className={cn(
-            "grid grid-cols-1  gap-4 sm:grid-cols-3 lg:grid-cols-5 flex-1 pt-6",
+            "grid grid-cols-1  gap-4 sm:grid-cols-3 lg:grid-cols-5 flex-1 pt-6  max-h-[calc(100vh-93px)] overflow-auto",
             selected ? "lg:grid-cols-3" : "lg:grid-cols-4",
           )}
         >
@@ -120,9 +360,9 @@ export const Tables = () => {
         </div>
         {selected && (
           <>
-            <div className="flex-1 border-l  max-w-[500px] ml-4 max-h-screen overflow-auto">
-              <div className="p-4 rounded-lg">
-                <div className="flex items-center gap-2 pb-4">
+            <div className="border-l border-r flex-1 width-[500px] max-w-[500px] ml-4 h-[calc(100vh-93px)] sticky top-0 overflow-auto ">
+              <div className="relative">
+                <div className="flex items-center gap-2 p-4 sticky top-0 bg-white border-b">
                   <div className="font-semibold text-xl">Table 1</div>
                   <span className="flex h-2 w-2 rounded-full bg-green-500" />
                   <div className="ml-auto">
@@ -131,207 +371,227 @@ export const Tables = () => {
                     </Button>
                   </div>
                 </div>
-                <div className=" overflow-auto grid gap-4">
-                  <Card className="p-3 grid gap-3 ">
-                    <div className="font-semibold flex">
-                      Order #123{" "}
-                      <Badge
-                        variant={"outline"}
-                        className="ml-auto font-normal"
-                      >
-                        deneme
-                      </Badge>
-                    </div>
-                    <div className="text-sm">
-                      <span>Customer:</span>
-                      <span className="ml-2 font-semibold">Sedat Korkmaz</span>
-                    </div>
-                    <Separator />
-                    <ul className="grid gap-3">
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          2x Burger
+                <div className="p-4 bg-muted">
+                  <div className="overflow-auto grid gap-4">
+                    <Card className="p-3 grid gap-3 ">
+                      <div className="font-semibold flex">
+                        Order #123{" "}
+                        <Badge
+                          variant={"outline"}
+                          className="ml-auto font-normal"
+                        >
+                          deneme
+                        </Badge>
+                      </div>
+                      <div className="text-sm">
+                        <span>Customer:</span>
+                        <span className="ml-2 font-semibold">
+                          Sedat Korkmaz
                         </span>
-                        <span className="text-sm">120 ₺</span>
-                      </li>
-                      <li className="flex items-center justify-between">
+                      </div>
+                      <Separator />
+                      <ul className="grid gap-3">
+                        <li className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            2x Burger
+                          </span>
+                          <span className="text-sm">120 ₺</span>
+                        </li>
+                        <li className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            2x Burger
+                          </span>
+                          <span className="text-sm">120 ₺</span>
+                        </li>
+                        <li className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            2x Burger
+                          </span>
+                          <span className="text-sm">120 ₺</span>
+                        </li>
+                        <li className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            2x Burger
+                          </span>
+                          <span className="text-sm">120 ₺</span>
+                        </li>
+                      </ul>
+                      <Separator />
+                      <div className="flex items-center justify-between font-semibold">
                         <span className="text-sm text-muted-foreground">
-                          2x Burger
+                          Total Amount:
                         </span>
-                        <span className="text-sm">120 ₺</span>
-                      </li>
-                      <li className="flex items-center justify-between">
+                        <span className="text-sm">124 ₺</span>
+                      </div>
+                      <Button>Marked as Paid</Button>
+                    </Card>
+                    <Card className="p-3 grid gap-3 ">
+                      <div className="font-semibold flex">
+                        Order #123{" "}
+                        <Badge
+                          variant={"outline"}
+                          className="ml-auto font-normal"
+                        >
+                          deneme
+                        </Badge>
+                      </div>
+                      <div className="text-sm">
+                        <span>Customer:</span>
+                        <span className="ml-2 font-semibold">
+                          Sedat Korkmaz
+                        </span>
+                      </div>
+                      <Separator />
+                      <ul className="grid gap-3">
+                        <li className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            2x Burger
+                          </span>
+                          <span className="text-sm">120 ₺</span>
+                        </li>
+                        <li className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            2x Burger
+                          </span>
+                          <span className="text-sm">120 ₺</span>
+                        </li>
+                        <li className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            2x Burger
+                          </span>
+                          <span className="text-sm">120 ₺</span>
+                        </li>
+                        <li className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            2x Burger
+                          </span>
+                          <span className="text-sm">120 ₺</span>
+                        </li>
+                      </ul>
+                      <Separator />
+                      <div className="flex items-center justify-between font-semibold">
                         <span className="text-sm text-muted-foreground">
-                          2x Burger
+                          Total Amount:
                         </span>
-                        <span className="text-sm">120 ₺</span>
-                      </li>
-                      <li className="flex items-center justify-between">
+                        <span className="text-sm">124 ₺</span>
+                      </div>
+                      <Button>Pay</Button>
+                    </Card>
+                    <Card className="p-3 grid gap-3 ">
+                      <div className="font-semibold flex">
+                        Order #123{" "}
+                        <Badge
+                          variant={"outline"}
+                          className="ml-auto font-normal"
+                        >
+                          deneme
+                        </Badge>
+                      </div>
+                      <div className="text-sm">
+                        <span>Customer:</span>
+                        <span className="ml-2 font-semibold">
+                          Sedat Korkmaz
+                        </span>
+                      </div>
+                      <Separator />
+                      <ul className="grid gap-3">
+                        <li className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            2x Burger
+                          </span>
+                          <span className="text-sm">120 ₺</span>
+                        </li>
+                        <li className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            2x Burger
+                          </span>
+                          <span className="text-sm">120 ₺</span>
+                        </li>
+                        <li className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            2x Burger
+                          </span>
+                          <span className="text-sm">120 ₺</span>
+                        </li>
+                        <li className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            2x Burger
+                          </span>
+                          <span className="text-sm">120 ₺</span>
+                        </li>
+                      </ul>
+                      <Separator />
+                      <div className="flex items-center justify-between font-semibold">
                         <span className="text-sm text-muted-foreground">
-                          2x Burger
+                          Total Amount:
                         </span>
-                        <span className="text-sm">120 ₺</span>
-                      </li>
-                    </ul>
-                    <Separator />
-                    <div className="flex items-center justify-between font-semibold">
-                      <span className="text-sm text-muted-foreground">
-                        Total Amount:
-                      </span>
-                      <span className="text-sm">124 ₺</span>
-                    </div>
-                    <Button>Pay</Button>
-                  </Card>
-                  <Card className="p-3 grid gap-3 ">
-                    <div className="font-semibold flex">
-                      Order #123{" "}
-                      <Badge
-                        variant={"outline"}
-                        className="ml-auto font-normal"
-                      >
-                        deneme
-                      </Badge>
-                    </div>
-                    <div className="text-sm">
-                      <span>Customer:</span>
-                      <span className="ml-2 font-semibold">Sedat Korkmaz</span>
-                    </div>
-                    <Separator />
-                    <ul className="grid gap-3">
-                      <li className="flex items-center justify-between">
+                        <span className="text-sm">124 ₺</span>
+                      </div>
+                      <Button>Pay</Button>
+                    </Card>
+                    <Card className="p-3 grid gap-3 ">
+                      <div className="font-semibold flex">
+                        Order #123{" "}
+                        <Badge
+                          variant={"outline"}
+                          className="ml-auto font-normal"
+                        >
+                          deneme
+                        </Badge>
+                      </div>
+                      <div className="text-sm">
+                        <span>Customer:</span>
+                        <span className="ml-2 font-semibold">
+                          Sedat Korkmaz
+                        </span>
+                      </div>
+                      <Separator />
+                      <ul className="grid gap-3">
+                        <li className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            2x Burger
+                          </span>
+                          <span className="text-sm">120 ₺</span>
+                        </li>
+                        <li className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            2x Burger
+                          </span>
+                          <span className="text-sm">120 ₺</span>
+                        </li>
+                        <li className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            2x Burger
+                          </span>
+                          <span className="text-sm">120 ₺</span>
+                        </li>
+                        <li className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            2x Burger
+                          </span>
+                          <span className="text-sm">120 ₺</span>
+                        </li>
+                      </ul>
+                      <Separator />
+                      <div className="flex items-center justify-between font-semibold">
                         <span className="text-sm text-muted-foreground">
-                          2x Burger
+                          Total Amount:
                         </span>
-                        <span className="text-sm">120 ₺</span>
-                      </li>
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          2x Burger
-                        </span>
-                        <span className="text-sm">120 ₺</span>
-                      </li>
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          2x Burger
-                        </span>
-                        <span className="text-sm">120 ₺</span>
-                      </li>
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          2x Burger
-                        </span>
-                        <span className="text-sm">120 ₺</span>
-                      </li>
-                    </ul>
-                    <Separator />
-                    <div className="flex items-center justify-between font-semibold">
-                      <span className="text-sm text-muted-foreground">
-                        Total Amount:
-                      </span>
-                      <span className="text-sm">124 ₺</span>
-                    </div>
-                    <Button>Pay</Button>
-                  </Card>
-                  <Card className="p-3 grid gap-3 ">
-                    <div className="font-semibold flex">
-                      Order #123{" "}
-                      <Badge
-                        variant={"outline"}
-                        className="ml-auto font-normal"
-                      >
-                        deneme
-                      </Badge>
-                    </div>
-                    <div className="text-sm">
-                      <span>Customer:</span>
-                      <span className="ml-2 font-semibold">Sedat Korkmaz</span>
-                    </div>
-                    <Separator />
-                    <ul className="grid gap-3">
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          2x Burger
-                        </span>
-                        <span className="text-sm">120 ₺</span>
-                      </li>
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          2x Burger
-                        </span>
-                        <span className="text-sm">120 ₺</span>
-                      </li>
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          2x Burger
-                        </span>
-                        <span className="text-sm">120 ₺</span>
-                      </li>
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          2x Burger
-                        </span>
-                        <span className="text-sm">120 ₺</span>
-                      </li>
-                    </ul>
-                    <Separator />
-                    <div className="flex items-center justify-between font-semibold">
-                      <span className="text-sm text-muted-foreground">
-                        Total Amount:
-                      </span>
-                      <span className="text-sm">124 ₺</span>
-                    </div>
-                    <Button>Pay</Button>
-                  </Card>
-                  <Card className="p-3 grid gap-3 ">
-                    <div className="font-semibold flex">
-                      Order #123{" "}
-                      <Badge
-                        variant={"outline"}
-                        className="ml-auto font-normal"
-                      >
-                        deneme
-                      </Badge>
-                    </div>
-                    <div className="text-sm">
-                      <span>Customer:</span>
-                      <span className="ml-2 font-semibold">Sedat Korkmaz</span>
-                    </div>
-                    <Separator />
-                    <ul className="grid gap-3">
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          2x Burger
-                        </span>
-                        <span className="text-sm">120 ₺</span>
-                      </li>
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          2x Burger
-                        </span>
-                        <span className="text-sm">120 ₺</span>
-                      </li>
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          2x Burger
-                        </span>
-                        <span className="text-sm">120 ₺</span>
-                      </li>
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          2x Burger
-                        </span>
-                        <span className="text-sm">120 ₺</span>
-                      </li>
-                    </ul>
-                    <Separator />
-                    <div className="flex items-center justify-between font-semibold">
-                      <span className="text-sm text-muted-foreground">
-                        Total Amount:
-                      </span>
-                      <span className="text-sm">124 ₺</span>
-                    </div>
-                    <Button>Pay</Button>
-                  </Card>
+                        <span className="text-sm">124 ₺</span>
+                      </div>
+                      <Button>Pay</Button>
+                    </Card>
+                  </div>
+                </div>
+
+                <div className="sticky bottom-0 bg-white p-4 border-t left-0 right-0 grid gap-4">
+                  <div className="flex text-lg items-center justify-between font-semibold">
+                    <span>Total Amount:</span>
+                    <span>124 ₺</span>
+                  </div>
+                  <Button size={"lg"} className="w-full">
+                    Checkout All
+                  </Button>
                 </div>
               </div>
             </div>

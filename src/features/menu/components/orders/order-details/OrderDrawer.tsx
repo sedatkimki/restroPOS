@@ -62,7 +62,7 @@ export const OrderDrawer: FC = () => {
                     Order Date
                   </span>
                   <span className="text-sm">
-                    {moment(order?.orderCreationTime).format("LLL")}
+                    {moment(order.orderCreationTime?.toDate()).format("LLL")}
                   </span>
                 </li>
                 <li className="flex items-center justify-between">

@@ -30,7 +30,7 @@ export const Cart = () => {
   const handleCheckout = async () => {
     setLoading(true);
     try {
-      await OrdersAPI.createOrder("subdomain1", {
+      await OrdersAPI.createOrder({
         workspaceTableDto: table,
         orderProducts: items.map((item) => ({
           product: item.product,

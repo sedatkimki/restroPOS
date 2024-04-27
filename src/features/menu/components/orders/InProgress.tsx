@@ -4,9 +4,9 @@ import { useActiveOrders } from "@/lib/queries/customer/useActiveOrders";
 import { OrderCard } from "./order-details";
 
 export const InProgress = () => {
-  const { orders, error } = useActiveOrders();
+  const { orders, loading } = useActiveOrders();
 
-  if (orders === undefined && error === undefined) {
+  if (loading) {
     return <Loading withLogo={false} />;
   }
 

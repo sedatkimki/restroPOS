@@ -2,6 +2,7 @@ import { MobilePage } from "@/components/layout/MobilePage";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { ActiveOrders } from "../components/ActiveOrders";
+import { AssignedOrders } from "../components/AssignedOrders";
 
 export const Orders = () => {
   return (
@@ -20,7 +21,9 @@ export const Orders = () => {
           <TabsContent value="active-orders">
             <ActiveOrders />
           </TabsContent>
-          <TabsContent value="assigned">assigned</TabsContent>
+          <TabsContent value="assigned">
+            <AssignedOrders />
+          </TabsContent>
         </Tabs>
       </MobilePage.Content>
     </MobilePage>

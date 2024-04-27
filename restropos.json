@@ -205,27 +205,6 @@
         }
       }
     },
-    "/auth/employees/{status}": {
-      "post": {
-        "tags": ["employee-controller"],
-        "operationId": "setId",
-        "parameters": [
-          {
-            "name": "status",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/auth/account/enable": {
       "post": {
         "tags": ["auth-api"],
@@ -434,16 +413,6 @@
       "post": {
         "tags": ["order-api"],
         "operationId": "createOrder",
-        "parameters": [
-          {
-            "name": "businessDomain",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -460,7 +429,82 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrderDto"
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["order-api"],
+        "operationId": "deleteOrder",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/orders/waiter/take": {
+      "post": {
+        "tags": ["order-api"],
+        "operationId": "waiterTakeOrder",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/orders/kitchen/take": {
+      "post": {
+        "tags": ["order-api"],
+        "operationId": "kitchenTakeOrder",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessage"
                 }
               }
             }
@@ -869,34 +913,6 @@
         }
       }
     },
-    "/auth/employees/{id}": {
-      "get": {
-        "tags": ["employee-controller"],
-        "operationId": "getEmployeeById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/auth/customer/valid": {
       "get": {
         "tags": ["auth-api"],
@@ -1025,56 +1041,6 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/ProductDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/orders/{businessDomain}/{userType}/{userInfo}": {
-      "get": {
-        "tags": ["order-api"],
-        "operationId": "getEvents",
-        "parameters": [
-          {
-            "name": "businessDomain",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userType",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userInfo",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/event-stream": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/OrderDto"
-                    }
                   }
                 }
               }
@@ -1482,6 +1448,9 @@
             "$ref": "#/components/schemas/CustomerDto"
           },
           "waiterDto": {
+            "$ref": "#/components/schemas/SystemUserDto"
+          },
+          "kitchenDto": {
             "$ref": "#/components/schemas/SystemUserDto"
           }
         }

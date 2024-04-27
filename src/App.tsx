@@ -1,5 +1,9 @@
 import { Toaster } from "@/components/ui/sonner";
+import "firebase/auth";
+import "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 import { RouterProvider } from "react-router-dom";
+import { FirestoreProvider, useFirebaseApp } from "reactfire";
 
 import { ThemeProvider } from "./components/ThemeProvider";
 import { ConfirmDialog } from "./components/dialogs/ConfirmDialog";
@@ -14,14 +18,18 @@ function App() {
   const selectedRouter =
     subdomain === domain ? router.publicRoutes : router.workspaceRoutes;
   // eğer workspaceName valid değilse publicRoutes'a yönlendir
+  const firestoreInstance = getFirestore(useFirebaseApp());
+
   return (
-    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-      <div vaul-drawer-wrapper="" className="bg-white min-h-[100vh]">
-        <RouterProvider router={selectedRouter} />
-        <ConfirmDialog />
-      </div>
-      <Toaster richColors theme="light" />
-    </ThemeProvider>
+    <FirestoreProvider sdk={firestoreInstance}>
+      <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+        <div vaul-drawer-wrapper="" className="bg-white min-h-[100vh]">
+          <RouterProvider router={selectedRouter} />
+          <ConfirmDialog />
+        </div>
+        <Toaster richColors theme="light" />
+      </ThemeProvider>
+    </FirestoreProvider>
   );
 }
 

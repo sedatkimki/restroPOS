@@ -1,3 +1,6 @@
+import { OrderDto } from "@/api/client";
+import { Timestamp } from "firebase/firestore";
+
 export type FunctionComponent = React.ReactElement | null;
 
 export type NavigationLink = {
@@ -22,3 +25,7 @@ export enum OrderStatus {
   COMPLETED = "COMPLETED",
   CANCELED = "CANCELED",
 }
+
+export type FirestoreOrderDto = Omit<OrderDto, "orderCreationTime"> & {
+  orderCreationTime?: Timestamp;
+};
