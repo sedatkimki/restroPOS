@@ -1,4 +1,4 @@
-import { OrderDto } from "@/api/client";
+import { OrderDto, WorkspaceTableDto } from "@/api/client";
 import { Timestamp } from "firebase/firestore";
 
 export type FunctionComponent = React.ReactElement | null;
@@ -28,4 +28,9 @@ export enum OrderStatus {
 
 export type FirestoreOrderDto = Omit<OrderDto, "orderCreationTime"> & {
   orderCreationTime?: Timestamp;
+};
+
+export type Table = {
+  workspaceTable: WorkspaceTableDto;
+  orders: FirestoreOrderDto[];
 };

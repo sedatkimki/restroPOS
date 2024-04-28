@@ -78,10 +78,25 @@ export const OrderDrawer: FC = () => {
               <div className="font-semibold">Order Summary</div>
               <ul className="grid gap-3">
                 {order?.orderProducts?.map((product) => (
-                  <li className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">
-                      {product.quantity}x {product.product?.productName}
-                    </span>
+                  <li className="flex  justify-between ">
+                    <div className="flex gap-2">
+                      <span className="text-sm w-4">{product.quantity}x</span>
+                      <div className="grid text-sm ">
+                        <span>{product.product?.productName}</span>
+                        {product.productSelectedModifiers?.map((modifier) =>
+                          (modifier?.selections ?? []).length > 0 ? (
+                            <span
+                              key={modifier.id}
+                              className="text-sm text-muted-foreground"
+                            >
+                              {modifier?.selections
+                                ?.map((selection) => selection.label)
+                                .join(", ")}
+                            </span>
+                          ) : null,
+                        )}
+                      </div>
+                    </div>
                     <span className="text-sm">{product.calculatedPrice} ₺</span>
                   </li>
                 ))}

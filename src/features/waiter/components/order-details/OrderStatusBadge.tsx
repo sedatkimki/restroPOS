@@ -10,7 +10,7 @@ type OrderStatusBadgeProps = {
 export const OrderStatusBadge: FC<OrderStatusBadgeProps> = ({ status }) => {
   return (
     <div
-      className={`flex items-center justify-center rounded-full ${ORDER_COLORS[status][0]}  w-8 h-8`}
+      className={`flex items-center justify-center rounded-full ${ORDER_COLORS[status][0]} min-w-8 w-8 h-8`}
     >
       {ORDER_ICONS[status]}
     </div>

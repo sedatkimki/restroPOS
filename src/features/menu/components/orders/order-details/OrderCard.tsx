@@ -22,7 +22,7 @@ export const OrderCard: FC<OrderCardProps> = ({ order }) => {
       }}
     >
       <OrderStatusBadge status={order.orderStatus as OrderStatus} />
-      <div className="grid grid-rows-3">
+      <div className="grid">
         <span
           className={`font-semibold text-md ${ORDER_COLORS[order?.orderStatus || OrderStatus.RECEIVED][1]}`}
         >
@@ -36,7 +36,7 @@ export const OrderCard: FC<OrderCardProps> = ({ order }) => {
             )
             .join(", ")}
         </span>
-        <span className="text-xs font-medium">
+        <span className="text-xs font-medium mt-2">
           <span className="text-muted-foreground">
             {getDate(order.orderCreationTime)} • {order?.orderProducts?.length}{" "}
             products •{" "}
@@ -44,7 +44,7 @@ export const OrderCard: FC<OrderCardProps> = ({ order }) => {
           {order?.totalOrderPrice} ₺
         </span>
       </div>
-      <span className="border rounded-md w-5 h-5 flex items-center justify-center ml-auto">
+      <span className="border rounded-md min-w-5 w-5 h-5 flex items-center justify-center ml-auto">
         <ChevronRight className="w-4 h-4 text-orange-500" />
       </span>
     </div>

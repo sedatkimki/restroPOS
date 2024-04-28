@@ -65,7 +65,7 @@ export const OrderCard: FC<OrderCardProps> = ({ order, assigned }) => {
       }}
     >
       <OrderStatusBadge status={order.orderStatus as OrderStatus} />
-      <div className="grid grid-rows-3">
+      <div className="grid">
         <span
           className={`font-semibold text-md ${ORDER_COLORS[order?.orderStatus || OrderStatus.RECEIVED][1]}`}
         >
@@ -75,7 +75,7 @@ export const OrderCard: FC<OrderCardProps> = ({ order, assigned }) => {
           #{order.id} •{" "}
           {order.customerDto?.firstName + " " + order.customerDto?.lastName}
         </span>
-        <span className="text-xs font-medium">
+        <span className="text-xs font-medium mt-2 mb-2">
           <span className="text-muted-foreground">
             {moment(order.orderCreationTime?.toDate()).format("LLL")} •{" "}
             {order?.orderProducts?.length} products •{" "}
@@ -116,7 +116,7 @@ export const OrderCard: FC<OrderCardProps> = ({ order, assigned }) => {
           </Button>
         )}
       </div>
-      <span className="border rounded-md w-5 h-5 flex items-center justify-center ml-auto">
+      <span className="border rounded-md w-5 h-5 flex items-center justify-center ml-auto min-w-5">
         <ChevronRight className="w-4 h-4 text-orange-500" />
       </span>
     </div>
