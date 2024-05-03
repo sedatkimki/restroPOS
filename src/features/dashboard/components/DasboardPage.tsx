@@ -12,7 +12,7 @@ interface DashboardPageProps extends ChildrenProp {
 const DashboardPage = ({ children, pageName }: DashboardPageProps) => {
   return (
     <PageTransition customKey={pageName}>
-      <div className="pt-8 mx-auto w-full max-w-[1600px] lg:px-10 xl:px-12 2xl:px-24">
+      <div className="pt-8 mx-auto w-full max-w-[1600px] lg:px-10 xl:px-12 2xl:px-24 min-h-screen">
         {children}
       </div>
     </PageTransition>
