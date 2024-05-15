@@ -75,6 +75,34 @@
         }
       }
     },
+    "/api/v1/orders/review": {
+      "put": {
+        "tags": ["order-api"],
+        "operationId": "reviewOrder",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth": {
       "post": {
         "tags": ["auth-api"],
@@ -1184,6 +1212,37 @@
         }
       }
     },
+    "/api/v1/orders/review/{businessDomain}": {
+      "get": {
+        "tags": ["order-api"],
+        "operationId": "getAllReviewsOfBusinessDomain",
+        "parameters": [
+          {
+            "name": "businessDomain",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReviewResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/orders/admin": {
       "get": {
         "tags": ["order-api"],
@@ -1384,6 +1443,14 @@
           },
           "imageDto": {
             "$ref": "#/components/schemas/ImageDto"
+          },
+          "totalReviewCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "meanOfWorkspaceStar": {
+            "type": "number",
+            "format": "double"
           }
         }
       },
@@ -1408,6 +1475,250 @@
           },
           "email": {
             "type": "string"
+          }
+        }
+      },
+      "CustomerDto": {
+        "required": ["firstName", "lastName", "phoneNumber"],
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "imageDto": {
+            "$ref": "#/components/schemas/ImageDto"
+          },
+          "phoneNumber": {
+            "type": "string"
+          }
+        }
+      },
+      "OrderDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "orderProducts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderProductDto"
+            }
+          },
+          "totalOrderPrice": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "orderStatus": {
+            "type": "string",
+            "enum": [
+              "RECEIVED",
+              "PREPARING",
+              "SERVING",
+              "ON_TABLE",
+              "COMPLETED",
+              "CANCELED"
+            ]
+          },
+          "orderCreationTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "workspaceTableDto": {
+            "$ref": "#/components/schemas/WorkspaceTableDto"
+          },
+          "customerDto": {
+            "$ref": "#/components/schemas/CustomerDto"
+          },
+          "waiterDto": {
+            "$ref": "#/components/schemas/SystemUserDto"
+          },
+          "kitchenDto": {
+            "$ref": "#/components/schemas/SystemUserDto"
+          },
+          "cashDeskDto": {
+            "$ref": "#/components/schemas/SystemUserDto"
+          },
+          "orderReviewComment": {
+            "type": "string"
+          },
+          "orderReviewStar": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "orderCommentTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "OrderProductDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "product": {
+            "$ref": "#/components/schemas/ProductDto"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productSelectedModifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductSelectedModifierDto"
+            }
+          },
+          "calculatedPrice": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "orderProductReviewStar": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "orderProductCommentTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ProductDto": {
+        "type": "object",
+        "properties": {
+          "productName": {
+            "type": "string"
+          },
+          "workspace": {
+            "$ref": "#/components/schemas/WorkspaceDto"
+          },
+          "productModifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductModifierDto"
+            }
+          },
+          "productDescription": {
+            "type": "string"
+          },
+          "image": {
+            "$ref": "#/components/schemas/ImageDto"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "categoryTitle": {
+            "type": "string"
+          },
+          "totalReviewCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "meanOfProductStar": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "ProductModifierDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productModifierName": {
+            "type": "string"
+          },
+          "productSubmodifierSet": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductSubmodifierDto"
+            }
+          },
+          "isRequired": {
+            "type": "boolean"
+          },
+          "choice": {
+            "type": "string"
+          }
+        }
+      },
+      "ProductSelectedModifierDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "selections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SelectionDto"
+            }
+          }
+        }
+      },
+      "ProductSubmodifierDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productSubmodifierName": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "ReviewDto": {
+        "type": "object",
+        "properties": {
+          "orderDto": {
+            "$ref": "#/components/schemas/OrderDto"
+          }
+        }
+      },
+      "SelectionDto": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "WorkspaceTableDto": {
+        "type": "object",
+        "properties": {
+          "tableId": {
+            "type": "string"
+          },
+          "tableName": {
+            "type": "string"
+          },
+          "workspaceDto": {
+            "$ref": "#/components/schemas/WorkspaceDto"
+          },
+          "imageDto": {
+            "$ref": "#/components/schemas/ImageDto"
           }
         }
       },
@@ -1531,215 +1842,6 @@
           }
         }
       },
-      "WorkspaceTableDto": {
-        "type": "object",
-        "properties": {
-          "tableId": {
-            "type": "string"
-          },
-          "tableName": {
-            "type": "string"
-          },
-          "workspaceDto": {
-            "$ref": "#/components/schemas/WorkspaceDto"
-          },
-          "imageDto": {
-            "$ref": "#/components/schemas/ImageDto"
-          }
-        }
-      },
-      "CustomerDto": {
-        "required": ["firstName", "lastName", "phoneNumber"],
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "imageDto": {
-            "$ref": "#/components/schemas/ImageDto"
-          },
-          "phoneNumber": {
-            "type": "string"
-          }
-        }
-      },
-      "OrderDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "orderProducts": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OrderProductDto"
-            }
-          },
-          "totalOrderPrice": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "orderStatus": {
-            "type": "string",
-            "enum": [
-              "RECEIVED",
-              "PREPARING",
-              "SERVING",
-              "ON_TABLE",
-              "COMPLETED",
-              "CANCELED"
-            ]
-          },
-          "orderCreationTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "workspaceTableDto": {
-            "$ref": "#/components/schemas/WorkspaceTableDto"
-          },
-          "customerDto": {
-            "$ref": "#/components/schemas/CustomerDto"
-          },
-          "waiterDto": {
-            "$ref": "#/components/schemas/SystemUserDto"
-          },
-          "kitchenDto": {
-            "$ref": "#/components/schemas/SystemUserDto"
-          },
-          "cashDeskDto": {
-            "$ref": "#/components/schemas/SystemUserDto"
-          }
-        }
-      },
-      "OrderProductDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "product": {
-            "$ref": "#/components/schemas/ProductDto"
-          },
-          "quantity": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "productSelectedModifiers": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ProductSelectedModifierDto"
-            }
-          },
-          "calculatedPrice": {
-            "type": "integer",
-            "format": "int64"
-          }
-        }
-      },
-      "ProductDto": {
-        "type": "object",
-        "properties": {
-          "productName": {
-            "type": "string"
-          },
-          "workspace": {
-            "$ref": "#/components/schemas/WorkspaceDto"
-          },
-          "productModifiers": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ProductModifierDto"
-            }
-          },
-          "productDescription": {
-            "type": "string"
-          },
-          "image": {
-            "$ref": "#/components/schemas/ImageDto"
-          },
-          "price": {
-            "type": "number",
-            "format": "double"
-          },
-          "categoryTitle": {
-            "type": "string"
-          }
-        }
-      },
-      "ProductModifierDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "productModifierName": {
-            "type": "string"
-          },
-          "productSubmodifierSet": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ProductSubmodifierDto"
-            }
-          },
-          "isRequired": {
-            "type": "boolean"
-          },
-          "choice": {
-            "type": "string"
-          }
-        }
-      },
-      "ProductSelectedModifierDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "name": {
-            "type": "string"
-          },
-          "selections": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SelectionDto"
-            }
-          }
-        }
-      },
-      "ProductSubmodifierDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "productSubmodifierName": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number",
-            "format": "double"
-          }
-        }
-      },
-      "SelectionDto": {
-        "type": "object",
-        "properties": {
-          "label": {
-            "type": "string"
-          },
-          "value": {
-            "type": "number",
-            "format": "double"
-          }
-        }
-      },
       "FeaturedGroupsDto": {
         "type": "object",
         "properties": {
@@ -1784,6 +1886,25 @@
           },
           "templateContent": {
             "type": "string"
+          }
+        }
+      },
+      "ReviewResponse": {
+        "type": "object",
+        "properties": {
+          "commentTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "orderReviewComment": {
+            "type": "string"
+          },
+          "orderReviewStar": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "customerDto": {
+            "$ref": "#/components/schemas/CustomerDto"
           }
         }
       }

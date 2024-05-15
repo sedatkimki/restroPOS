@@ -9,7 +9,9 @@ import { Home, Package2, Search, ShoppingCart } from "lucide-react";
 import { Navigate } from "react-router-dom";
 
 import { ProductDetails } from "../components/ProductDetails";
+import { ReviewsDrawer } from "../components/ReviewsDrawer";
 import { OrderDrawer } from "../components/orders/order-details/OrderDrawer";
+import { OrderReviewDrawer } from "../components/orders/order-details/OrderReviewDrawer";
 
 const links: NavigationLink[] = [
   {
@@ -63,6 +65,8 @@ export const Menu = () => {
       <BottomNavigation links={links} col={4} />
       <ProductDetails />
       <OrderDrawer />
+      <OrderReviewDrawer />
+      <ReviewsDrawer />
     </div>
   );
 };

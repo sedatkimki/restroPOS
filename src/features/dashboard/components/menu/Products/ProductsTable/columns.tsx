@@ -2,6 +2,7 @@ import { ProductDto } from "@/api/client";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "@/components/ui/data-table/data-table-column-header";
+import { StarFilledIcon } from "@radix-ui/react-icons";
 import { ColumnDef } from "@tanstack/react-table";
 
 import { Actions } from "./Actions";
@@ -37,7 +38,7 @@ export const columns: ColumnDef<ProductDto>[] = [
       <DataTableColumnHeader column={column} title="Product Name" />
     ),
     cell: ({ row }) => (
-      <div className="w-[200px]">{row.getValue("productName")}</div>
+      <div className="w-[100px]">{row.getValue("productName")}</div>
     ),
   },
   {
@@ -46,7 +47,7 @@ export const columns: ColumnDef<ProductDto>[] = [
       <DataTableColumnHeader column={column} title="Description" />
     ),
     cell: ({ row }) => (
-      <div className="w-[200px] line-clamp-2">
+      <div className="w-[300px] line-clamp-2">
         {row.getValue("productDescription")}
       </div>
     ),
@@ -61,6 +62,28 @@ export const columns: ColumnDef<ProductDto>[] = [
         <div className="flex w-[150px] items-center">
           <Badge variant="orange">
             <span>{row.getValue("categoryTitle")}</span>
+          </Badge>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: "meanOfProductStar",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Rating" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex w-[150px] items-center">
+          <Badge
+            variant={"outline"}
+            className="rounded-md text-orange-500 items-center gap-1 font-medium"
+          >
+            <StarFilledIcon className="h-3 w-3" />
+            <span className="text-xs">{row.getValue("meanOfProductStar")}</span>
           </Badge>
         </div>
       );

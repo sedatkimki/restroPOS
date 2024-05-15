@@ -9,7 +9,7 @@ import { FeaturedSectionFormDialog } from "./FeaturedSectionFormDialog";
 export const FeaturedProducts: FC = () => {
   const { featuredGroups, isLoading } = useFeaturedGroups();
   return (
-    <div className="gap-6 flex flex-col">
+    <div className="gap-6 flex flex-col pb-80">
       {isLoading && (
         <div className="flex justify-center items-center">
           <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />

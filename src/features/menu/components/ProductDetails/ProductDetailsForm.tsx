@@ -196,8 +196,10 @@ export const ProductDetailsForm: FC<ProductDetailsProps> = ({ product }) => {
                     className="rounded-md text-orange-500 items-center gap-1 font-medium"
                   >
                     <StarFilledIcon className="h-3 w-3" />
-                    <span className="text-xs">0,0</span>
-                    <span className="text-muted-foreground text-xs">(0)</span>
+                    <span className="text-xs">{product.meanOfProductStar}</span>
+                    <span className="text-muted-foreground text-xs">
+                      ({product.totalReviewCount})
+                    </span>
                   </Badge>
                 </div>
               </div>

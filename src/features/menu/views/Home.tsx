@@ -2,6 +2,7 @@ import { MobilePage } from "@/components/layout/MobilePage";
 import { Badge } from "@/components/ui/badge";
 import { useCustomer } from "@/lib/queries";
 import { useTable } from "@/lib/queries/customer";
+import { useReviewsDrawer } from "@/lib/store/useReviewsDrawer";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 import { ChevronRight } from "lucide-react";
 
@@ -11,6 +12,7 @@ import { ProfileDropdown } from "../components/home/ProfileDropdown";
 export const Home = () => {
   const { customer } = useCustomer();
   const { table } = useTable(localStorage.getItem("tableId"));
+  const { openDrawer } = useReviewsDrawer();
 
   return (
     <MobilePage>
@@ -30,7 +32,7 @@ export const Home = () => {
               alt="Order confirmed"
               className="rounded w-16 w-min-16"
             />
-            <div className="grid w-full">
+            <div className="grid w-full gap-1">
               <div className="flex items-center gap-2">
                 <span className="text-2xl font-semibold">
                   {table?.workspaceDto?.businessName}
@@ -45,14 +47,23 @@ export const Home = () => {
                 </Badge>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div
+                className="flex items-center gap-2"
+                onClick={() => {
+                  openDrawer();
+                }}
+              >
                 <Badge
                   variant={"outline"}
                   className="rounded-md text-orange-500 items-center gap-1 font-medium w-min"
                 >
                   <StarFilledIcon className="h-3 w-3" />
-                  <span className="text-xs">0,0</span>
-                  <span className="text-muted-foreground text-xs">(0)</span>
+                  <span className="text-xs">
+                    {table?.workspaceDto?.meanOfWorkspaceStar}
+                  </span>
+                  <span className="text-muted-foreground text-xs">
+                    ({table?.workspaceDto?.totalReviewCount})
+                  </span>
                 </Badge>
                 <span className="text-sm text-muted-foreground flex items-center gap-1">
                   <span>See all reviews</span>

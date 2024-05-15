@@ -282,6 +282,24 @@ export interface OrderDto {
      * @memberof OrderDto
      */
     'cashDeskDto'?: SystemUserDto;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderDto
+     */
+    'orderReviewComment'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderDto
+     */
+    'orderReviewStar'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderDto
+     */
+    'orderCommentTime'?: string;
 }
 
 export const OrderDtoOrderStatusEnum = {
@@ -331,6 +349,18 @@ export interface OrderProductDto {
      * @memberof OrderProductDto
      */
     'calculatedPrice'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrderProductDto
+     */
+    'orderProductReviewStar'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrderProductDto
+     */
+    'orderProductCommentTime'?: string;
 }
 /**
  * 
@@ -380,6 +410,18 @@ export interface ProductDto {
      * @memberof ProductDto
      */
     'categoryTitle'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ProductDto
+     */
+    'totalReviewCount'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ProductDto
+     */
+    'meanOfProductStar'?: number;
 }
 /**
  * 
@@ -591,6 +633,50 @@ export type ResponseMessageStatusEnum = typeof ResponseMessageStatusEnum[keyof t
 /**
  * 
  * @export
+ * @interface ReviewDto
+ */
+export interface ReviewDto {
+    /**
+     * 
+     * @type {OrderDto}
+     * @memberof ReviewDto
+     */
+    'orderDto'?: OrderDto;
+}
+/**
+ * 
+ * @export
+ * @interface ReviewResponse
+ */
+export interface ReviewResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof ReviewResponse
+     */
+    'commentTime'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ReviewResponse
+     */
+    'orderReviewComment'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ReviewResponse
+     */
+    'orderReviewStar'?: number;
+    /**
+     * 
+     * @type {CustomerDto}
+     * @memberof ReviewResponse
+     */
+    'customerDto'?: CustomerDto;
+}
+/**
+ * 
+ * @export
  * @interface SelectionDto
  */
 export interface SelectionDto {
@@ -717,6 +803,18 @@ export interface WorkspaceDto {
      * @memberof WorkspaceDto
      */
     'imageDto'?: ImageDto;
+    /**
+     * 
+     * @type {number}
+     * @memberof WorkspaceDto
+     */
+    'totalReviewCount'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WorkspaceDto
+     */
+    'meanOfWorkspaceStar'?: number;
 }
 /**
  * 
@@ -2804,6 +2902,39 @@ export const OrderApiApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
+         * @param {string} businessDomain 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllReviewsOfBusinessDomain: async (businessDomain: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'businessDomain' is not null or undefined
+            assertParamExists('getAllReviewsOfBusinessDomain', 'businessDomain', businessDomain)
+            const localVarPath = `/api/v1/orders/review/{businessDomain}`
+                .replace(`{${"businessDomain"}}`, encodeURIComponent(String(businessDomain)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2942,6 +3073,41 @@ export const OrderApiApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
+         * @param {ReviewDto} reviewDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        reviewOrder: async (reviewDto: ReviewDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'reviewDto' is not null or undefined
+            assertParamExists('reviewOrder', 'reviewDto', reviewDto)
+            const localVarPath = `/api/v1/orders/review`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(reviewDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} orderId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3060,6 +3226,18 @@ export const OrderApiApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} businessDomain 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllReviewsOfBusinessDomain(businessDomain: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ReviewResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllReviewsOfBusinessDomain(businessDomain, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrderApiApi.getAllReviewsOfBusinessDomain']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3104,6 +3282,18 @@ export const OrderApiApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.kitchenTakeOrder(orderId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['OrderApiApi.kitchenTakeOrder']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {ReviewDto} reviewDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async reviewOrder(reviewDto: ReviewDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.reviewOrder(reviewDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['OrderApiApi.reviewOrder']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -3169,6 +3359,15 @@ export const OrderApiApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
+         * @param {string} businessDomain 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllReviewsOfBusinessDomain(businessDomain: string, options?: any): AxiosPromise<Array<ReviewResponse>> {
+            return localVarFp.getAllReviewsOfBusinessDomain(businessDomain, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3202,6 +3401,15 @@ export const OrderApiApiFactory = function (configuration?: Configuration, baseP
          */
         kitchenTakeOrder(orderId: string, options?: any): AxiosPromise<ResponseMessage> {
             return localVarFp.kitchenTakeOrder(orderId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {ReviewDto} reviewDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        reviewOrder(reviewDto: ReviewDto, options?: any): AxiosPromise<OrderDto> {
+            return localVarFp.reviewOrder(reviewDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3266,6 +3474,17 @@ export class OrderApiApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} businessDomain 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrderApiApi
+     */
+    public getAllReviewsOfBusinessDomain(businessDomain: string, options?: RawAxiosRequestConfig) {
+        return OrderApiApiFp(this.configuration).getAllReviewsOfBusinessDomain(businessDomain, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrderApiApi
@@ -3306,6 +3525,17 @@ export class OrderApiApi extends BaseAPI {
      */
     public kitchenTakeOrder(orderId: string, options?: RawAxiosRequestConfig) {
         return OrderApiApiFp(this.configuration).kitchenTakeOrder(orderId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {ReviewDto} reviewDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrderApiApi
+     */
+    public reviewOrder(reviewDto: ReviewDto, options?: RawAxiosRequestConfig) {
+        return OrderApiApiFp(this.configuration).reviewOrder(reviewDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
