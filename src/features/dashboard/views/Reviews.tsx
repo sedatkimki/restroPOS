@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card } from "@/components/ui/card";
 import { DatePicker } from "@/components/ui/date-picker";
 import { CommentRatings } from "@/components/ui/rating";
 import { Separator } from "@/components/ui/separator";
@@ -60,7 +61,7 @@ export const Reviews = () => {
           <Separator />
           <DatePicker date={date} setDate={setDate} />
         </div>
-        <div className="grid gap-4">
+        <div className="grid gap-4 w-full">
           {reviews
             ?.filter((review) => {
               const reviewDate = moment(review.commentTime);
@@ -71,24 +72,24 @@ export const Reviews = () => {
                 reviewDate.isSameOrBefore(endDate)
               );
             })
-            ?.map((review, index) => (
+            ?.map((review) => (
               <>
-                <div className="p-4 flex gap-6">
-                  <div className="flex gap-3 items-center w-[20%] h-min">
-                    <Avatar className="h-10 w-10">
-                      <AvatarImage src={review.customerDto?.imageDto?.link} />
-                      <AvatarFallback>
-                        {review.customerDto?.firstName?.charAt(0)}
-                        {review.customerDto?.lastName?.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="font-semibold">
-                      {review.customerDto?.firstName +
-                        " " +
-                        review.customerDto?.lastName}
-                    </div>
-                  </div>
+                <Card className="p-4 flex gap-6 flex-1">
                   <div className="flex flex-col flex-2 w-[80%] gap-4">
+                    <div className="flex gap-3 items-center h-min">
+                      <Avatar className="h-9 w-9">
+                        <AvatarImage src={review.customerDto?.imageDto?.link} />
+                        <AvatarFallback>
+                          {review.customerDto?.firstName?.charAt(0)}
+                          {review.customerDto?.lastName?.charAt(0)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="font-medium">
+                        {review.customerDto?.firstName +
+                          " " +
+                          review.customerDto?.lastName}
+                      </div>
+                    </div>
                     <div className="flex gap-3 items-center">
                       <CommentRatings
                         rating={review.orderReviewStar || 0}
@@ -103,8 +104,7 @@ export const Reviews = () => {
 
                     <div className="text-sm">{review.orderReviewComment}</div>
                   </div>
-                </div>
-                {index !== reviews.length - 1 && <Separator />}
+                </Card>
               </>
             ))}
           {reviews?.length === 0 && (
